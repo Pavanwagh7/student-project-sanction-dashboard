@@ -56,7 +56,7 @@ Response:
 
 1. Clone the repository
 ```
-git clone <your-repo-link>
+git clone https://github.com/Pavanwagh7/student-project-sanction-dashboard.git
 ```
 
 2. Open in IntelliJ IDEA
