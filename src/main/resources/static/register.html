@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+
+<h2>Register</h2>
+
+<form id="registerForm">
+
+    <input type="text" id="email" placeholder="Email" required><br><br>
+    <input type="text" id="fullName" placeholder="Full Name" required><br><br>
+    <input type="text" id="department" placeholder="Department" required><br><br>
+    <input type="password" id="password" placeholder="Password" required><br><br>
+
+    <button type="submit">Register</button>
+</form>
+
+<p id="message"></p>
+
+<script>
+    window.onload = function() {
+
+        document.getElementById("registerForm").addEventListener("submit", function(e) {
+
+            e.preventDefault();
+
+            let data = {
+                email: document.getElementById("email").value,
+                fullName: document.getElementById("fullName").value,
+                department: document.getElementById("department").value,
+                password: document.getElementById("password").value
+            };
+
+            fetch("/users/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(data => {
+
+                document.getElementById("message").innerText = data;
+
+                if(data.includes("opened")) {
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 1500);
+                }
+
+            })
+            .catch(error => {
+                document.getElementById("message").innerText = "Something went wrong!";
+            });
+
+        });
+
+    };
+</script>
+
+</body>
+</html>

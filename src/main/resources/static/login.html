@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<form id="loginForm">
+
+    <input type="text" id="email" placeholder="Email" required><br><br>
+    <input type="password" id="password" placeholder="Password" required><br><br>
+
+    <button type="submit">Login</button>
+</form>
+
+<p id="message"></p>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+
+        e.preventDefault();
+
+        let email = encodeURIComponent(document.getElementById("email").value);
+        let password = encodeURIComponent(document.getElementById("password").value);
+
+        fetch("/users/login?email=" + email + "&password=" + password)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("message").innerText = data;
+
+            // Optional: future redirect
+            if(data.includes("Successfully")) {
+                // window.location.href = "dashboard.html";
+            }
+        })
+        .catch(error => {
+            document.getElementById("message").innerText = "Something went wrong!";
+        });
+
+    });
+</script>
+
+</body>
+</html>

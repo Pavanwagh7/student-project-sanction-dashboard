@@ -1,19 +1,17 @@
 package com.pavanwagh.dashboard.controller;
 
 
+import com.pavanwagh.dashboard.dto.RegisterRequest;
 import com.pavanwagh.dashboard.entity.User;
 import com.pavanwagh.dashboard.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
-    //contructor
+    //constructor
     public UserController (UserService userService) {
         this.userService = userService;
     }
@@ -28,5 +26,19 @@ public class UserController {
         boolean isValid = userService.login (email,password);
 
         return isValid ? "Login Successfully" : "Invalid Email or Password";
+    }
+
+    @PostMapping("/register")
+    public String register (@RequestBody RegisterRequest request) {
+        if (userService.doesEmailExist(request.getEmail())) { return "Account already exists,log in to the account"; }
+
+        userService.registration(
+                request.getEmail(),
+                request.getPassword(),
+                request.getFullName(),
+                request.getDepartment(),
+                "STUDENT"
+        );
+        return "Account is opened,try logging in.";
     }
 }
