@@ -3,63 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .link a {
+            text-decoration: none;
+            color: #1877f2;
+        }
+
+        #message {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Register</h2>
+<div class="container">
+    <h2>Register</h2>
 
-<form id="registerForm">
+    <form id="registerForm">
+        <input type="text" id="email" placeholder="Email" required>
+        <input type="text" id="fullName" placeholder="Full Name" required>
+        <input type="text" id="department" placeholder="Department" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
 
-    <input type="text" id="email" placeholder="Email" required><br><br>
-    <input type="text" id="fullName" placeholder="Full Name" required><br><br>
-    <input type="text" id="department" placeholder="Department" required><br><br>
-    <input type="password" id="password" placeholder="Password" required><br><br>
+    <!-- Navigation -->
+    <p class="link">
+        Already have an account? <a href="login.html">Login here</a>
+    </p>
 
-    <button type="submit">Register</button>
-</form>
-
-<p id="message"></p>
+    <p id="message"></p>
+</div>
 
 <script>
-    window.onload = function() {
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
 
-        document.getElementById("registerForm").addEventListener("submit", function(e) {
+        e.preventDefault();
 
-            e.preventDefault();
+        let data = {
+            email: document.getElementById("email").value,
+            fullName: document.getElementById("fullName").value,
+            department: document.getElementById("department").value,
+            password: document.getElementById("password").value
+        };
 
-            let data = {
-                email: document.getElementById("email").value,
-                fullName: document.getElementById("fullName").value,
-                department: document.getElementById("department").value,
-                password: document.getElementById("password").value
-            };
+        fetch("/users/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.text())
+        .then(data => {
 
-            fetch("/users/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.text())
-            .then(data => {
+            document.getElementById("message").innerText = data;
 
-                document.getElementById("message").innerText = data;
+            if(data.includes("opened")) {
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1500);
+            }
 
-                if(data.includes("opened")) {
-                    setTimeout(() => {
-                        window.location.href = "login.html";
-                    }, 1500);
-                }
-
-            })
-            .catch(error => {
-                document.getElementById("message").innerText = "Something went wrong!";
-            });
-
+        })
+        .catch(error => {
+            document.getElementById("message").innerText = "Something went wrong!";
         });
 
-    };
+    });
 </script>
 
 </body>
