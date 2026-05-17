@@ -105,12 +105,29 @@
         .then(response => response.text())
         .then(data => {
 
-            document.getElementById("message").innerText = data;
+            let messageElement = document.getElementById("message");
+
+
+            messageElement.innerText = data;
+
 
             if(data.includes("opened")) {
-                setTimeout(() => {
+
+                // Create button
+                let btn = document.createElement("button");
+                btn.innerText = "Go to Login";
+                btn.style.marginTop = "10px";
+                btn.style.backgroundColor = "#1877f2";
+
+                // Redirect when clicked
+                btn.onclick = function() {
                     window.location.href = "login.html";
-                }, 1500);
+                };
+
+                // Replace message and add button
+                messageElement.innerHTML = data;
+                messageElement.appendChild(document.createElement("br"));
+                messageElement.appendChild(btn);
             }
 
         })
