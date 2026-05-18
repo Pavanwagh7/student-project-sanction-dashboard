@@ -86,10 +86,20 @@
 
         e.preventDefault();
 
-        let email = document.getElementById("email").value;
-        let password = document.getElementById("password").value;
+        // 🟢 EDIT 1: Create JSON object instead of separate variables
+let data = {
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value
+};
 
-        fetch("/users/login?email=" + email + "&password=" + password)
+// 🟢 EDIT 2: Replace GET request with POST + JSON
+fetch("/users/login", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+})
         .then(response => response.text())
         .then(data => {
             document.getElementById("message").innerText = data;
