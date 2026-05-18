@@ -1,6 +1,7 @@
 package com.pavanwagh.dashboard.controller;
 
 
+import com.pavanwagh.dashboard.dto.LoginRequest;
 import com.pavanwagh.dashboard.dto.RegisterRequest;
 import com.pavanwagh.dashboard.entity.User;
 import com.pavanwagh.dashboard.service.UserService;
@@ -21,9 +22,9 @@ public class UserController {
 //        return userService.getUserByEmail(email);
 //    }
 
-    @GetMapping("/login")
-    public String login (@RequestParam String email,@RequestParam String password) {
-        boolean isValid = userService.login (email,password);
+    @PostMapping("/login")
+    public String login (@RequestBody LoginRequest request) {
+        boolean isValid = userService.login (request.getEmail(),request.getPassword());
 
         return isValid ? "Login Successfully" : "Invalid Email or Password";
     }

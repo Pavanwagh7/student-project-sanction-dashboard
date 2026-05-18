@@ -1,7 +1,7 @@
 package com.pavanwagh.dashboard.dto;
 
 /**
- * DTO or dto = Data Transfer object
+ * DTO or dto = Data Transfer object for registration
  * */
 
 
