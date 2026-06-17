@@ -36,8 +36,20 @@ public class UserController {
         String email = request.getEmail();
         if (email == null) return "Email field is Empty.";                            // Email null check
         email = email.trim();                                                         // trim()
-        if (email.length() == 0) return "Email field is Empty, enter valid email.";   // Check after trim email length is 0 or not
-        email = email.toLowerCase();                                                  // Convert to Lowercase
+        email = email.toLowerCase();
+        if (email.length() > "@gmail.com".length()){
+            // Check the Existence of '@gmail.com' at the end of the String email
+            if (!email.substring(email.length() - "@gmail.com".length(),email.length()).equals("@gmail.com")) return "Enter valid email.";
+
+            // Now check if part before '@gmail.com' is valid or not
+            for (int i = 0;i < email.length() - "@gmail.com".length();i++) {
+                char ch = email.charAt(i);
+                if(!((ch >= 97 && ch <= 122) || (ch >= 48 && ch <= 57) || ch == 46 || ch == 95)) {
+                    return "Enter valid Email.";
+                }
+            }
+        }
+        else { return "Enter valid Email.";}
         if (userService.doesEmailExist(email)) { return "Account already exists,log in to the account"; }     // Check if email already exist
 
         /** Basic Password Validation */
@@ -52,6 +64,30 @@ public class UserController {
             }
         }
         if (containsOnlySpaces) return "Enter valid Password.";
+
+        // Validate password complexity (At least one Special Character and a Digit)
+        boolean hasSpecialCharacter = false;
+        boolean hasDigit = false;
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
+            if (ch >= '0' && ch <= '9') { hasDigit = true; }
+            else if (!(  (ch >= 'A' && ch <= 'Z')  ||  (ch >= 'a' && ch <= 'z')  ||  ch == ' '  )) {
+                hasSpecialCharacter = true;
+            }
+
+            if (hasDigit && hasSpecialCharacter) {
+                break;
+            }
+        }
+
+        if (!hasSpecialCharacter) {
+            return "Password must contain at least one special character.";
+        }
+
+        if (!hasDigit) {
+            return "Password must contain at least one digit.";
+        }
+
 
         /** Basic Name Validation */
         String name = request.getFullName();
