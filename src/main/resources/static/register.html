@@ -24,7 +24,7 @@
             text-align: center;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -70,7 +70,20 @@
     <form id="registerForm">
         <input type="text" id="email" placeholder="Email" required>
         <input type="text" id="fullName" placeholder="Full Name" required>
-        <input type="text" id="department" placeholder="Department" required>
+
+        <select id="department" required>
+            <option value="">Select Branch</option>
+            <option value="CSE">CSE</option>
+            <option value="DS">DS</option>
+            <option value="AIML">AIML</option>
+            <option value="AIDS">AIDS</option>
+            <option value="IT">IT</option>
+            <option value="ETC">ETC</option>
+            <option value="EE">EE</option>
+            <option value="MECH">MECH</option>
+            <option value="CIVIL">CIVIL</option>
+        </select>
+
         <input type="password" id="password" placeholder="Password" required>
         <button type="submit">Register</button>
     </form>
