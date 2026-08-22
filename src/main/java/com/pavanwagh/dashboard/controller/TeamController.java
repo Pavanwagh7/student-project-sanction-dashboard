@@ -7,7 +7,6 @@ import com.pavanwagh.dashboard.entity.JoinRequest;
 import com.pavanwagh.dashboard.entity.Student;
 import com.pavanwagh.dashboard.entity.Team;
 import com.pavanwagh.dashboard.entity.User;
-import com.pavanwagh.dashboard.enums.RequestStatus;
 import com.pavanwagh.dashboard.repository.StudentRepository;
 import com.pavanwagh.dashboard.repository.TeamRepository;
 import com.pavanwagh.dashboard.repository.UserRepository;
@@ -119,30 +118,18 @@ public class TeamController {
 
     // Create Team
     @PostMapping("/create")
-    public String createTeam(
-            @RequestBody TeamRequest request,
-            HttpSession session) {
-
+    public String createTeam(@RequestBody TeamRequest request, HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");
-
         if (userId == null) {
             return "User is not logged in.";
         }
 
-
-        Student leader = studentRepository
-                .findById(userId)
-                .orElse(null);
-
+        Student leader = studentRepository.findById(userId).orElse(null);
         if (leader == null) {
             return "Student record not found.";
         }
 
-
-        return teamService.createTeam(
-                request.getTeamName(),
-                leader
-        );
+        return teamService.createTeam(request.getTeamName(), leader);
     }
 
 
@@ -150,24 +137,15 @@ public class TeamController {
     @PostMapping("/get_join_request_list")
     public List<JoinRequest> getJoinRequests(HttpSession session) {
 
-        Long userId =
-                (Long) session.getAttribute("userId");
-
-
+        Long userId = (Long) session.getAttribute("userId");
         if (userId == null) {
             return List.of();
         }
 
-
-        Team team =
-                teamRepository.findByLeaderUserId(userId);
-
-
+        Team team = teamRepository.findByLeaderUserId(userId);
         if (team == null) {
             return List.of();
         }
-
-
         Long teamId = team.getTeamId();
 
         return teamService.getJoinRequests(teamId);
@@ -175,25 +153,17 @@ public class TeamController {
 
     @GetMapping("/status")
     public ResponseEntity<?> getTeamStatus(HttpSession session) {
-
         Long userId = (Long) session.getAttribute("userId");
-
         if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("User is not logged in.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
         }
 
         Student student = studentRepository.findById(userId).orElse(null);
-
         if (student == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Student record not found.");
         }
 
-        return ResponseEntity.ok(
-                Map.of(
-                        "inTeam", student.getTeamId() != null
-                )
-        );
+        return ResponseEntity.ok(Map.of("inTeam", student.getTeamId() != null));
     }
 }
