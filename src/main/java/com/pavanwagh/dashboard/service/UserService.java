@@ -20,6 +20,7 @@ public class UserService {
         this.studentRepository = studentRepository;
     }
 
+    // for dashboard to print the user name
     public User getUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
@@ -27,6 +28,7 @@ public class UserService {
     //Login dialogue.
     public Long login (String email,String password) {
         User user = userRepository.findByEmail(email);
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (user != null && encoder.matches(password, user.getPassword())) return user.getId();
 

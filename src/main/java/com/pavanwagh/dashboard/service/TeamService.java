@@ -29,20 +29,16 @@ public class TeamService {
 
     // Create Team Code
     private String createTeamCode() {
-
         String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         String teamCode;
 
         Random random = new Random();
 
         do {
-
             teamCode = "";
-
             for (int i = 1; i <= 8; i++) {
                 teamCode += str.charAt(random.nextInt(str.length()));
             }
-
         } while (teamRepository.existsByTeamCode(teamCode));
 
         return teamCode;
@@ -65,11 +61,7 @@ public class TeamService {
         }
 
         // Create team
-        Team team = new Team(
-                teamName,
-                createTeamCode(),
-                leader.getStudentUserId()
-        );
+        Team team = new Team(teamName, createTeamCode(), leader.getStudentUserId());
 
         // Save team first so teamId is generated
         teamRepository.save(team);
@@ -86,7 +78,6 @@ public class TeamService {
 
     // Join Team
     public String joinTeam(Student student, String teamCode) {
-
         // Check if student is already in a team
         if (student.getTeamId() != null) {
             return "You are already in a Team.";
@@ -105,15 +96,12 @@ public class TeamService {
             return "Invalid Teamcode.";
         }
 
-
         Team team = teamRepository.findByTeamCode(teamCode);
-
 
         // Check team capacity
         if (team.getCurrentMemberCount() >= 4) {
             return "Team is Full.";
         }
-
 
         // Check duplicate pending request
         if (joinRequestRepository.existsByStudentUserIdAndTeamIdAndRequestStatus(student.getStudentUserId(), team.getTeamId(), RequestStatus.PENDING)) {
