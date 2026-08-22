@@ -82,33 +82,53 @@
 </div>
 
 <script>
+
     document.getElementById("loginForm").addEventListener("submit", function(e) {
 
         e.preventDefault();
 
-        // 🟢 EDIT 1: Create JSON object instead of separate variables
-let data = {
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value
-};
+        let data = {
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        };
 
-// 🟢 EDIT 2: Replace GET request with POST + JSON
-fetch("/users/login", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-})
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("message").innerText = data;
+        fetch("/users/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
         })
+
+        .then(response => response.text())
+
+.then(data => {
+
+    console.log("Server response:", data);
+
+    if (data.includes("Login Successfully")) {
+
+        window.location.href = "/dashboard.html";
+
+    } else {
+
+        document.getElementById("message").innerText = data;
+
+    }
+
+})
+
         .catch(error => {
-            document.getElementById("message").innerText = "Something went wrong!";
+
+            console.error(error);
+
+            document.getElementById("message").innerText =
+                "Something went wrong!";
+
         });
 
     });
+
 </script>
 
 </body>

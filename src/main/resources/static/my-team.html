@@ -2,49 +2,325 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>my team</title>
+    <title>My Team</title>
 </head>
+
 <body>
-    <div><h1>My Team</h1></div>
+
+<div>
+
+    <div>
+        <h1>My Team</h1>
+    </div>
+
     <br>
 
     <div>
-        <h3>Team Name (Team code : xxxxxx)</h3>
+        <h3>
+            <span id="teamName">...</span>
+            (Team code :
+            <span id="teamCode">...</span>)
+        </h3>
     </div>
 
 
     <div>
-        <p>Leader : Pavan Wagh</p>
+
+        <p>
+            Leader :
+            <span id="leaderName">...</span>
+        </p>
 
         <h3>Team Members</h3>
-        <ul>
-            <li>member 2</li>
-            <li>member 3</li>
-            <li>member 4</li>
+
+        <ul id="teamMembers">
+            <li>Loading...</li>
         </ul>
+
     </div>
+
     <br>
 
-    <div><!-- Visible only to Team Leader -->
+
+    <div>
+
         <h3>Pending Join Requests</h3>
-        <ul>
-            <li>user 1 <button>Accept</button> <button>Reject</button> </li>
-            <li>user 2 <button>Accept</button> <button>Reject</button> </li>
-            <li>user 3 <button>Accept</button> <button>Reject</button> </li>
-            <li>user 4 <button>Accept</button> <button>Reject</button> </li>
-            <li>.</li>
-            <li>.</li>
-            <li>.</li>
-            <li>User n <button>Accept</button> <button>Reject</button></li>
+
+        <ul id="joinRequests">
+
+            <li>Loading...</li>
+
         </ul>
+
     </div>
+
     <br>
 
-    <div><!-- Visible only to Team Leader -->
-        <p>Submit the team proposal <button>Submit</button></p>
+
+    <div>
+
+        <p>
+            Submit the team proposal
+            <button>Submit</button>
+        </p>
+
     </div>
 
-    <button>Back</button>
+
+    <button onclick="window.location.href='dashboard.html'">
+        Back
+    </button>
+
+</div>
+
+
+<script>
+
+    /*
+     * First get team information
+     */
+    fetch("/my_team/details")
+
+        .then(response => {
+
+            if (!response.ok) {
+                throw new Error("Unable to get team information");
+            }
+
+            return response.json();
+
+        })
+
+        .then(team => {
+
+            document.getElementById("teamName").innerText =
+                team.teamName;
+
+            document.getElementById("teamCode").innerText =
+                team.teamCode;
+
+            document.getElementById("leaderName").innerText =
+                team.leaderName;
+
+
+            /*
+             * Get Team Members
+             */
+            fetch("/my_team/get_team_members?teamId=" + team.teamId)
+
+                .then(response => {
+
+                    if (!response.ok) {
+                        throw new Error("Unable to get team members");
+                    }
+
+                    return response.text();
+
+                })
+
+                .then(data => {
+
+                    let memberList =
+                        document.getElementById("teamMembers");
+
+                    memberList.innerHTML = "";
+
+
+                    /*
+                     * Backend returned message
+                     */
+                    if (data === "No members added yet.") {
+
+                        memberList.innerHTML =
+                            "<li>No members added yet.</li>";
+
+                        return;
+                    }
+
+
+                    /*
+                     * Backend returned JSON list
+                     */
+                    let members = JSON.parse(data);
+
+                    members.forEach(member => {
+
+                        let li =
+                            document.createElement("li");
+
+                        li.innerText =
+                            "Student ID: " +
+                            member.studentUserId;
+
+                        memberList.appendChild(li);
+
+                    });
+
+                })
+
+                .catch(error => {
+
+                    console.log(error);
+
+                    document.getElementById("teamMembers").innerHTML =
+                        "<li>Unable to load team members.</li>";
+
+                });
+
+        })
+
+        .catch(error => {
+
+            console.log(error);
+
+        });
+
+
+    /*
+     * Get pending JoinRequests
+     */
+    fetch("/my_team/get_join_request_list", {
+
+        method: "POST"
+
+    })
+
+        .then(response => {
+
+            if (!response.ok) {
+                throw new Error("Unable to get join requests");
+            }
+
+            return response.json();
+
+        })
+
+        .then(requests => {
+
+            let requestList =
+                document.getElementById("joinRequests");
+
+            requestList.innerHTML = "";
+
+
+            if (requests.length === 0) {
+
+                requestList.innerHTML =
+                    "<li>No pending requests.</li>";
+
+                return;
+
+            }
+
+
+            requests.forEach(request => {
+
+                let li =
+                    document.createElement("li");
+
+                li.innerText =
+                    "Student ID: " +
+                    request.studentUserId + " ";
+
+
+                /*
+                 * Accept button
+                 */
+                let acceptButton =
+                    document.createElement("button");
+
+                acceptButton.innerText = "Accept";
+
+                acceptButton.onclick = function () {
+
+                    respondToJoinRequest(
+                        request.joinRequestId,
+                        "ACCEPTED"
+                    );
+
+                };
+
+
+                /*
+                 * Reject button
+                 */
+                let rejectButton =
+                    document.createElement("button");
+
+                rejectButton.innerText = "Reject";
+
+                rejectButton.onclick = function () {
+
+                    respondToJoinRequest(
+                        request.joinRequestId,
+                        "REJECTED"
+                    );
+
+                };
+
+
+                li.appendChild(acceptButton);
+
+                li.appendChild(rejectButton);
+
+                requestList.appendChild(li);
+
+            });
+
+        })
+
+        .catch(error => {
+
+            console.log(error);
+
+            document.getElementById("joinRequests").innerHTML =
+                "<li>Unable to load requests.</li>";
+
+        });
+
+
+    /*
+     * Respond to Join Request
+     */
+    function respondToJoinRequest(requestId, requestStatus) {
+
+        fetch("/my_team/respond_to_join_request", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+                requestId: requestId,
+
+                requestStatus: requestStatus
+
+            })
+
+        })
+
+        .then(response => response.text())
+
+        .then(data => {
+
+            console.log(data);
+
+            location.reload();
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+        });
+
+    }
+
+</script>
 
 </body>
 </html>

@@ -2,44 +2,187 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>dasboard</title>
+    <title>Dashboard</title>
 </head>
 <body>
+
+<div>
+
     <div>
-        <div>
-            <h1>Dashboard</h1>
-        </div>
+        <h1>Dashboard</h1>
+    </div>
 
-        <div><h2>Welcome, Pavan Wagh...</h2></div>
-        <br>
+    <div>
+        <h2>Welcome, <span id="studentName">...</span></h2>
+    </div>
 
-        <div>
-            <h2>Announcements</h2>
-            <p>No announcements available.</p>
+    <br>
 
-        </div>
-        <br>
+    <div>
+        <h2>Announcements</h2>
+        <p>No announcements available.</p>
+    </div>
 
-        <div>
-            <h2>Student Details</h2>
-                <p>Name : Pavan Wagh</p>
-                <p>Branch : Electronics and Telecommunication</p>
-                <p>Division : ETC-B</p>
-                <p>PRN : 231102132</p>
-                <p>Roll : 108</p>
-        </div>
-        <br>
+    <br>
 
-        <div>
-            <h2>Quick Actions</h2>
-            <a href="create-team.html"><button>Create team</button></a>
+    <div>
+        <h2>Student Details</h2>
 
-            <a href="join-team.html"><button>Join team</button></a>
+        <p>Name : <span id="name">...</span></p>
 
-            <button>Logout</button>
-        </div>
+        <p>Branch : <span id="department">...</span></p>
 
+        <p>Student ID : <span id="studentId">...</span></p>
 
     </div>
+
+    <br>
+
+    <div>
+
+        <h2>Quick Actions</h2>
+
+        <div id="teamActions">
+
+            <a href="create-team.html">
+                <button>Create Team</button>
+            </a>
+
+            <a href="join-team.html">
+                <button>Join Team</button>
+            </a>
+
+        </div>
+
+        <a href="my-team.html" id="myTeamButton">
+            <button>My Team</button>
+        </a>
+
+        <button onclick="logout()">Logout</button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    fetch("/users/me")
+
+        .then(response => {
+
+            console.log("Response status:", response.status);
+
+            if (!response.ok) {
+                throw new Error("Unable to get student information");
+            }
+
+            return response.json();
+
+        })
+
+        .then(student => {
+
+            console.log("Student received:", student);
+
+            if (student == null) {
+                throw new Error("No logged-in user found");
+            }
+
+            document.getElementById("studentName").innerText =
+                student.fullName;
+
+            document.getElementById("name").innerText =
+                student.fullName;
+
+            document.getElementById("department").innerText =
+                student.department;
+
+            document.getElementById("studentId").innerText =
+                student.id;
+
+        })
+
+        .catch(error => {
+
+            console.error("Dashboard error:", error);
+
+        });
+
+    /*
+ * Check whether student is already in a team
+ */
+fetch("/my_team/status")
+
+    .then(response => {
+
+        if (!response.ok) {
+            throw new Error("Unable to get team status");
+        }
+
+        return response.json();
+
+    })
+
+    .then(data => {
+
+        let teamActions =
+            document.getElementById("teamActions");
+
+        let myTeamButton =
+            document.getElementById("myTeamButton");
+
+
+        if (data.inTeam) {
+
+            // Student is already in a team
+            teamActions.style.display = "none";
+
+            myTeamButton.style.display = "inline";
+
+        }
+
+        else {
+
+            // Student is not in any team
+            teamActions.style.display = "inline";
+
+            myTeamButton.style.display = "none";
+
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error("Team status error:", error);
+
+    });
+
+
+    function logout() {
+
+        fetch("/users/logout", {
+            method: "POST"
+        })
+
+        .then(response => response.text())
+
+        .then(data => {
+
+            window.location.href = "/login.html";
+
+        })
+
+        .catch(error => {
+
+            console.error("Logout error:", error);
+
+        });
+
+    }
+
+</script>
+
 </body>
 </html>

@@ -5,6 +5,7 @@ import com.pavanwagh.dashboard.dto.LoginRequest;
 import com.pavanwagh.dashboard.dto.RegisterRequest;
 import com.pavanwagh.dashboard.entity.User;
 import com.pavanwagh.dashboard.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,11 +23,38 @@ public class UserController {
 //        return userService.getUserByEmail(email);
 //    }
 
-    @PostMapping("/login")
-    public String login (@RequestBody LoginRequest request) {
-        boolean isValid = userService.login (request.getEmail(),request.getPassword());
 
-        return isValid ? "Login Successfully" : "Invalid Email or Password";
+    @GetMapping("/me")
+    public User getCurrentUser(HttpSession session) {
+
+        Long userId = (Long) session.getAttribute("userId");
+
+        if (userId == null) {
+            return null;
+        }
+
+        return userService.getUserById(userId);
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+
+        session.invalidate();
+
+        return "Logged out successfully";
+    }
+
+    @PostMapping("/login")
+    public String login (@RequestBody LoginRequest request, HttpSession session) {
+        Long userID = userService.login (request.getEmail(),request.getPassword());
+
+        if (userID != null) {
+            session.setAttribute("userId",userID);
+            return  "Login Successfully,userID: " + session.getAttribute("userId");
+        }
+        else{
+            return "Invalid Email or Password";
+        }
     }
 
     @PostMapping("/register")

@@ -2,27 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>create-team</title>
+    <title>Create Team</title>
 </head>
+
 <body>
+
+<div>
+
     <div>
-        <div>
-            <h1>Create team</h1>
-        </div>
-        <br>
-        
-        <div>
-            <label for="teamName">Team Name</label>
-            <input type="text" id="teamName" name="teamName" placeholder="Enter team name">
-
-            <p>Maximum members allowed in the team = 4</p>
-        </div>
-        <br>
-
-        <div>
-            <button>Create Team</button>
-            <button>Back</button>
-        </div>
+        <h1>Create team</h1>
     </div>
+
+    <br>
+
+    <div>
+
+        <label for="teamName">Team Name</label>
+
+        <input
+                type="text"
+                id="teamName"
+                name="teamName"
+                placeholder="Enter team name"
+        >
+
+        <p>Maximum members allowed in the team = 4</p>
+
+    </div>
+
+    <br>
+
+    <div>
+
+        <button onclick="createTeam()">Create Team</button>
+
+        <button onclick="window.location.href='dashboard.html'">
+            Back
+        </button>
+
+    </div>
+
+    <p id="message"></p>
+
+</div>
+
+
+<script>
+
+    function createTeam() {
+
+        let teamName =
+            document.getElementById("teamName").value;
+
+
+        if (teamName.trim() === "") {
+
+            document.getElementById("message").innerText =
+                "Enter team name.";
+
+            return;
+        }
+
+
+        fetch("/my_team/create", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                teamName: teamName
+            })
+
+        })
+
+        .then(response => response.text())
+
+        .then(data => {
+
+            document.getElementById("message").innerText = data;
+
+
+            if (data === "Team Created Successfully.") {
+
+                setTimeout(function () {
+
+                    window.location.href = "my-team.html";
+
+                }, 500);
+
+            }
+
+        })
+
+        .catch(error => {
+
+            console.log(error);
+
+            document.getElementById("message").innerText =
+                "Something went wrong.";
+
+        });
+
+    }
+
+</script>
+
 </body>
 </html>

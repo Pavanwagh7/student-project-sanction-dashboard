@@ -17,7 +17,7 @@ public class Student {
 
     // Constructors
     public Student() { } //Default Constructor (Required by JPA)
-    public Student(long studentUserId, long teamId) {
+    public Student(Long studentUserId, Long teamId) {
         this.studentUserId = studentUserId;
         this.teamId = teamId;
     }
@@ -31,7 +31,7 @@ public class Student {
     }
 
     // Getters
-    public long getTeamId() {
+    public Long getTeamId() {
         return teamId;
     }
     public void setTeamId(long teamId) {
