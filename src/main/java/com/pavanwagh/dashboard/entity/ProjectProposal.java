@@ -15,20 +15,20 @@ public class ProjectProposal {
     private Long teamId;
 
     @Column(name = "title")
-     private String title;
+    private String title;
 
     @Column(name = "project_description")
-     private String projectDescription;
+    private String projectDescription;
 
     @Column(name = "pdf_file_name")
-     private String pdfFileName ;
+    private String pdfFileName ;
 
     @Column(name = "pdf_file_path")
-     private String pdfFilePath ;
+    private String pdfFilePath ;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "proposal_status")
-     private ProposalStatus proposalStatus ;
+    private ProposalStatus proposalStatus ;
 
     // Constructors
     public ProjectProposal() { } // Default Constructor required JPA
@@ -41,6 +41,7 @@ public class ProjectProposal {
         this.proposalStatus = proposalStatus;
     }
 
+    // Getters And Setters
     public Long getProposalId() {
         return proposalId;
     }
@@ -96,6 +97,4 @@ public class ProjectProposal {
     public void setProposalStatus(ProposalStatus proposalStatus) {
         this.proposalStatus = proposalStatus;
     }
-
-
 }
