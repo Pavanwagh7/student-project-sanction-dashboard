@@ -29,6 +29,9 @@ Thumbs.db
 *.tar.gz
 *.rar
 
+# application.properties file
+src/main/resources/application.properties
+
 # JVM crash logs
 hs_err_pid*
 replay_pid*
