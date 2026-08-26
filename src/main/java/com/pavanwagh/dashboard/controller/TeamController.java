@@ -2,11 +2,13 @@ package com.pavanwagh.dashboard.controller;
 
 import com.pavanwagh.dashboard.dto.JoinRequestResponse;
 import com.pavanwagh.dashboard.dto.JoinTeamRequest;
+import com.pavanwagh.dashboard.dto.SubmitProposalRequest;
 import com.pavanwagh.dashboard.dto.TeamRequest;
 import com.pavanwagh.dashboard.entity.JoinRequest;
 import com.pavanwagh.dashboard.entity.Student;
 import com.pavanwagh.dashboard.entity.Team;
 import com.pavanwagh.dashboard.entity.User;
+import com.pavanwagh.dashboard.enums.ProposalStatus;
 import com.pavanwagh.dashboard.repository.StudentRepository;
 import com.pavanwagh.dashboard.repository.TeamRepository;
 import com.pavanwagh.dashboard.repository.UserRepository;
@@ -165,5 +167,33 @@ public class TeamController {
         }
 
         return ResponseEntity.ok(Map.of("inTeam", student.getTeamId() != null));
+    }
+    @PostMapping("/submit_proposal")
+    public String sumbitProposal(@RequestBody SubmitProposalRequest submitProposalRequest,HttpSession session){
+
+        if( submitProposalRequest.getTitle().isEmpty()){
+            return "Title field is empty.";
+        }
+
+        if( submitProposalRequest.getDescription().isEmpty()){
+                return "Description field is empty.";
+        }
+        if( submitProposalRequest.getFilePath().isEmpty()){
+            return "File path field is empty.";
+        }
+
+        if( submitProposalRequest.getFileName().isEmpty()){
+            return "File Name field is empty.";
+        }
+        Long studentId = (Long) session.getAttribute("userId");
+        Student student = studentRepository.findById(id).orElse(null);
+
+        Long teamId = student.getTeamId();
+        if(teamId==null){
+            return "team id is null";
+        }
+        submitProposalRequest.setStatus(ProposalStatus.PENDING);
+        submitProposalRequest.setTeamId(teamId);
+        return teamService.submitProposal(submitProposalRequest);
     }
 }

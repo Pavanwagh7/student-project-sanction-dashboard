@@ -1,10 +1,14 @@
 package com.pavanwagh.dashboard.service;
 
+import com.pavanwagh.dashboard.dto.SubmitProposalRequest;
 import com.pavanwagh.dashboard.entity.JoinRequest;
+import com.pavanwagh.dashboard.entity.ProjectProposal;
 import com.pavanwagh.dashboard.entity.Student;
 import com.pavanwagh.dashboard.entity.Team;
+import com.pavanwagh.dashboard.enums.ProposalStatus;
 import com.pavanwagh.dashboard.enums.RequestStatus;
 import com.pavanwagh.dashboard.repository.JoinRequestRepository;
+import com.pavanwagh.dashboard.repository.ProposalRepository;
 import com.pavanwagh.dashboard.repository.StudentRepository;
 import com.pavanwagh.dashboard.repository.TeamRepository;
 import org.springframework.stereotype.Service;
@@ -18,12 +22,14 @@ public class TeamService {
     private final TeamRepository teamRepository;
     private final JoinRequestRepository joinRequestRepository;
     private final StudentRepository studentRepository;
+    private final ProposalRepository proposalRepository;
 
     // Constructor
-    public TeamService(TeamRepository teamRepository, JoinRequestRepository joinRequestRepository, StudentRepository studentRepository) {
+    public TeamService(TeamRepository teamRepository, JoinRequestRepository joinRequestRepository, StudentRepository studentRepository, ProposalRepository proposalRepository) {
         this.teamRepository = teamRepository;
         this.joinRequestRepository = joinRequestRepository;
         this.studentRepository = studentRepository;
+        this.proposalRepository = proposalRepository;
     }
 
 
@@ -160,4 +166,16 @@ public class TeamService {
         return studentRepository.findByTeamId(teamId);
     }
 
+    public String submitProposal(SubmitProposalRequest submitProposalRequest){
+        ProjectProposal projectProposal=new ProjectProposal(submitProposalRequest.getTeamId(),
+                submitProposalRequest.getTitle(),
+                submitProposalRequest.getDescription(),
+                submitProposalRequest.getFileName(),
+                submitProposalRequest.getFilePath(),
+                submitProposalRequest.getStatus()
+        );
+
+        proposalRepository.save(projectProposal);
+        return "Proposal is submited";
+    }
 }
