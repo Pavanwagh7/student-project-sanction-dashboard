@@ -186,10 +186,10 @@ public class TeamController {
             return "File Name field is empty.";
         }
         Long studentId = (Long) session.getAttribute("userId");
-        Student student = studentRepository.findById(id).orElse(null);
+        Student student = studentRepository.findById(studentId).orElse(null);
 
         Long teamId = student.getTeamId();
-        if(teamId==null){
+        if(teamId == null){
             return "team id is null";
         }
         submitProposalRequest.setStatus(ProposalStatus.PENDING);
