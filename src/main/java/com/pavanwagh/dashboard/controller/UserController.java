@@ -6,6 +6,8 @@ import com.pavanwagh.dashboard.dto.RegisterRequest;
 import com.pavanwagh.dashboard.entity.User;
 import com.pavanwagh.dashboard.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,65 +27,65 @@ public class UserController {
 
 
     @GetMapping("/me")
-    public User getCurrentUser(HttpSession session) {
+    public ResponseEntity<User> getCurrentUser(HttpSession session) {
 
         Long userId = (Long) session.getAttribute("userId");
 
         if (userId == null) {
-            return null;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        return userService.getUserById(userId);
+        return ResponseEntity.status(HttpStatus.FOUND).body(userService.getUserById(userId));
     }
 
     @PostMapping("/logout")
-    public String logout(HttpSession session) {
+    public ResponseEntity<String>  logout(HttpSession session) {
 
         session.invalidate();
 
-        return "Logged out successfully";
+        return ResponseEntity.ok().body("Logged out successfully");
     }
 
     @PostMapping("/login")
-    public String login (@RequestBody LoginRequest request, HttpSession session) {
+    public ResponseEntity<String> login (@RequestBody LoginRequest request, HttpSession session) {
         Long userID = userService.login (request.getEmail(),request.getPassword());
 
         if (userID != null) {
             session.setAttribute("userId",userID);
-            return  "Login Successfully,userID: " + session.getAttribute("userId");
+            return ResponseEntity.ok().body( "Login Successfully,userID: " + session.getAttribute("userId"));
         }
         else{
-            return "Invalid Email or Password";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Email or Password");
         }
     }
 
     @PostMapping("/register")
-    public String register (@RequestBody RegisterRequest request) {
+    public ResponseEntity<String>  register (@RequestBody RegisterRequest request) {
 
         /** Basic email Validation */
         String email = request.getEmail();
-        if (email == null) return "Email field is Empty.";                            // Email null check
+        if (email == null) return ResponseEntity.badRequest().body("Email field is Empty.");                            // Email null check
         email = email.trim();                                                         // trim()
         email = email.toLowerCase();
         if (email.length() > "@gmail.com".length()){
             // Check the Existence of '@gmail.com' at the end of the String email
-            if (!email.substring(email.length() - "@gmail.com".length(),email.length()).equals("@gmail.com")) return "Enter valid email.";
+            if (!email.substring(email.length() - "@gmail.com".length(),email.length()).equals("@gmail.com")) return ResponseEntity.badRequest().body("Enter valid email.");
 
             // Now check if part before '@gmail.com' is valid or not
             for (int i = 0;i < email.length() - "@gmail.com".length();i++) {
                 char ch = email.charAt(i);
                 if(!((ch >= 97 && ch <= 122) || (ch >= 48 && ch <= 57) || ch == 46 || ch == 95)) {
-                    return "Enter valid Email.";
+                    return ResponseEntity.badRequest().body("Enter valid Email.");
                 }
             }
         }
-        else { return "Enter valid Email.";}
-        if (userService.doesEmailExist(email)) { return "Account already exists,log in to the account"; }     // Check if email already exist
+        else { return ResponseEntity.badRequest().body("Enter valid Email.");}
+        if (userService.doesEmailExist(email)) { return ResponseEntity.status(HttpStatus.CONFLICT).body("Account already exists,log in to the account"); }     // Check if email already exist
 
         /** Basic Password Validation */
         String password = request.getPassword();
-        if (password == null) return "Password field is empty.";                                 // Password null check
-        if (password.length() < 6 || password.length() > 50) return "Enter the valid Password";  // Valid Password length check
+        if (password == null) return ResponseEntity.badRequest().body("Password field is empty.");                                 // Password null check
+        if (password.length() < 6 || password.length() > 50) return ResponseEntity.badRequest().body("Enter the valid Password");  // Valid Password length check
         boolean containsOnlySpaces = true;                                                       // Check if Password has all charaters whitespace
         for (int i = 0;i < password.length();i++) {
             if (password.charAt(i) != ' ') {
@@ -91,7 +93,7 @@ public class UserController {
                 break;
             }
         }
-        if (containsOnlySpaces) return "Enter valid Password.";
+        if (containsOnlySpaces) return ResponseEntity.badRequest().body("Enter valid Password.");
 
         // Validate password complexity (At least one Special Character and a Digit)
         boolean hasSpecialCharacter = false;
@@ -109,23 +111,23 @@ public class UserController {
         }
 
         if (!hasSpecialCharacter) {
-            return "Password must contain at least one special character.";
+            return ResponseEntity.badRequest().body("Password must contain at least one special character.") ;
         }
 
         if (!hasDigit) {
-            return "Password must contain at least one digit.";
+            return ResponseEntity.badRequest().body("Password must contain at least one digit.") ;
         }
 
 
         /** Basic Name Validation */
         String name = request.getFullName();
-        if (name == null)  return "Name field is empty.";                       // Name null check
+        if (name == null)  return  ResponseEntity.badRequest().body("Name field is empty.");                       // Name null check
         name = name.trim();                                                     // trim() leading and trailing spaces
-        if (name.length() < 2 || name.length() > 50) return "Enter valid Name"; // Check valid name length
+        if (name.length() < 2 || name.length() > 50) return ResponseEntity.badRequest().body("Enter valid Name."); // Check valid name length
 
         /** Department Validation */
         String department = request.getDepartment();
-        if (department == null) return "Branch field is empty.";               // Department null check
+        if (department == null) return ResponseEntity.badRequest().body("Branch field is empty.");               // Department null check
         switch (department) {
             case "CSE":   department = "CSE"; break;
             case "DS":    department = "DS"; break;
@@ -136,10 +138,10 @@ public class UserController {
             case "EE":    department = "EE"; break;
             case "MECH":  department = "MECH"; break;
             case "CIVIL": department = "CIVIL"; break;
-            default: return "Enter valid Branch";
+            default: return ResponseEntity.badRequest().body("Enter valid Branch.");
         }
 
         userService.registration(email, password, name, department, "STUDENT");
-        return "Account is opened,try logging in.";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Account is opened,try logging in.") ;
     }
 }
