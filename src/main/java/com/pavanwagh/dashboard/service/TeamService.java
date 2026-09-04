@@ -11,6 +11,9 @@ import com.pavanwagh.dashboard.repository.JoinRequestRepository;
 import com.pavanwagh.dashboard.repository.ProposalRepository;
 import com.pavanwagh.dashboard.repository.StudentRepository;
 import com.pavanwagh.dashboard.repository.TeamRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -166,7 +169,7 @@ public class TeamService {
         return studentRepository.findByTeamId(teamId);
     }
 
-    public String submitProposal(SubmitProposalRequest submitProposalRequest){
+    public ResponseEntity<String> submitProposal(SubmitProposalRequest submitProposalRequest){
         ProjectProposal projectProposal=new ProjectProposal(submitProposalRequest.getTeamId(),
                 submitProposalRequest.getTitle(),
                 submitProposalRequest.getDescription(),
@@ -176,6 +179,6 @@ public class TeamService {
         );
 
         proposalRepository.save(projectProposal);
-        return "Proposal is submited";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Proposal is submited");
     }
 }

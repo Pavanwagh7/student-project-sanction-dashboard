@@ -169,31 +169,45 @@ public class TeamController {
         return ResponseEntity.ok(Map.of("inTeam", student.getTeamId() != null));
     }
     @PostMapping("/submit_proposal")
-    public String sumbitProposal(@RequestBody SubmitProposalRequest submitProposalRequest,HttpSession session){
-
-        if( submitProposalRequest.getTitle().isEmpty()){
-            return "Title field is empty.";
+    public ResponseEntity<String> sumbitProposal(@RequestBody SubmitProposalRequest submitProposalRequest,HttpSession session){
+        if (submitProposalRequest == null) {
+            return ResponseEntity.badRequest().body("Invalid Proposal Request.");
         }
 
-        if( submitProposalRequest.getDescription().isEmpty()){
-                return "Description field is empty.";
+        // Check if all received inputs are valid
+        if(submitProposalRequest.getTitle() == null || submitProposalRequest.getTitle().isEmpty()){
+            return ResponseEntity.badRequest().body("Title field is empty.");
         }
-        if( submitProposalRequest.getFilePath().isEmpty()){
-            return "File path field is empty.";
+        if(submitProposalRequest.getDescription() == null || submitProposalRequest.getDescription().isEmpty()){
+            return ResponseEntity.badRequest().body("Description field is empty.");
+        }
+        if(submitProposalRequest.getFilePath() == null || submitProposalRequest.getFilePath().isEmpty()){
+            return ResponseEntity.badRequest().body("File path field is empty.");
+        }
+        if(submitProposalRequest.getFileName() == null || submitProposalRequest.getFileName().isEmpty()){
+            return ResponseEntity.badRequest().body("File Name field is empty.");
         }
 
-        if( submitProposalRequest.getFileName().isEmpty()){
-            return "File Name field is empty.";
-        }
+        // Get the Logged in Student
         Long studentId = (Long) session.getAttribute("userId");
+        if (studentId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
+        }
         Student student = studentRepository.findById(studentId).orElse(null);
+        if (student == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User is not logged in.");
+        }
 
+        // Get teamId from Student
         Long teamId = student.getTeamId();
         if(teamId == null){
-            return "team id is null";
+            return ResponseEntity.badRequest().body("You are not a part of any team.");
         }
+
+        // Set backend-controlled values
         submitProposalRequest.setStatus(ProposalStatus.PENDING);
         submitProposalRequest.setTeamId(teamId);
+
         return teamService.submitProposal(submitProposalRequest);
     }
 }
