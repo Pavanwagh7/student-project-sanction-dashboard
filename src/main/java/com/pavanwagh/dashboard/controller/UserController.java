@@ -35,7 +35,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        return ResponseEntity.status(HttpStatus.FOUND).body(userService.getUserById(userId));
+        return ResponseEntity.ok(userService.getUserById(userId));
     }
 
     @PostMapping("/logout")
