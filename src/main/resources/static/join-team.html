@@ -2,100 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Join Team</title>
+
+    <link rel="stylesheet" href="css/join-team.css">
 </head>
 
 <body>
 
-<div>
+<div class="page-container">
 
-    <div>
-        <h1>Join Team</h1>
+    <div class="join-card">
+
+        <div class="card-header">
+            <div class="icon-box">👥</div>
+
+            <h1>Join Team</h1>
+
+            <p>
+                Enter your team code to request access to a project team.
+            </p>
+        </div>
+
+        <div class="form-section">
+
+            <label for="teamCode">Team Code</label>
+
+            <input
+                    type="text"
+                    id="teamCode"
+                    name="teamCode"
+                    placeholder="Enter team code"
+                    autocomplete="off"
+            >
+
+            <p id="message"></p>
+
+        </div>
+
+        <div class="button-section">
+
+            <button class="join-btn" onclick="joinTeam()">
+                Request to Join
+            </button>
+
+            <button
+                    class="back-btn"
+                    onclick="window.location.href='dashboard.html'">
+                Back to Dashboard
+            </button>
+
+        </div>
+
     </div>
-
-    <br>
-
-    <div>
-
-        <label for="teamCode">Enter Team Code</label>
-
-        <input
-                type="text"
-                id="teamCode"
-                name="teamCode"
-                placeholder="Enter team code"
-        >
-
-    </div>
-
-    <br>
-
-    <div>
-
-        <button onclick="joinTeam()">
-            Request to Join
-        </button>
-
-        <button onclick="window.location.href='dashboard.html'">
-            Back
-        </button>
-
-    </div>
-
-    <p id="message"></p>
 
 </div>
 
-
-<script>
-
-    function joinTeam() {
-
-        let teamCode =
-            document.getElementById("teamCode").value;
-
-        if (teamCode.trim() === "") {
-
-            document.getElementById("message").innerText =
-                "Enter team code.";
-
-            return;
-        }
-
-        fetch("/my_team/join", {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                teamCode: teamCode
-            })
-
-        })
-
-        .then(response => response.text())
-
-        .then(data => {
-
-            document.getElementById("message").innerText = data;
-
-        })
-
-        .catch(error => {
-
-            console.log(error);
-
-            document.getElementById("message").innerText =
-                "Something went wrong.";
-
-        });
-
-    }
-
-</script>
+<script src="js/join-team.js"></script>
 
 </body>
 </html>
+

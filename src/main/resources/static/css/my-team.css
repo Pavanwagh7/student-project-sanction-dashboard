@@ -1,0 +1,560 @@
+
+/* =========================================
+   ProjStu - My Team Page
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f4f7fb;
+
+    color: #1e293b;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   Page Container
+   ========================================= */
+
+.page-container {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 40px 30px 60px;
+}
+
+
+/* =========================================
+   Page Header
+   ========================================= */
+
+.page-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 30px;
+}
+
+.page-label {
+    color: #2563eb;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 7px;
+}
+
+.page-header h1 {
+    font-size: 32px;
+
+    color: #0f172a;
+
+    margin-bottom: 8px;
+}
+
+.page-description {
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   Back Button
+   ========================================= */
+
+.back-btn {
+    padding: 11px 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 9px;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.back-btn:hover {
+    background: #f8fafc;
+
+    border-color: #94a3b8;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   Team Information Card
+   ========================================= */
+
+.team-info-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
+
+    padding: 25px 28px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.06);
+}
+
+.team-icon {
+    width: 65px;
+    height: 65px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #e8f0ff;
+
+    border-radius: 15px;
+
+    font-size: 28px;
+}
+
+.team-details h2 {
+    font-size: 23px;
+
+    color: #0f172a;
+
+    margin-bottom: 7px;
+}
+
+.team-code {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 10px;
+}
+
+.leader-info {
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+.leader-info strong {
+    color: #334155;
+}
+
+
+/* =========================================
+   Content Grid
+   ========================================= */
+
+.content-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   Content Cards
+   ========================================= */
+
+.content-card {
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    min-height: 280px;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================================
+   Card Header
+   ========================================= */
+
+.card-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    margin-bottom: 18px;
+}
+
+.card-header h2 {
+    font-size: 19px;
+
+    color: #0f172a;
+
+    margin-bottom: 6px;
+}
+
+.card-header p {
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    background: #eff6ff;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   Lists
+   ========================================= */
+
+.member-list,
+.request-list {
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.member-list li,
+.request-list li {
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 9px;
+
+    padding: 12px 14px;
+
+    font-size: 14px;
+
+    color: #334155;
+}
+
+.loading-item {
+    color: #94a3b8 !important;
+
+    text-align: center;
+
+    background: #ffffff !important;
+
+    border-style: dashed !important;
+}
+
+
+/* =========================================
+   Request Buttons
+   ========================================= */
+
+.request-list li {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.request-list button {
+    padding: 7px 12px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* Accept */
+
+.request-list button:first-of-type {
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+.request-list button:first-of-type:hover {
+    background: #1d4ed8;
+}
+
+
+/* Reject */
+
+.request-list button:last-of-type {
+    border: 1px solid #fecaca;
+
+    background: #ffffff;
+
+    color: #dc2626;
+}
+
+.request-list button:last-of-type:hover {
+    background: #fef2f2;
+}
+
+
+/* =========================================
+   Proposal Card
+   ========================================= */
+
+.proposal-card {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 16px;
+
+    padding: 25px 28px;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.05);
+}
+
+.proposal-content {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+.proposal-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #e8f0ff;
+
+    border-radius: 11px;
+
+    font-size: 21px;
+
+    flex-shrink: 0;
+}
+
+.proposal-content h2 {
+    font-size: 18px;
+
+    color: #0f172a;
+
+    margin-bottom: 5px;
+}
+
+.proposal-content p {
+    font-size: 13px;
+
+    color: #64748b;
+}
+
+
+/* =========================================
+   Submit Button
+   ========================================= */
+
+.submit-btn {
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 15px rgba(37, 99, 235, 0.20);
+}
+
+
+/* =========================================
+   Responsive Design
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .page-container {
+        padding: 30px 20px 45px;
+    }
+
+    .page-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .back-btn {
+        width: 100%;
+    }
+
+    .proposal-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .page-container {
+        padding: 25px 15px 40px;
+    }
+
+    .page-header h1 {
+        font-size: 27px;
+    }
+
+    .team-info-card {
+        padding: 20px;
+
+        align-items: flex-start;
+    }
+
+    .team-icon {
+        width: 52px;
+        height: 52px;
+
+        font-size: 22px;
+    }
+
+    .team-details h2 {
+        font-size: 19px;
+    }
+
+    .content-card {
+        padding: 20px;
+    }
+
+    .proposal-card {
+        padding: 20px;
+    }
+}

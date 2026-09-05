@@ -2,65 +2,291 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ProJSetu - Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
+
 <body>
 
-<div>
+<div class="dashboard-container">
 
-    <div>
-        <h1>Dashboard</h1>
-    </div>
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
 
-    <div>
-        <h2>Welcome, <span id="studentName">...</span></h2>
-    </div>
+        <div class="logo">
+            ProJ<span>Setu</span>
+        </div>
 
-    <br>
+        <nav class="sidebar-nav">
 
-    <div>
-        <h2>Announcements</h2>
-        <p>No announcements available.</p>
-    </div>
-
-    <br>
-
-    <div>
-        <h2>Student Details</h2>
-
-        <p>Name : <span id="name">...</span></p>
-
-        <p>Branch : <span id="department">...</span></p>
-
-        <p>Student ID : <span id="studentId">...</span></p>
-
-    </div>
-
-    <br>
-
-    <div>
-
-        <h2>Quick Actions</h2>
-
-        <div id="teamActions">
-
-            <a href="create-team.html">
-                <button>Create Team</button>
+            <a href="dashboard.html" class="nav-item active">
+                <span>⌂</span>
+                Dashboard
             </a>
 
-            <a href="join-team.html">
-                <button>Join Team</button>
+            <a href="create-team.html" class="nav-item">
+                <span>👥</span>
+                Create Team
             </a>
+
+            <a href="join-team.html" class="nav-item">
+                <span>＋</span>
+                Join Team
+            </a>
+
+            <a href="my-team.html" class="nav-item" id="myTeamNav">
+                <span>◉</span>
+                My Team
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>📋</span>
+                Project Proposal
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>🔔</span>
+                Announcements
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button onclick="logout()" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </button>
 
         </div>
 
-        <a href="my-team.html" id="myTeamButton">
-            <button>My Team</button>
-        </a>
+    </aside>
 
-        <button onclick="logout()">Logout</button>
 
-    </div>
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
+
+        <!-- TOP HEADER -->
+        <header class="top-header">
+
+            <div>
+                <p class="small-heading">Student Dashboard</p>
+                <h1>Welcome, <span id="studentName">...</span> 👋</h1>
+            </div>
+
+            <div class="profile-box">
+                <div class="profile-avatar">
+                    <span id="profileInitial">S</span>
+                </div>
+
+                <div>
+                    <strong id="profileName">Student</strong>
+                    <small>Student</small>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- ================= WELCOME CARD ================= -->
+        <section class="welcome-card">
+
+            <div>
+                <span class="badge">🎓 ProJSetu Student Portal</span>
+
+                <h2>
+                    Manage Your Semester
+                    <span>Projects Smarter</span>
+                </h2>
+
+                <p>
+                    Manage your teams, project proposals and semester
+                    projects from one simple platform.
+                </p>
+            </div>
+
+            <div class="welcome-icon">
+                🚀
+            </div>
+
+        </section>
+
+
+        <!-- ================= ANNOUNCEMENTS ================= -->
+        <section class="section">
+
+            <div class="section-title">
+                <div>
+                    <h2>Announcements</h2>
+                    <p>Latest updates from your project department</p>
+                </div>
+            </div>
+
+            <div class="announcement-card">
+
+                <div class="announcement-icon">
+                    🔔
+                </div>
+
+                <div>
+                    <h3>No announcements available</h3>
+                    <p>
+                        New announcements will appear here when they
+                        are published.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STUDENT DETAILS ================= -->
+        <section class="section">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>Student Details</h2>
+                    <p>Your registered student information</p>
+                </div>
+
+            </div>
+
+
+            <div class="details-grid">
+
+                <div class="detail-card">
+
+                    <div class="detail-icon">
+                        👤
+                    </div>
+
+                    <div>
+                        <span>Name</span>
+                        <strong id="name">...</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <div class="detail-icon">
+                        🎓
+                    </div>
+
+                    <div>
+                        <span>Branch</span>
+                        <strong id="department">...</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <div class="detail-icon">
+                        🆔
+                    </div>
+
+                    <div>
+                        <span>Student ID</span>
+                        <strong id="studentId">...</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+        <section class="section">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>Quick Actions</h2>
+                    <p>Start managing your semester project</p>
+                </div>
+
+            </div>
+
+
+            <div class="actions-grid" id="teamActions">
+
+                <a href="create-team.html" class="action-card">
+
+                    <div class="action-icon">
+                        👥
+                    </div>
+
+                    <div>
+                        <h3>Create Team</h3>
+                        <p>Create a new project team</p>
+                    </div>
+
+                    <span class="arrow">→</span>
+
+                </a>
+
+
+                <a href="join-team.html" class="action-card">
+
+                    <div class="action-icon">
+                        ➕
+                    </div>
+
+                    <div>
+                        <h3>Join Team</h3>
+                        <p>Join an existing project team</p>
+                    </div>
+
+                    <span class="arrow">→</span>
+
+                </a>
+
+            </div>
+
+
+            <!-- MY TEAM -->
+
+            <a href="my-team.html"
+               id="myTeamButton"
+               class="my-team-card">
+
+                <div class="action-icon">
+                    🚀
+                </div>
+
+                <div>
+                    <h3>My Team</h3>
+                    <p>View and manage your project team</p>
+                </div>
+
+                <span class="arrow">→</span>
+
+            </a>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+        <footer>
+
+            <p>
+                © 2026 <strong>ProJSetu</strong>.
+                Built for College Projects.
+            </p>
+
+        </footer>
+
+    </main>
 
 </div>
 
@@ -101,6 +327,13 @@
             document.getElementById("studentId").innerText =
                 student.id;
 
+            // Profile information
+            document.getElementById("profileName").innerText =
+                student.fullName;
+
+            document.getElementById("profileInitial").innerText =
+                student.fullName.charAt(0).toUpperCase();
+
         })
 
         .catch(error => {
@@ -109,55 +342,66 @@
 
         });
 
+
     /*
- * Check whether student is already in a team
- */
-fetch("/my_team/status")
+     * Check whether student is already in a team
+     */
 
-    .then(response => {
+    fetch("/my_team/status")
 
-        if (!response.ok) {
-            throw new Error("Unable to get team status");
-        }
+        .then(response => {
 
-        return response.json();
+            if (!response.ok) {
+                throw new Error("Unable to get team status");
+            }
 
-    })
+            return response.json();
 
-    .then(data => {
+        })
 
-        let teamActions =
-            document.getElementById("teamActions");
+        .then(data => {
 
-        let myTeamButton =
-            document.getElementById("myTeamButton");
+            let teamActions =
+                document.getElementById("teamActions");
+
+            let myTeamButton =
+                document.getElementById("myTeamButton");
+
+            let myTeamNav =
+                document.getElementById("myTeamNav");
 
 
-        if (data.inTeam) {
+            if (data.inTeam) {
 
-            // Student is already in a team
-            teamActions.style.display = "none";
+                // Student is already in a team
 
-            myTeamButton.style.display = "inline";
+                teamActions.style.display = "none";
 
-        }
+                myTeamButton.style.display = "flex";
 
-        else {
+                myTeamNav.style.display = "flex";
 
-            // Student is not in any team
-            teamActions.style.display = "inline";
+            }
 
-            myTeamButton.style.display = "none";
+            else {
 
-        }
+                // Student is not in any team
 
-    })
+                teamActions.style.display = "grid";
 
-    .catch(error => {
+                myTeamButton.style.display = "none";
 
-        console.error("Team status error:", error);
+                myTeamNav.style.display = "none";
 
-    });
+            }
+
+        })
+
+        .catch(error => {
+
+            console.error("Team status error:", error);
+
+        });
 
 
     function logout() {

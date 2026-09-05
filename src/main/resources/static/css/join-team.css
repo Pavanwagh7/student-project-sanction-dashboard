@@ -1,0 +1,226 @@
+/* ================================
+   ProjsStu - Join Team Page
+   ================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+/* Main Container */
+
+.page-container {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+/* Join Card */
+
+.join-card {
+    width: 100%;
+    max-width: 480px;
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08);
+
+    border: 1px solid #e2e8f0;
+}
+
+/* Header */
+
+.card-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.icon-box {
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: #e8f0ff;
+
+    font-size: 28px;
+}
+
+.card-header h1 {
+    font-size: 30px;
+    font-weight: 700;
+
+    color: #0f172a;
+
+    margin-bottom: 10px;
+}
+
+.card-header p {
+    font-size: 14px;
+    line-height: 1.6;
+
+    color: #64748b;
+}
+
+/* Form */
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-section label {
+    display: block;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #334155;
+
+    margin-bottom: 9px;
+}
+
+.form-section input {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    color: #1e293b;
+
+    background: #ffffff;
+
+    transition: 0.2s ease;
+}
+
+.form-section input::placeholder {
+    color: #94a3b8;
+}
+
+.form-section input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+/* Message */
+
+#message {
+    margin-top: 12px;
+
+    font-size: 14px;
+
+    min-height: 20px;
+
+    color: #2563eb;
+}
+
+/* Buttons */
+
+.button-section {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.join-btn,
+.back-btn {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+/* Join Button */
+
+.join-btn {
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+.join-btn:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 15px rgba(37, 99, 235, 0.25);
+}
+
+/* Back Button */
+
+.back-btn {
+    border: 1px solid #cbd5e1;
+
+    background: #ffffff;
+
+    color: #475569;
+}
+
+.back-btn:hover {
+    background: #f8fafc;
+
+    border-color: #94a3b8;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+
+    .page-container {
+        padding: 20px;
+    }
+
+    .join-card {
+        padding: 30px 24px;
+    }
+
+    .card-header h1 {
+        font-size: 26px;
+    }
+}
+

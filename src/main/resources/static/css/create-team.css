@@ -1,0 +1,291 @@
+```css
+/* =========================================
+   PROJO SETUP - WHITE THEME
+   CREATE TEAM PAGE
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+
+    min-height: 100vh;
+
+    background: #f7f9fc;
+
+    color: #1e293b;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+/* =========================================
+   MAIN CARD
+========================================= */
+
+.container {
+    width: 100%;
+    max-width: 480px;
+
+    background: #ffffff;
+
+    padding: 40px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08),
+        0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    margin-bottom: 32px;
+}
+
+.header h1 {
+    font-size: 30px;
+
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+
+    color: #111827;
+}
+
+.header h1::after {
+    content: "";
+
+    display: block;
+
+    width: 42px;
+    height: 4px;
+
+    margin-top: 10px;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.team-form {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.team-form label {
+    margin-bottom: 9px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.team-form input {
+    width: 100%;
+
+    padding: 14px 15px;
+
+    font-size: 15px;
+
+    color: #111827;
+
+    background: #ffffff;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.team-form input::placeholder {
+    color: #9ca3af;
+}
+
+.team-form input:hover {
+    border-color: #9ca3af;
+}
+
+.team-form input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+
+/* =========================================
+   INFORMATION
+========================================= */
+
+.info {
+    margin-top: 11px;
+
+    font-size: 13px;
+
+    color: #6b7280;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.buttons {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+.buttons button {
+    flex: 1;
+
+    padding: 13px 20px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* =========================================
+   CREATE TEAM BUTTON
+========================================= */
+
+.create-btn {
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
+}
+
+.create-btn:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.28);
+}
+
+.create-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-btn {
+    background: #ffffff;
+
+    color: #374151;
+
+    border: 1px solid #d1d5db !important;
+}
+
+.back-btn:hover {
+    background: #f8fafc;
+
+    border-color: #9ca3af !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+#message {
+    min-height: 20px;
+
+    margin-top: 20px;
+
+    padding: 0 3px;
+
+    font-size: 14px;
+
+    color: #2563eb;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 28px 22px;
+
+        border-radius: 15px;
+    }
+
+    .header h1 {
+        font-size: 26px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .buttons button {
+        width: 100%;
+    }
+}
+```

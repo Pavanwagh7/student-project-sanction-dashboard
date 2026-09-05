@@ -1,135 +1,83 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login</title>
 
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f2f5;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            width: 300px;
-            text-align: center;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #1877f2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #166fe5;
-        }
-
-        .link {
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .link a {
-            text-decoration: none;
-            color: #1877f2;
-        }
-
-        #message {
-            margin-top: 10px;
-            font-size: 14px;
-        }
-    </style>
+    <!-- Login CSS -->
+    <link rel="stylesheet" href="css/login.css">
 </head>
+
 <body>
 
 <div class="container">
-    <h2>Login</h2>
 
+    <!-- Header -->
+    <div class="header">
+        <h1>Login</h1>
+        <p>Sign in to continue to your account</p>
+    </div>
+
+
+    <!-- Login Form -->
     <form id="loginForm">
-        <input type="text" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Login</button>
+
+        <div class="form-group">
+
+            <label for="email">Email</label>
+
+            <input
+                    type="text"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="password">Password</label>
+
+            <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+            >
+
+        </div>
+
+
+        <button type="submit" class="login-btn">
+            Login
+        </button>
+
     </form>
 
-    <!-- Navigation -->
-    <p class="link">
-        New Student? <a href="register.html">Register here</a>
+
+    <!-- Register Link -->
+    <p class="register-link">
+        New Student?
+        <a href="register.html">Register here</a>
     </p>
 
+
+    <!-- Server Message -->
     <p id="message"></p>
+
 </div>
 
-<script>
 
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-
-        e.preventDefault();
-
-        let data = {
-            email: document.getElementById("email").value,
-            password: document.getElementById("password").value
-        };
-
-        fetch("/users/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-
-        .then(response => response.text())
-
-.then(data => {
-
-    console.log("Server response:", data);
-
-    if (data.includes("Login Successfully")) {
-
-        window.location.href = "/dashboard.html";
-
-    } else {
-
-        document.getElementById("message").innerText = data;
-
-    }
-
-})
-
-        .catch(error => {
-
-            console.error(error);
-
-            document.getElementById("message").innerText =
-                "Something went wrong!";
-
-        });
-
-    });
-
-</script>
+<!-- JavaScript -->
+<script src="js/login.js"></script>
 
 </body>
+
 </html>
+

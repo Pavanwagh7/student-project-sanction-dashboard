@@ -1,155 +1,134 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f2f5;
-            font-family: Arial, sans-serif;
-        }
+    <title>Register - ProjStu</title>
 
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            width: 300px;
-            text-align: center;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        .link {
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .link a {
-            text-decoration: none;
-            color: #1877f2;
-        }
-
-        #message {
-            margin-top: 10px;
-            font-size: 14px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/register.css">
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Register</h2>
+<div class="page-container">
 
-    <form id="registerForm">
-        <input type="text" id="email" placeholder="Email" required>
-        <input type="text" id="fullName" placeholder="Full Name" required>
+    <div class="register-card">
 
-        <select id="department" required>
-            <option value="">Select Branch</option>
-            <option value="CSE">CSE</option>
-            <option value="DS">DS</option>
-            <option value="AIML">AIML</option>
-            <option value="AIDS">AIDS</option>
-            <option value="IT">IT</option>
-            <option value="ETC">ETC</option>
-            <option value="EE">EE</option>
-            <option value="MECH">MECH</option>
-            <option value="CIVIL">CIVIL</option>
-        </select>
+        <!-- Header -->
+        <div class="register-header">
 
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Register</button>
-    </form>
+            <div class="logo-icon">
+                🎓
+            </div>
 
-    <!-- Navigation -->
-    <p class="link">
-        Already have an account? <a href="login.html">Login here</a>
-    </p>
+            <h1>Create Account</h1>
 
-    <p id="message"></p>
+            <p>
+                Register your account to get started with ProjStu.
+            </p>
+
+        </div>
+
+
+        <!-- Registration Form -->
+        <form id="registerForm">
+
+            <div class="form-group">
+
+                <label for="email">Email</label>
+
+                <input
+                        type="text"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="fullName">Full Name</label>
+
+                <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Enter your full name"
+                        required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="department">Branch</label>
+
+                <select id="department" required>
+
+                    <option value="">
+                        Select Branch
+                    </option>
+
+                    <option value="CSE">CSE</option>
+                    <option value="DS">DS</option>
+                    <option value="AIML">AIML</option>
+                    <option value="AIDS">AIDS</option>
+                    <option value="IT">IT</option>
+                    <option value="ETC">ETC</option>
+                    <option value="EE">EE</option>
+                    <option value="MECH">MECH</option>
+                    <option value="CIVIL">CIVIL</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">Password</label>
+
+                <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                >
+
+            </div>
+
+
+            <button
+                    type="submit"
+                    class="register-btn">
+                Register
+            </button>
+
+        </form>
+
+
+        <!-- Login Navigation -->
+        <p class="login-link">
+            Already have an account?
+            <a href="login.html">Login here</a>
+        </p>
+
+
+        <!-- Message -->
+        <p id="message"></p>
+
+    </div>
+
 </div>
 
-<script>
-    document.getElementById("registerForm").addEventListener("submit", function(e) {
 
-        e.preventDefault();
-
-        let data = {
-            email: document.getElementById("email").value,
-            fullName: document.getElementById("fullName").value,
-            department: document.getElementById("department").value,
-            password: document.getElementById("password").value
-        };
-
-        fetch("/users/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.text())
-        .then(data => {
-
-            let messageElement = document.getElementById("message");
-
-
-            messageElement.innerText = data;
-
-
-            if(data.includes("opened")) {
-
-                // Create button
-                let btn = document.createElement("button");
-                btn.innerText = "Go to Login";
-                btn.style.marginTop = "10px";
-                btn.style.backgroundColor = "#1877f2";
-
-                // Redirect when clicked
-                btn.onclick = function() {
-                    window.location.href = "login.html";
-                };
-
-                // Replace message and add button
-                messageElement.innerHTML = data;
-                messageElement.appendChild(document.createElement("br"));
-                messageElement.appendChild(btn);
-            }
-
-        })
-        .catch(error => {
-            document.getElementById("message").innerText = "Something went wrong!";
-        });
-
-    });
-</script>
+<script src="js/register.js"></script>
 
 </body>
+
 </html>
