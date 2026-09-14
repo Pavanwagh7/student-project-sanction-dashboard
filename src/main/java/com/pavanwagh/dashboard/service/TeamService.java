@@ -1,21 +1,17 @@
 package com.pavanwagh.dashboard.service;
 
 import com.pavanwagh.dashboard.dto.SubmitProposalRequest;
-import com.pavanwagh.dashboard.entity.JoinRequest;
-import com.pavanwagh.dashboard.entity.ProjectProposal;
-import com.pavanwagh.dashboard.entity.Student;
-import com.pavanwagh.dashboard.entity.Team;
+import com.pavanwagh.dashboard.dto.TeamMemberResponse;
+import com.pavanwagh.dashboard.entity.*;
 import com.pavanwagh.dashboard.enums.ProposalStatus;
 import com.pavanwagh.dashboard.enums.RequestStatus;
-import com.pavanwagh.dashboard.repository.JoinRequestRepository;
-import com.pavanwagh.dashboard.repository.ProposalRepository;
-import com.pavanwagh.dashboard.repository.StudentRepository;
-import com.pavanwagh.dashboard.repository.TeamRepository;
+import com.pavanwagh.dashboard.repository.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -25,10 +21,12 @@ public class TeamService {
     private final TeamRepository teamRepository;
     private final JoinRequestRepository joinRequestRepository;
     private final StudentRepository studentRepository;
+    private final UserRepository userRepository;
     private final ProposalRepository proposalRepository;
 
     // Constructor
-    public TeamService(TeamRepository teamRepository, JoinRequestRepository joinRequestRepository, StudentRepository studentRepository, ProposalRepository proposalRepository) {
+    public TeamService(UserRepository userRepository, TeamRepository teamRepository, JoinRequestRepository joinRequestRepository, StudentRepository studentRepository, ProposalRepository proposalRepository) {
+        this.userRepository = userRepository;
         this.teamRepository = teamRepository;
         this.joinRequestRepository = joinRequestRepository;
         this.studentRepository = studentRepository;
@@ -165,20 +163,20 @@ public class TeamService {
         joinRequestRepository.save(request);
     }
 
-    public List<Student> getTeamMembers(Long teamId) {
-        return studentRepository.findByTeamId(teamId);
+    public ResponseEntity<List<TeamMemberResponse>> getTeamMembers(Long teamId) {
+        List<Student> students = studentRepository.findByTeamId(teamId);
+
+        List<TeamMemberResponse> teamMembers = new ArrayList<>();
+
+        for (Student student : students) {
+            User user = userRepository.findById(student.getStudentUserId()).orElse(null);
+
+            if (user != null) {
+                TeamMemberResponse response = new TeamMemberResponse(user.getEmail(),user.getFullName());
+                teamMembers.add(response);
+            }
+        }
+        return ResponseEntity.ok().body(teamMembers);
     }
 
-    public ResponseEntity<String> submitProposal(SubmitProposalRequest submitProposalRequest){
-        ProjectProposal projectProposal=new ProjectProposal(submitProposalRequest.getTeamId(),
-                submitProposalRequest.getTitle(),
-                submitProposalRequest.getDescription(),
-                submitProposalRequest.getFileName(),
-                submitProposalRequest.getFilePath(),
-                submitProposalRequest.getStatus()
-        );
-
-        proposalRepository.save(projectProposal);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Proposal is submited");
-    }
 }

@@ -1,29 +1,23 @@
-```javascript
-/*
- * =========================================
- * ProjStu - My Team
- * =========================================
- */
-
-
-/*
- * First get team information
- */
+console.log("MY TEAM JS IS WORKING");
 
 fetch("/my_team/details")
 
     .then(response => {
 
+        console.log("Details response status =", response.status);
+
         if (!response.ok) {
-            throw new Error("Unable to get team information");
+            throw new Error("Unable to get team details");
         }
 
         return response.json();
-
     })
 
     .then(team => {
 
+        console.log("Team received =", team);
+
+        // Display team details
         document.getElementById("teamName").innerText =
             team.teamName;
 
@@ -34,186 +28,49 @@ fetch("/my_team/details")
             team.leaderName;
 
 
-        /*
-         * Get Team Members
-         */
+        // Get team members
+        console.log("Calling get_team_members...");
 
-        fetch("/my_team/get_team_members?teamId=" + team.teamId)
-
-            .then(response => {
-
-                if (!response.ok) {
-                    throw new Error("Unable to get team members");
-                }
-
-                return response.text();
-
-            })
-
-            .then(data => {
-
-                const memberList =
-                    document.getElementById("teamMembers");
-
-                memberList.innerHTML = "";
-
-
-                /*
-                 * Backend returned message
-                 */
-
-                if (data === "No members added yet.") {
-
-                    memberList.innerHTML =
-                        "<li>No members added yet.</li>";
-
-                    return;
-                }
-
-
-                /*
-                 * Backend returned JSON list
-                 */
-
-                const members = JSON.parse(data);
-
-                members.forEach(member => {
-
-                    const li =
-                        document.createElement("li");
-
-                    li.innerText =
-                        "Student ID: " +
-                        member.studentUserId;
-
-                    memberList.appendChild(li);
-
-                });
-
-            })
-
-            .catch(error => {
-
-                console.log(error);
-
-                document.getElementById("teamMembers").innerHTML =
-                    "<li>Unable to load team members.</li>";
-
-            });
-
+        return fetch("/my_team/get_team_members");
     })
-
-    .catch(error => {
-
-        console.log(error);
-
-        document.getElementById("teamName").innerText =
-            "Unable to load team";
-
-    });
-
-
-/*
- * =========================================
- * Get Pending Join Requests
- * =========================================
- */
-
-fetch("/my_team/get_join_request_list", {
-
-    method: "POST"
-
-})
 
     .then(response => {
 
+        console.log("Members response status =", response.status);
+
         if (!response.ok) {
-            throw new Error("Unable to get join requests");
+            throw new Error("Unable to get team members");
         }
 
         return response.json();
-
     })
 
-    .then(requests => {
+    .then(members => {
 
-        const requestList =
-            document.getElementById("joinRequests");
+        console.log("Members received =", members);
 
-        requestList.innerHTML = "";
+        const memberList =
+            document.getElementById("teamMembers");
 
+        memberList.innerHTML = "";
 
-        /*
-         * No pending requests
-         */
+        if (members.length === 0) {
 
-        if (requests.length === 0) {
-
-            requestList.innerHTML =
-                "<li>No pending requests.</li>";
+            memberList.innerHTML =
+                "<li>No members added yet.</li>";
 
             return;
         }
 
-
-        /*
-         * Display requests
-         */
-
-        requests.forEach(request => {
+        members.forEach(member => {
 
             const li =
                 document.createElement("li");
 
-
             li.innerText =
-                "Student ID: " +
-                request.studentUserId + " ";
+                member.name + " - " + member.email;
 
-
-            /*
-             * Accept button
-             */
-
-            const acceptButton =
-                document.createElement("button");
-
-            acceptButton.innerText = "Accept";
-
-            acceptButton.onclick = function () {
-
-                respondToJoinRequest(
-                    request.joinRequestId,
-                    "ACCEPTED"
-                );
-
-            };
-
-
-            /*
-             * Reject button
-             */
-
-            const rejectButton =
-                document.createElement("button");
-
-            rejectButton.innerText = "Reject";
-
-            rejectButton.onclick = function () {
-
-                respondToJoinRequest(
-                    request.joinRequestId,
-                    "REJECTED"
-                );
-
-            };
-
-
-            li.appendChild(acceptButton);
-
-            li.appendChild(rejectButton);
-
-            requestList.appendChild(li);
+            memberList.appendChild(li);
 
         });
 
@@ -221,55 +78,6 @@ fetch("/my_team/get_join_request_list", {
 
     .catch(error => {
 
-        console.log(error);
-
-        document.getElementById("joinRequests").innerHTML =
-            "<li>Unable to load requests.</li>";
+        console.error("ERROR =", error);
 
     });
-
-
-/*
- * =========================================
- * Respond to Join Request
- * =========================================
- */
-
-function respondToJoinRequest(requestId, requestStatus) {
-
-    fetch("/my_team/respond_to_join_request", {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-
-            requestId: requestId,
-
-            requestStatus: requestStatus
-
-        })
-
-    })
-
-    .then(response => response.text())
-
-    .then(data => {
-
-        console.log(data);
-
-        location.reload();
-
-    })
-
-    .catch(error => {
-
-        console.error(error);
-
-    });
-
-}
-```
