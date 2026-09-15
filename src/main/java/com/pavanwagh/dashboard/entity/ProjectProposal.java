@@ -2,6 +2,9 @@ package com.pavanwagh.dashboard.entity;
 
 import com.pavanwagh.dashboard.enums.ProposalStatus;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "project_proposals")
@@ -28,7 +31,10 @@ public class ProjectProposal {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "proposal_status")
-    private ProposalStatus proposalStatus ;
+    private ProposalStatus proposalStatus;
+
+    @CreationTimestamp
+    private LocalDateTime submittedAt;
 
     // Constructors
     public ProjectProposal() { } // Default Constructor required JPA
@@ -42,6 +48,14 @@ public class ProjectProposal {
     }
 
     // Getters And Setters
+    public LocalDateTime getSubmittedAt() {
+        return submittedAt;
+    }
+
+    public void setSubmittedAt(LocalDateTime submittedAt) {
+        this.submittedAt = submittedAt;
+    }
+
     public Long getProposalId() {
         return proposalId;
     }

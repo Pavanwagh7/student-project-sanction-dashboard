@@ -1,9 +1,6 @@
 package com.pavanwagh.dashboard.controller;
 
-import com.pavanwagh.dashboard.dto.JoinRequestResponse;
-import com.pavanwagh.dashboard.dto.JoinTeamRequest;
-import com.pavanwagh.dashboard.dto.SubmitProposalRequest;
-import com.pavanwagh.dashboard.dto.TeamRequest;
+import com.pavanwagh.dashboard.dto.*;
 import com.pavanwagh.dashboard.entity.JoinRequest;
 import com.pavanwagh.dashboard.entity.Student;
 import com.pavanwagh.dashboard.entity.Team;
@@ -122,7 +119,8 @@ public class TeamController {
                 "teamId", team.getTeamId(),
                 "teamName", team.getTeamName(),
                 "teamCode", team.getTeamCode(),
-                "leaderName", leader.getFullName() );
+                "leaderName", leader.getFullName(),
+                "isLeader", team.getLeaderUserId() == userId);
 
         return ResponseEntity.ok(teamDetails);
     }
@@ -147,17 +145,20 @@ public class TeamController {
 
     // Get Pending Join Requests
     @PostMapping("/get_join_request_list")
-    public List<JoinRequest> getJoinRequests(HttpSession session) {
+    public List<GetJoinRequest> getJoinRequests(HttpSession session) {
 
         Long userId = (Long) session.getAttribute("userId");
+
         if (userId == null) {
             return List.of();
         }
 
         Team team = teamRepository.findByLeaderUserId(userId);
+
         if (team == null) {
             return List.of();
         }
+
         Long teamId = team.getTeamId();
 
         return teamService.getJoinRequests(teamId);

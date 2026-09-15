@@ -10,7 +10,7 @@ public class SubmitProposalRequest {
     private String filePath;
     private ProposalStatus status;
 
-
+    // Getters and Setters
     public String getTitle() {
         return title;
     }

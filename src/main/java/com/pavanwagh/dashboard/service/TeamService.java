@@ -1,5 +1,6 @@
 package com.pavanwagh.dashboard.service;
 
+import com.pavanwagh.dashboard.dto.GetJoinRequest;
 import com.pavanwagh.dashboard.dto.SubmitProposalRequest;
 import com.pavanwagh.dashboard.dto.TeamMemberResponse;
 import com.pavanwagh.dashboard.entity.*;
@@ -124,8 +125,36 @@ public class TeamService {
 
 
     // Provide pending join requests to Team Leader
-    public List<JoinRequest> getJoinRequests(Long teamId) {
-        return joinRequestRepository.findByTeamIdAndRequestStatus(teamId, RequestStatus.PENDING);
+    public List<GetJoinRequest> getJoinRequests(Long teamId) {
+
+        List<JoinRequest> requests =
+                joinRequestRepository.findByTeamIdAndRequestStatus(
+                        teamId,
+                        RequestStatus.PENDING
+                );
+
+        List<GetJoinRequest> joinRequests = new ArrayList<>();
+
+        for (JoinRequest request : requests) {
+
+            User user = userRepository
+                    .findById(request.getStudentUserId())
+                    .orElse(null);
+
+            if (user != null) {
+
+                GetJoinRequest response =
+                        new GetJoinRequest(
+                                request.getJoinRequestId(),
+                                user.getFullName(),
+                                user.getEmail()
+                        );
+
+                joinRequests.add(response);
+            }
+        }
+
+        return joinRequests;
     }
 
     // Accept or reject the join request
