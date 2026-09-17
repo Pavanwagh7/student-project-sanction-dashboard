@@ -99,4 +99,27 @@ public class ProjectController {
 
         return ResponseEntity.ok(projectService.getTeamProposals(teamId));
     }
+
+    @DeleteMapping("/delete_proposal/{proposalId}")
+    public ResponseEntity<String> deleteProposal(@PathVariable Long proposalId, HttpSession session) {
+        Long studentId = (Long) session.getAttribute("userId");
+        if (studentId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
+        }
+
+        Student student = studentRepository.findById(studentId).orElse(null);
+        if (student == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Student record not found.");
+        }
+
+        Long teamId = student.getTeamId();
+        if (teamId == null) {
+            return ResponseEntity.badRequest()
+                    .body("You are not a part of any team.");
+        }
+
+        return projectService.deleteProposal(proposalId, teamId);
+    }
+
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -47,6 +48,25 @@ public class ProjectService {
 
         proposalRepository.save(projectProposal);
         return ResponseEntity.status(HttpStatus.CREATED).body("Proposal is submited");
+    }
+
+    public ResponseEntity<String> deleteProposal(Long proposalId, Long teamId) {
+        ProjectProposal proposal = proposalRepository.findById(proposalId).orElse(null);
+        if (proposal == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Proposal not found.");
+        }
+        if (!proposal.getTeamId().equals(teamId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("You are not allowed to delete this proposal.");
+        }
+
+        File file = new File(proposal.getPdfFilePath() + proposal.getPdfFileName());
+        if (file.exists()) {
+            file.delete();
+        }
+
+        proposalRepository.deleteById(proposalId);
+        return ResponseEntity.ok("Proposal deleted successfully.");
     }
 
     public List<ProjectProposal> getTeamProposals(Long teamId) {

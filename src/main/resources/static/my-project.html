@@ -4,11 +4,9 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>My Project</title>
+    <title>ProJSetu - My Project</title>
 
     <link rel="stylesheet" href="css/my-project.css">
 
@@ -17,327 +15,370 @@
 
 <body>
 
-<div class="page-container">
+
+<div class="dashboard-container">
 
 
-    <!-- ================= PAGE HEADER ================= -->
+    <!-- ================= SIDEBAR ================= -->
 
-    <div class="page-header">
+    <aside class="sidebar">
 
-        <div>
+        <div class="logo">
+            ProJ<span>Setu</span>
+        </div>
 
-            <p class="page-label">
-                PROJECT MANAGEMENT
-            </p>
 
-            <h1>
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="nav-item">
+
+                <span>⌂</span>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="create-team.html" class="nav-item">
+
+                <span>👥</span>
+
+                Create Team
+
+            </a>
+
+
+            <a href="join-team.html" class="nav-item">
+
+                <span>＋</span>
+
+                Join Team
+
+            </a>
+
+
+            <a href="my-team.html" class="nav-item">
+
+                <span>◉</span>
+
+                My Team
+
+            </a>
+
+
+            <a href="my-project.html" class="nav-item active">
+
+                <span>📋</span>
+
                 My Project
-            </h1>
 
-            <p class="page-description">
-                Manage your project proposal and project progress.
-            </p>
-
-        </div>
+            </a>
 
 
-        <button
-                class="back-btn"
-                onclick="window.location.href='dashboard.html'">
+            <a href="#" class="nav-item">
 
-            ← Back to Dashboard
+                <span>🔔</span>
 
-        </button>
+                Announcements
 
-    </div>
+            </a>
 
-
-
-    <!-- ================= PROJECT OVERVIEW ================= -->
-
-    <div class="project-info-card">
-
-        <div class="project-icon">
-            📋
-        </div>
+        </nav>
 
 
-        <div class="project-details">
+        <div class="sidebar-bottom">
 
-            <p class="project-label">
-                MY PROJECT
-            </p>
+            <button onclick="logout()" class="logout-btn">
 
-            <h2 id="projectTitle">
-                No proposal submitted
-            </h2>
+                <span>↪</span>
 
-            <p id="projectDescription">
-                Submit your team's project proposal to get started.
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ================= PROJECT CONTENT ================= -->
-
-    <div class="content-grid">
-
-
-        <!-- ================= PROJECT PROPOSAL ================= -->
-
-        <div class="content-card">
-
-            <div class="card-header">
-
-                <div>
-
-                    <h2>
-                        Project Proposal
-                    </h2>
-
-                    <p>
-                        Submit your team's project proposal.
-                    </p>
-
-                </div>
-
-
-                <span class="card-icon">
-                    📄
-                </span>
-
-            </div>
-
-
-            <!-- Proposal Status -->
-
-            <div class="proposal-status">
-
-                <span>
-                    Status
-                </span>
-
-                <strong id="proposalStatus">
-                    Not Submitted
-                </strong>
-
-            </div>
-
-
-            <!-- Proposal Information -->
-
-            <div class="proposal-info">
-
-                <div>
-
-                    <span>
-                        Submitted On
-                    </span>
-
-                    <strong id="submittedAt">
-                        —
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span>
-                        Proposal File
-                    </span>
-
-                    <strong id="proposalFile">
-                        —
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- Submit Button -->
-
-            <button
-                    class="primary-btn"
-                    id="submitProposalButton">
-
-                Submit Project Proposal
+                Logout
 
             </button>
 
         </div>
 
+    </aside>
 
 
-        <!-- ================= PROJECT PROGRESS ================= -->
 
-        <div class="content-card">
+    <!-- ================= MAIN CONTENT ================= -->
 
-            <div class="card-header">
+    <main class="main-content">
+
+
+        <!-- TOP HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Student Dashboard
+                </p>
+
+                <h1>
+                    My Project
+                </h1>
+
+            </div>
+
+
+            <div class="profile-box">
+
+                <div class="profile-avatar">
+
+                    <span id="profileInitial">
+                        S
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong id="profileName">
+                        Student
+                    </strong>
+
+                    <small>
+                        Student
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= PROJECT SECTION ================= -->
+
+        <section class="section">
+
+
+            <div class="section-title">
 
                 <div>
 
                     <h2>
-                        Project Progress
+                        My Project Proposals
                     </h2>
 
                     <p>
-                        Track your team's project progress.
+                        Manage your team's project proposals
                     </p>
 
                 </div>
 
 
-                <span class="card-icon">
-                    🚀
-                </span>
+                <button
+                        id="newProposalBtn"
+                        class="new-proposal-btn">
+
+                    + New Proposal
+
+                </button>
 
             </div>
 
 
-            <div class="progress-list">
 
+            <!-- ================= NO PROPOSAL MESSAGE ================= -->
 
-                <div class="progress-item">
+            <div
+                    id="noProposals"
+                    class="no-proposals">
 
-                    <div class="progress-icon">
-                        1
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Project Proposal
-                        </strong>
-
-                        <p>
-                            Submit your project proposal.
-                        </p>
-
-                    </div>
-
+                <div class="empty-icon">
+                    📋
                 </div>
 
+                <h3>
+                    No proposals submitted
+                </h3>
 
-                <div class="progress-item">
-
-                    <div class="progress-icon">
-                        2
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Guide Review
-                        </strong>
-
-                        <p>
-                            Your guide will review the proposal.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="progress-item">
-
-                    <div class="progress-icon">
-                        3
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Project Development
-                        </strong>
-
-                        <p>
-                            Work on the approved project.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="progress-item">
-
-                    <div class="progress-icon">
-                        4
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Final Submission
-                        </strong>
-
-                        <p>
-                            Submit the completed project.
-                        </p>
-
-                    </div>
-
-                </div>
-
+                <p>
+                    Your team hasn't submitted any project proposals yet.
+                </p>
 
             </div>
 
-        </div>
-
-    </div>
 
 
+            <!-- ================= PROPOSALS ================= -->
 
-    <!-- ================= SUBMISSION INFORMATION ================= -->
+            <div
+                    id="proposalsContainer"
+                    class="proposals-container">
 
-    <div class="information-card">
-
-        <div class="information-icon">
-            💡
-        </div>
+            </div>
 
 
-        <div>
+        </section>
 
-            <h3>
-                Before submitting your proposal
-            </h3>
+
+
+        <!-- ================= NEW PROPOSAL FORM ================= -->
+
+        <section
+                id="proposalFormContainer"
+                class="section proposal-form-section">
+
+
+            <div class="proposal-form-card">
+
+
+                <div class="form-header">
+
+                    <div>
+
+                        <h2>
+                            New Project Proposal
+                        </h2>
+
+                        <p>
+                            Submit a new proposal for your team project
+                        </p>
+
+                    </div>
+
+
+                    <button
+                            id="closeFormBtn"
+                            class="close-btn">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+
+
+                <form id="proposalForm">
+
+
+                    <!-- TITLE -->
+
+                    <div class="form-group">
+
+                        <label for="title">
+                            Project Title
+                        </label>
+
+                        <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                placeholder="Enter project title"
+                                required>
+
+                    </div>
+
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group">
+
+                        <label for="description">
+                            Project Description
+                        </label>
+
+                        <textarea
+                                id="description"
+                                name="description"
+                                placeholder="Enter project description"
+                                required>
+                        </textarea>
+
+                    </div>
+
+
+
+                    <!-- PDF -->
+
+                    <div class="form-group">
+
+                        <label for="file">
+                            Proposal PDF
+                        </label>
+
+                        <input
+                                type="file"
+                                id="file"
+                                name="file"
+                                accept=".pdf,application/pdf"
+                                required>
+
+                        <small class="file-help">
+                            Only PDF files are allowed.
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- FORM BUTTONS -->
+
+                    <div class="form-actions">
+
+                        <button
+                                type="button"
+                                id="cancelProposalBtn"
+                                class="cancel-btn">
+
+                            Cancel
+
+                        </button>
+
+
+                        <button
+                                type="submit"
+                                class="submit-btn">
+
+                            Submit Proposal
+
+                        </button>
+
+                    </div>
+
+
+                    <p id="formMessage"></p>
+
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
 
             <p>
-                Make sure your project title, description and
-                proposal PDF are ready before submitting.
+
+                © 2026 <strong>ProJSetu</strong>.
+                Built for College Projects.
+
             </p>
 
-        </div>
-
-    </div>
+        </footer>
 
 
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <p>
-            © 2026 <strong>ProJSetu</strong>.
-            Built for College Projects.
-        </p>
-
-    </footer>
-
+    </main>
 
 </div>
 
 
 
 <script src="js/my-project.js"></script>
+
 
 </body>
 
