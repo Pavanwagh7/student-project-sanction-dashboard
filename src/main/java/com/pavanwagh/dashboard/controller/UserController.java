@@ -4,6 +4,7 @@ package com.pavanwagh.dashboard.controller;
 import com.pavanwagh.dashboard.dto.LoginRequest;
 import com.pavanwagh.dashboard.dto.RegisterRequest;
 import com.pavanwagh.dashboard.entity.User;
+import com.pavanwagh.dashboard.enums.RoleEnum;
 import com.pavanwagh.dashboard.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
@@ -141,7 +142,7 @@ public class UserController {
             default: return ResponseEntity.badRequest().body("Enter valid Branch.");
         }
 
-        userService.registration(email, password, name, department, "STUDENT");
+        userService.registration(email, password, name, department, RoleEnum.STUDENT);
         return ResponseEntity.status(HttpStatus.CREATED).body("Account is opened,try logging in.") ;
     }
 }

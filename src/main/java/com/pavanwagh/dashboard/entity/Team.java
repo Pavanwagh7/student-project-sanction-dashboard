@@ -22,6 +22,9 @@ public class Team {
     @Column(name = "current_member_count")
     private int currentMemberCount;
 
+    @Column(name = "guide_user_id")
+    private Long guideUserId;
+
 
     // Constructors
     public Team () { }//Default Constructor -  For JPA
@@ -32,7 +35,7 @@ public class Team {
         this.currentMemberCount = 1; // this actually happen when student will create a new team with one member himself/ herself only
     }
 
-    // Getters
+    // Getters and Setters
     public int getCurrentMemberCount() {
         return currentMemberCount;
     }
@@ -48,21 +51,25 @@ public class Team {
     public Long getTeamId() {
         return teamId;
     }
-
-    // Setters
     public void setTeamName(String teamName) {
         this.teamName = teamName;
     }
-
     public void setTeamCode(String teamCode) {
         this.teamCode = teamCode;
     }
-
     public void setLeaderUserId(long leaderUserId) {
         this.leaderUserId = leaderUserId;
     }
-
     public void setCurrentMemberCount(int currentMemberCount) {
         this.currentMemberCount = currentMemberCount;
+    }
+    public Long getGuideUserId() {
+        return guideUserId;
+    }
+    public void setGuideUserId(Long guideUserId) {
+        this.guideUserId = guideUserId;
+    }
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 }

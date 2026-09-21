@@ -4,6 +4,7 @@ package com.pavanwagh.dashboard.service;
 
 import com.pavanwagh.dashboard.entity.Student;
 import com.pavanwagh.dashboard.entity.User;
+import com.pavanwagh.dashboard.enums.RoleEnum;
 import com.pavanwagh.dashboard.repository.StudentRepository;
 import com.pavanwagh.dashboard.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class UserService {
 
         return false;
     }
-    public void registration (String email,String password,String fullName,String department,String role) {
+    public void registration (String email, String password, String fullName, String department, RoleEnum role) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hashedPassword = encoder.encode(password);
         User newUser = new User(email,hashedPassword,fullName,department,role);

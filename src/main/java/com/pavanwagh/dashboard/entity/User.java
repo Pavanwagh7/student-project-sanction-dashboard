@@ -1,5 +1,6 @@
 package com.pavanwagh.dashboard.entity;
 
+import com.pavanwagh.dashboard.enums.RoleEnum;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,13 +19,13 @@ public class User {
     private String fullName;
 
     private String department;
-    private String role;
+    private RoleEnum role;
 
     //Default Constructor (required by JPA)
     public User() {}
 
 
-    public User(String email, String password, String fullName, String department, String role) {
+    public User(String email, String password, String fullName, String department, RoleEnum role) {
         this.email = email;
         this.password = password;
         this.fullName = fullName;
@@ -53,7 +54,7 @@ public class User {
         return department;
     }
 
-    public String getRole() {
+    public RoleEnum getRole() {
         return role;
     }
 
@@ -74,7 +75,7 @@ public class User {
         this.department = department;
     }
 
-    public void setRole(String role) {
+    public void setRole(RoleEnum role) {
         this.role = role;
     }
 }
