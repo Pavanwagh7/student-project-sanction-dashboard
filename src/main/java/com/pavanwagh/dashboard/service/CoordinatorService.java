@@ -1,6 +1,7 @@
 package com.pavanwagh.dashboard.service;
 
 
+import com.pavanwagh.dashboard.entity.Guide;
 import com.pavanwagh.dashboard.entity.Team;
 import com.pavanwagh.dashboard.repository.GuideRepository;
 import com.pavanwagh.dashboard.repository.TeamRepository;
@@ -26,6 +27,10 @@ public class CoordinatorService {
         Team team = teamRepository.findById(teamId).orElse(null);
         if (team == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Team not found");
+        }
+        Guide guide = guideRepository.findById(guideUserId).orElse(null);
+        if (guide == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Guide not found");
         }
         if(team.getGuideUserId() == null) {
             // You can assign guide
