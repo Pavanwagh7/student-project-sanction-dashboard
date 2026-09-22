@@ -19,6 +19,8 @@ public class User {
     private String fullName;
 
     private String department;
+
+    @Enumerated(EnumType.STRING)
     private RoleEnum role;
 
     //Default Constructor (required by JPA)

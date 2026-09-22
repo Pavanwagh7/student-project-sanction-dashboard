@@ -21,8 +21,8 @@ public class CoordinatorService {
     }
 
     public ResponseEntity<String> assignGuide (Long guideUserId, Long teamId) {
-        if (teamId == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid team id.");
-        if (guideUserId == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid guide User Id.");
+        if (teamId == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid team ID.");
+        if (guideUserId == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid guide user ID.");
 
         Team team = teamRepository.findById(teamId).orElse(null);
         if (team == null) {
@@ -35,11 +35,12 @@ public class CoordinatorService {
         if(team.getGuideUserId() == null) {
             // You can assign guide
             team.setGuideUserId(guideUserId);
+            teamRepository.save(team);
             return ResponseEntity.ok().body("Guide assigned successfully.");
         }
         else {
             // guide already assigned
-            return ResponseEntity.ok().body("Already Assigned");
+            return ResponseEntity.ok().body("A guide is already assigned to this team.");
         }
     }
 }
