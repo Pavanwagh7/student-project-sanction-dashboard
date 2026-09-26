@@ -37,9 +37,21 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
         // Login successful
         if (data.includes("Login Successfully")) {
-
-            window.location.href = "/dashboard.html";
-
+            // Fetch the user's role to send them to their rightful dashboard!
+                fetch("/users/me")
+                    .then(res => res.json())
+                    .then(user => {
+                        if (user.role === "COORDINATOR") {
+                            window.location.href = "/coordinator.html";
+                        } else if (user.role === "GUIDE") {
+                            window.location.href = "/guide.html"; // When built
+                        } else {
+                            window.location.href = "/dashboard.html"; // Students
+                        }
+                    })
+                    .catch(() => {
+                        window.location.href = "/dashboard.html";
+                    });
         }
 
         else {

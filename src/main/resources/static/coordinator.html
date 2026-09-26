@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProJSetu - Coordinator Dashboard</title>
+
+    <!-- Honoring Lord ChatGPT's Styling Architecture -->
+    <link rel="stylesheet" href="css/coordinator.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- ================= 1. SIDEBAR ================= -->
+    <aside class="sidebar">
+        <div class="logo">
+            ProJ<span>Setu</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="coordinator.html" class="nav-item active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+            <a href="#teamsSection" class="nav-item">
+                <span>👥</span>
+                Teams Allocation
+            </a>
+            <a href="#proposalsSection" class="nav-item">
+                <span>📋</span>
+                Project Approvals
+            </a>
+            <a href="#guidesSection" class="nav-item">
+                <span>👨‍🏫</span>
+                Faculty Guides
+            </a>
+            <a href="#" class="nav-item">
+                <span>🔔</span>
+                Announcements
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button onclick="logout()" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- ================= 2. MAIN CONTENT ================= -->
+    <main class="main-content">
+
+        <!-- Top Header & Profile Bar -->
+        <header class="top-header">
+            <div>
+                <p class="small-heading">Coordinator Portal</p>
+                <h1>Welcome, <span id="coordinatorName">Coordinator</span> 👋</h1>
+            </div>
+
+            <div class="profile-box">
+                <div class="profile-avatar">
+                    <span id="profileInitial">C</span>
+                </div>
+                <div>
+                    <strong id="profileName">Coordinator</strong>
+                    <small id="coordinatorDeptBadge">Department</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- Department Overview Banner / Stats -->
+        <section class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-details">
+                    <span class="stat-label">Pending Allocation</span>
+                    <strong class="stat-value" id="unassignedCount">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">👨‍🏫</div>
+                <div class="stat-details">
+                    <span class="stat-label">Department Guides</span>
+                    <strong class="stat-value" id="guidesCount">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🏛️</div>
+                <div class="stat-details">
+                    <span class="stat-label">My Department</span>
+                    <strong class="stat-value" id="departmentCode">...</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 3. TEAMS ALLOCATION SECTION ================= -->
+        <section class="content-section" id="teamsSection">
+            <div class="section-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Teams Pending Guide Allocation</h2>
+                        <p class="card-subtitle">Select a team and assign an available department faculty member</p>
+                    </div>
+                    <span class="count-badge" id="teamCountBadge">0 Teams</span>
+                </div>
+
+                <!-- Table Wrapper -->
+                <div class="table-responsive">
+                    <table class="teams-table">
+                        <thead>
+                        <tr>
+                            <th>Team Name</th>
+                            <th>Team Code</th>
+                            <th>Current Members</th>
+                            <th style="text-align: right;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="teamsTableBody">
+                        <!-- Populated dynamically via coordinator.js -->
+                        <tr>
+                            <td colspan="4" class="empty-state">
+                                Loading unassigned teams...
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<!-- ================= 4. ASSIGNMENT MODAL ================= -->
+<div id="assignModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+
+        <div class="modal-header">
+            <h3>Assign Faculty Guide</h3>
+            <button type="button" class="close-btn" id="closeModalBtn">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <p class="modal-target-text">
+                Assigning guide for: <strong id="modalTeamName">Team Name</strong>
+            </p>
+            <input type="hidden" id="modalTeamId" />
+
+            <div class="form-group">
+                <label for="guideSelect" class="form-label">Select Faculty Guide</label>
+                <select id="guideSelect" class="form-select">
+                    <option value="">-- Choose a Faculty Guide --</option>
+                    <!-- Populated dynamically: Prof Name - X teams -->
+                </select>
+                <small class="form-help">Number indicates teams currently mentored by each faculty member.</small>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="cancel-btn" id="cancelModalBtn">Cancel</button>
+            <button type="button" class="submit-btn" id="confirmAssignBtn">Confirm Allocation</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= 5. SCRIPT ================= -->
+<script src="js/coordinator.js"></script>
+
+</body>
+</html>
