@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ProJSetu - Guide Dashboard</title>
+
+    <link rel="stylesheet" href="css/guide-dashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            ProJ<span>Setu</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="guide-dashboard.html" class="nav-item active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="#assignedTeams" class="nav-item">
+                <span>👥</span>
+                Assigned Teams
+            </a>
+
+            <a href="#proposals" class="nav-item">
+                <span>📋</span>
+                Proposals
+            </a>
+
+            <a href="#" class="nav-item">
+                <span>🔔</span>
+                Announcements
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button onclick="logout()" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+        <!-- TOP HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Guide Dashboard
+                </p>
+
+                <h1>
+                    Welcome, <span id="guideName">...</span> 👋
+                </h1>
+
+            </div>
+
+
+            <div class="profile-box">
+
+                <div class="profile-avatar">
+                    <span id="profileInitial">G</span>
+                </div>
+
+                <div>
+
+                    <strong id="profileName">
+                        Guide
+                    </strong>
+
+                    <small>
+                        Guide
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= WELCOME CARD ================= -->
+
+        <section class="welcome-card">
+
+            <div>
+
+                <span class="badge">
+                    👨‍🏫 ProJSetu Guide Portal
+                </span>
+
+                <h2>
+                    Manage Your
+                    <span>Project Teams</span>
+                </h2>
+
+                <p>
+                    View your assigned teams, review their project
+                    proposals and select the appropriate proposal
+                    for approval.
+                </p>
+
+            </div>
+
+            <div class="welcome-icon">
+                👨‍🏫
+            </div>
+
+        </section>
+
+
+        <!-- ================= ASSIGNED TEAMS ================= -->
+
+        <section class="section" id="assignedTeams">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        Assigned Teams
+                    </h2>
+
+                    <p>
+                        Teams assigned to you by the coordinator
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                    id="teamsContainer"
+                    class="teams-grid">
+
+                <div class="loading-card">
+                    Loading assigned teams...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUICK ACTION ================= -->
+
+        <section class="section" id="proposals">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        Guide Actions
+                    </h2>
+
+                    <p>
+                        Manage your assigned project teams
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions-grid">
+
+                <div class="action-card">
+
+                    <div class="action-icon">
+                        👥
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Assigned Teams
+                        </h3>
+
+                        <p>
+                            View all teams assigned to you
+                        </p>
+
+                    </div>
+
+                    <span class="arrow">
+                        ↓
+                    </span>
+
+                </div>
+
+
+                <div class="action-card">
+
+                    <div class="action-icon">
+                        📋
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Review Proposals
+                        </h3>
+
+                        <p>
+                            View and select team proposals
+                        </p>
+
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <p>
+                © 2026 <strong>ProJSetu</strong>.
+                Built for College Projects.
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="js/guide-dashboard.js"></script>
+
+</body>
+</html>

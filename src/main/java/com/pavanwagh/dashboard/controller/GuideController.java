@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.pavanwagh.dashboard.entity.ProjectProposal;
 import java.util.List;
 
 @RestController
@@ -35,5 +35,39 @@ public class GuideController {
         List<Team> teams = guideService.getAssignedTeams(guideUserId);
 
         return ResponseEntity.ok(teams);
+    }
+
+    @PutMapping("/select-proposal/{proposalId}")
+    public ResponseEntity<?> selectProposal(@PathVariable Long proposalId) {
+
+        ProjectProposal proposal = guideService.selectProposal(proposalId);
+
+        if (proposal == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Proposal not found.");
+        }
+
+        return ResponseEntity.ok(proposal);
+    }
+
+    @PutMapping("/reject-proposal/{proposalId}")
+    public ResponseEntity<?> rejectProposal(@PathVariable Long proposalId) {
+
+        ProjectProposal proposal = guideService.rejectProposal(proposalId);
+
+        if (proposal == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Proposal not found.");
+        }
+
+        return ResponseEntity.ok(proposal);
+    }
+
+    @GetMapping("/team/{teamId}/proposals")
+    public ResponseEntity<?> getTeamProposals(@PathVariable Long teamId) {
+        List<ProjectProposal> proposals =
+                guideService.getTeamProposals(teamId);
+
+        return ResponseEntity.ok(proposals);
     }
 }

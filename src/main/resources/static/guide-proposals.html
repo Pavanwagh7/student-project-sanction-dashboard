@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ProJSetu - Team Proposals</title>
+
+    <link rel="stylesheet"
+          href="css/guide-proposals.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            ProJ<span>Setu</span>
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="guide-dashboard.html"
+               class="nav-item">
+
+                <span>⌂</span>
+                Dashboard
+
+            </a>
+
+
+            <a href="guide-dashboard.html#assignedTeams"
+               class="nav-item">
+
+                <span>👥</span>
+                Assigned Teams
+
+            </a>
+
+
+            <a href="#"
+               class="nav-item active">
+
+                <span>📋</span>
+                Proposals
+
+            </a>
+
+
+            <a href="#"
+               class="nav-item">
+
+                <span>🔔</span>
+                Announcements
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button onclick="logout()"
+                    class="logout-btn">
+
+                <span>↪</span>
+                Logout
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- TOP HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <p class="small-heading">
+                    Guide Portal
+                </p>
+
+                <h1>
+                    Team Proposals
+                </h1>
+
+            </div>
+
+
+            <div class="profile-box">
+
+                <div class="profile-avatar">
+
+                    <span id="profileInitial">
+                        G
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <strong id="profileName">
+                        Guide
+                    </strong>
+
+                    <small>
+                        Guide
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGE HEADER ================= -->
+
+        <section class="page-header">
+
+            <div>
+
+                <span class="badge">
+                    📋 Project Proposals
+                </span>
+
+                <h2>
+                    Review Team
+                    <span>Proposals</span>
+                </h2>
+
+                <p>
+                    Review the proposals submitted by your
+                    assigned team and select a suitable proposal.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= BACK BUTTON ================= -->
+
+        <button
+                class="back-btn"
+                onclick="goBack()">
+
+            ← Back to Assigned Teams
+
+        </button>
+
+
+        <!-- ================= PROPOSALS ================= -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>
+                        Submitted Proposals
+                    </h2>
+
+                    <p>
+                        Review the project proposals submitted
+                        by this team
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                    id="proposalsContainer"
+                    class="proposals-container">
+
+                <div class="loading-card">
+
+                    Loading proposals...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <p>
+                © 2026 <strong>ProJSetu</strong>.
+                Built for College Projects.
+            </p>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<script src="js/guide-proposals.js"></script>
+
+</body>
+</html>

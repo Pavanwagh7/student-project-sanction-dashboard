@@ -44,7 +44,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
                         if (user.role === "COORDINATOR") {
                             window.location.href = "/coordinator.html";
                         } else if (user.role === "GUIDE") {
-                            window.location.href = "/guide.html"; // When built
+                            window.location.href = "/guide-dashboard.html"; // When built
                         } else {
                             window.location.href = "/dashboard.html"; // Students
                         }
