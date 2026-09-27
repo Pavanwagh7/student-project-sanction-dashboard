@@ -41,6 +41,9 @@ public class DataSeeder implements CommandLineRunner {
         // MECHANICAL ENGINEERING (MECH)
         createCoordinatorIfMissing("coordinator.mech@rcpit.edu", "Prof. Sunil Pawar", "MECH", "Coordinator@123", encoder);
         createGuideIfMissing("verma.mech@rcpit.edu", "Prof. Vikram Verma", "MECH", "Guide@123", encoder);
+
+        // CIVIL
+        createCoordinatorIfMissing("coordinator.civil@rcpit.edu","Prof. Pradip Patil","CIVIL","Coordinator@123", encoder);
     }
 
 

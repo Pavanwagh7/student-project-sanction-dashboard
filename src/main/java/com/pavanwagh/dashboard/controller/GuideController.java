@@ -27,9 +27,7 @@ public class GuideController {
 
         // Check login
         if (guideUserId == null) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body("User is not logged in.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
         }
 
         List<Team> teams = guideService.getAssignedTeams(guideUserId);
@@ -38,35 +36,48 @@ public class GuideController {
     }
 
     @PutMapping("/select-proposal/{proposalId}")
-    public ResponseEntity<?> selectProposal(@PathVariable Long proposalId) {
+    public ResponseEntity<?> selectProposal(@PathVariable Long proposalId, HttpSession session) {
+
+        Long guideUserId = (Long) session.getAttribute("userId");
+        if (guideUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
+        }
 
         ProjectProposal proposal = guideService.selectProposal(proposalId);
 
         if (proposal == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Proposal not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Proposal not found.");
         }
 
         return ResponseEntity.ok(proposal);
     }
 
     @PutMapping("/reject-proposal/{proposalId}")
-    public ResponseEntity<?> rejectProposal(@PathVariable Long proposalId) {
+    public ResponseEntity<?> rejectProposal(@PathVariable Long proposalId, HttpSession session) {
+
+        Long guideUserId = (Long) session.getAttribute("userId");
+        if (guideUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
+        }
 
         ProjectProposal proposal = guideService.rejectProposal(proposalId);
 
         if (proposal == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Proposal not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Proposal not found.");
         }
 
         return ResponseEntity.ok(proposal);
     }
 
     @GetMapping("/team/{teamId}/proposals")
-    public ResponseEntity<?> getTeamProposals(@PathVariable Long teamId) {
-        List<ProjectProposal> proposals =
-                guideService.getTeamProposals(teamId);
+    public ResponseEntity<?> getTeamProposals(@PathVariable Long teamId, HttpSession session) {
+
+        Long guideUserId = (Long) session.getAttribute("userId");
+        if (guideUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
+        }
+
+        List<ProjectProposal> proposals = guideService.getTeamProposals(teamId);
 
         return ResponseEntity.ok(proposals);
     }

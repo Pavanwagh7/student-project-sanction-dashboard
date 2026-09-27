@@ -7,8 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-import java.util.List;
-
 public interface TeamRepository extends JpaRepository<Team,Long> {
     // Count teams assigned to a guide
     long countByGuideUserId(Long guideUserId);
@@ -28,4 +26,9 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
 
     List<Team> findByGuideUserId(Long guideUserId);
 
+    @Query("SELECT t FROM Team t, User u " +
+            "WHERE t.leaderUserId = u.id " +
+            "AND t.guideUserId IS NOT NULL " +
+            "AND LOWER(u.department) = LOWER(:department)")
+    List<Team> findAssignedTeamsByDepartment(@Param("department") String department);
 }

@@ -1,6 +1,7 @@
 package com.pavanwagh.dashboard.controller;
 
 import com.pavanwagh.dashboard.dto.AssignGuideRequest;
+import com.pavanwagh.dashboard.dto.AssignedTeamDetailResponse;
 import com.pavanwagh.dashboard.dto.GuideWithTeamCountResponse;
 import com.pavanwagh.dashboard.entity.Team;
 import com.pavanwagh.dashboard.service.CoordinatorService;
@@ -61,5 +62,16 @@ public class CoordinatorController {
 
         List<Team> teams = coordinatorService.getUnAssignedteams(coordinatorUserId);
         return ResponseEntity.ok(teams);
+    }
+
+    // Get all the leader assigned teams
+    @GetMapping("/get_assigned_teams")
+    public ResponseEntity<List<AssignedTeamDetailResponse>> getAssignedTeams (HttpSession session) {
+        Long coordinatorUserId = (Long) session.getAttribute("userId");
+        if (coordinatorUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        return ResponseEntity.ok().body(coordinatorService.getAssignedTeams(coordinatorUserId));
     }
 }

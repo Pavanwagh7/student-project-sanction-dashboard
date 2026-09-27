@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProJSetu - Coordinator Dashboard</title>
 
-    <!-- Honoring Lord ChatGPT's Styling Architecture -->
-    <link rel="stylesheet" href="css/coordinator.css">
+    <!-- Honoring Lord ChatGPT's Royal Design System with Cache-Buster -->
+    <link rel="stylesheet" href="css/coordinator.css?v=2">
 </head>
 <body>
 
@@ -19,19 +19,19 @@
         </div>
 
         <nav class="sidebar-nav">
-            <a href="coordinator.html" class="nav-item active">
+            <a href="coordinator.html" class="nav-item active" id="navDashboard">
                 <span>⌂</span>
                 Dashboard
             </a>
-            <a href="#teamsSection" class="nav-item">
+            <a href="#teamsSection" class="nav-item" id="navTeams">
                 <span>👥</span>
                 Teams Allocation
             </a>
-            <a href="#proposalsSection" class="nav-item">
+            <a href="#proposalsSection" class="nav-item" id="navProposals">
                 <span>📋</span>
                 Project Approvals
             </a>
-            <a href="#guidesSection" class="nav-item">
+            <a href="#guidesSection" class="nav-item" id="navGuides">
                 <span>👨‍🏫</span>
                 Faculty Guides
             </a>
@@ -70,13 +70,21 @@
             </div>
         </header>
 
-        <!-- Department Overview Banner / Stats -->
+        <!-- Department Overview Banner / Stats (4 Responsive Cards) -->
         <section class="stats-overview">
             <div class="stat-card">
-                <div class="stat-icon">👥</div>
+                <div class="stat-icon">⏳</div>
                 <div class="stat-details">
                     <span class="stat-label">Pending Allocation</span>
                     <strong class="stat-value" id="unassignedCount">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-details">
+                    <span class="stat-label">Assigned Teams</span>
+                    <strong class="stat-value" id="assignedCount">0</strong>
                 </div>
             </div>
 
@@ -102,28 +110,33 @@
             <div class="section-card">
                 <div class="card-header">
                     <div>
-                        <h2>Teams Pending Guide Allocation</h2>
-                        <p class="card-subtitle">Select a team and assign an available department faculty member</p>
+                        <h2 id="sectionTitle">Department Teams Allocation</h2>
+                        <p class="card-subtitle" id="sectionSubtitle">Oversee student teams and faculty guide mentorship</p>
                     </div>
                     <span class="count-badge" id="teamCountBadge">0 Teams</span>
+                </div>
+
+                <!-- Tab Switcher Bar -->
+                <div class="tab-switcher">
+                    <button type="button" class="tab-pill active" id="tabPendingBtn" onclick="switchTeamTab('pending')">
+                        ⏳ Pending Allocation (<span id="pendingTabCount">0</span>)
+                    </button>
+                    <button type="button" class="tab-pill" id="tabAssignedBtn" onclick="switchTeamTab('assigned')">
+                        ✅ Assigned Teams (<span id="assignedTabCount">0</span>)
+                    </button>
                 </div>
 
                 <!-- Table Wrapper -->
                 <div class="table-responsive">
                     <table class="teams-table">
-                        <thead>
-                        <tr>
-                            <th>Team Name</th>
-                            <th>Team Code</th>
-                            <th>Current Members</th>
-                            <th style="text-align: right;">Action</th>
-                        </tr>
+                        <thead id="teamsTableHead">
+                        <!-- Populated dynamically via coordinator.js -->
                         </thead>
                         <tbody id="teamsTableBody">
                         <!-- Populated dynamically via coordinator.js -->
                         <tr>
-                            <td colspan="4" class="empty-state">
-                                Loading unassigned teams...
+                            <td colspan="5" class="empty-state">
+                                Loading teams data...
                             </td>
                         </tr>
                         </tbody>
@@ -132,32 +145,56 @@
             </div>
         </section>
 
+        <!-- ================= 4. FACULTY GUIDES DIRECTORY SECTION (PHASE 2) ================= -->
+        <section class="content-section" id="guidesSection">
+            <div class="section-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Department Faculty Mentors Directory</h2>
+                        <p class="card-subtitle">Monitor faculty advising workloads, contact channels, and assigned student teams</p>
+                    </div>
+                    <span class="count-badge" id="guidesDirectoryBadge">0 Mentors</span>
+                </div>
+
+                <!-- Dynamic Grid of Guide Cards -->
+                <div class="guides-grid" id="guidesGrid">
+                    <p class="empty-state">Loading faculty mentors directory...</p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
 </div>
 
-<!-- ================= 4. ASSIGNMENT MODAL ================= -->
+<!-- ================= 5. ASSIGNMENT / REASSIGNMENT MODAL ================= -->
 <div id="assignModal" class="modal-overlay" style="display: none;">
     <div class="modal-card">
 
         <div class="modal-header">
-            <h3>Assign Faculty Guide</h3>
+            <h3 id="modalTitle">Assign Faculty Guide</h3>
             <button type="button" class="close-btn" id="closeModalBtn">&times;</button>
         </div>
 
         <div class="modal-body">
             <p class="modal-target-text">
-                Assigning guide for: <strong id="modalTeamName">Team Name</strong>
+                Target Team: <strong id="modalTeamName">Team Name</strong>
             </p>
             <input type="hidden" id="modalTeamId" />
 
+            <!-- Active Guide Notice (Shows only during Reassignment) -->
+            <div class="current-guide-banner" id="currentGuideBanner" style="display: none;">
+                <span class="current-guide-title">Current Faculty Guide:</span>
+                <span class="current-guide-name" id="modalCurrentGuideName">Prof. ...</span>
+            </div>
+
             <div class="form-group">
-                <label for="guideSelect" class="form-label">Select Faculty Guide</label>
+                <label for="guideSelect" class="form-label" id="guideSelectLabel">Select Faculty Guide</label>
                 <select id="guideSelect" class="form-select">
                     <option value="">-- Choose a Faculty Guide --</option>
                     <!-- Populated dynamically: Prof Name - X teams -->
                 </select>
-                <small class="form-help">Number indicates teams currently mentored by each faculty member.</small>
+                <small class="form-help" id="guideSelectHelp">Number indicates teams currently mentored by each faculty member.</small>
             </div>
         </div>
 
@@ -169,8 +206,8 @@
     </div>
 </div>
 
-<!-- ================= 5. SCRIPT ================= -->
-<script src="js/coordinator.js"></script>
+<!-- ================= 6. SCRIPT ================= -->
+<script src="js/coordinator.js?v=2"></script>
 
 </body>
 </html>

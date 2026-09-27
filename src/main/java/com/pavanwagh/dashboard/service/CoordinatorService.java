@@ -1,5 +1,6 @@
 package com.pavanwagh.dashboard.service;
 
+import com.pavanwagh.dashboard.dto.AssignedTeamDetailResponse;
 import com.pavanwagh.dashboard.dto.GuideWithTeamCountResponse;
 import com.pavanwagh.dashboard.entity.Guide;
 import com.pavanwagh.dashboard.entity.Team;
@@ -30,7 +31,7 @@ public class CoordinatorService {
     }
 
 
-    // Assigns a faculty guide to a student team with full validation and department isolation.
+    // Assigns or Reassigns a faculty guide to a student team with full validation and department isolation.
     @Transactional
     public ResponseEntity<String> assignGuide(Long coordinatorUserId, Long teamId, Long guideUserId) {
 
@@ -64,9 +65,9 @@ public class CoordinatorService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Team not found.");
         }
 
-        // Check if Team already has a Guide assigned
-        if (team.getGuideUserId() != null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("A guide is already assigned to this team.");
+        // Check if the team is already assigned to this EXACT SAME guide
+        if (team.getGuideUserId() != null && team.getGuideUserId().equals(guideUserId)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Guide " + guideUser.getFullName() + " is already assigned to " + team.getTeamName() + ".");
         }
 
         // Fetch Team Leader to verify Team's Department
@@ -83,12 +84,19 @@ public class CoordinatorService {
         }
 
         if (!coordinatorDept.equalsIgnoreCase(guideUser.getDepartment())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access Denied: Guide " + guideUser.getFullName() + " belongs to "+ guideUser.getDepartment() + ", not " + coordinatorDept + ".");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access Denied: Guide " + guideUser.getFullName() + " belongs to " + guideUser.getDepartment() + ", not " + coordinatorDept + ".");
         }
+
+        // Check if this is an initial assignment or a reassignment
+        boolean isReassignment = (team.getGuideUserId() != null);
 
         // Assign and Save
         team.setGuideUserId(guideUserId);
         teamRepository.save(team);
+
+        if (isReassignment) {
+            return ResponseEntity.ok("Guide reassigned successfully to " + guideUser.getFullName() + " for team " + team.getTeamName() + ".");
+        }
 
         return ResponseEntity.ok("Guide assigned successfully to " + team.getTeamName() + ".");
     }
@@ -136,5 +144,37 @@ public class CoordinatorService {
         }
 
         return teamRepository.findUnassignedTeamsByDepartment(coordinator.getDepartment());
+    }
+
+    public List<AssignedTeamDetailResponse> getAssignedTeams(Long coordinatorUserId) {
+        User coordinator = userRepository.findById(coordinatorUserId).orElse(null);
+        if (coordinator == null || coordinator.getDepartment() == null) return List.of();
+
+        String coordinatorDept = coordinator.getDepartment();
+        List<Team> assignedTeams = teamRepository.findAssignedTeamsByDepartment(coordinatorDept);
+
+        List<AssignedTeamDetailResponse> responses = new ArrayList<>();
+
+        for (Team team : assignedTeams) {
+            Long teamId = team.getTeamId();
+            String teamName = team.getTeamName();
+            String teamCode = team.getTeamCode();
+            int currentTeamCount = team.getCurrentMemberCount();
+
+            Long leaderUserId = team.getLeaderUserId();
+            User leader = userRepository.findById(leaderUserId).orElse(null);
+            String leaderName = (leader != null) ? leader.getFullName() : "Unknown Leader";
+            String leaderEmail = (leader != null) ? leader.getEmail() : "N/A";
+
+            Long guideId = team.getGuideUserId();
+            User guide = userRepository.findById(guideId).orElse(null);
+            String guideName = (guide != null) ? guide.getFullName() : "Not Allocated";
+            String guideEmail = (guide != null) ? guide.getEmail() : "N/A";
+
+            AssignedTeamDetailResponse response = new AssignedTeamDetailResponse(teamId,teamName,teamCode,currentTeamCount,leaderUserId,leaderName,leaderEmail,guideId,guideName,guideEmail);
+            responses.add(response);
+        }
+
+        return  responses;
     }
 }
