@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 
@@ -72,7 +73,7 @@ public class ProjectController {
         submitProposalRequest.setStatus(ProposalStatus.PENDING);
         submitProposalRequest.setTeamId(teamId);
         submitProposalRequest.setFileName(file.getOriginalFilename());
-        submitProposalRequest.setFilePath("D://Programming//file_upload//file_store//");
+        submitProposalRequest.setFilePath("uploads/proposals/");
 
         return projectService.submitProposal(file,submitProposalRequest);
     }
@@ -109,17 +110,33 @@ public class ProjectController {
 
         Student student = studentRepository.findById(studentId).orElse(null);
         if (student == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Student record not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student record not found.");
         }
 
         Long teamId = student.getTeamId();
         if (teamId == null) {
-            return ResponseEntity.badRequest()
-                    .body("You are not a part of any team.");
+            return ResponseEntity.badRequest().body("You are not a part of any team.");
         }
 
         return projectService.deleteProposal(proposalId, teamId);
+    }
+
+    @GetMapping("/view/{proposalId}")
+    public ResponseEntity<Resource> viewProposalPdf(@PathVariable Long proposalId, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return projectService.servePdf(proposalId, "inline");
+    }
+
+    @GetMapping("/download/{proposalId}")
+    public ResponseEntity<Resource> downloadProposalPdf(@PathVariable Long proposalId, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return projectService.servePdf(proposalId, "attachment");
     }
 
 }

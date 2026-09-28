@@ -1,8 +1,6 @@
 package com.pavanwagh.dashboard.controller;
 
-import com.pavanwagh.dashboard.dto.AssignGuideRequest;
-import com.pavanwagh.dashboard.dto.AssignedTeamDetailResponse;
-import com.pavanwagh.dashboard.dto.GuideWithTeamCountResponse;
+import com.pavanwagh.dashboard.dto.*;
 import com.pavanwagh.dashboard.entity.Team;
 import com.pavanwagh.dashboard.service.CoordinatorService;
 import jakarta.servlet.http.HttpSession;
@@ -73,5 +71,46 @@ public class CoordinatorController {
         }
 
         return ResponseEntity.ok().body(coordinatorService.getAssignedTeams(coordinatorUserId));
+    }
+
+    // Get all the students from the department
+    @GetMapping("/get_all_students_from_department")
+    public ResponseEntity<List<DepartmentStudentResponse>> getAllDepartmentStudents(HttpSession session) {
+        Long coordinatorUserId = (Long) session.getAttribute("userId");
+        if (coordinatorUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        List<DepartmentStudentResponse> students = coordinatorService.getAllStudentsFromDepartment(coordinatorUserId);
+        if (students == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/accepted_proposals")
+    public ResponseEntity<List<CoordinatorProposalResponse>> getAcceptedProposals(HttpSession session) {
+        Long coordinatorUserId = (Long) session.getAttribute("userId");
+        if (coordinatorUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        List<CoordinatorProposalResponse> proposals = coordinatorService.getDepartmentAcceptedProposals(coordinatorUserId);
+        if (proposals == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        return ResponseEntity.ok(proposals);
+    }
+
+    @PostMapping("/sanction_project/{proposalId}")
+    public ResponseEntity<String> sanctionProject(@PathVariable Long proposalId, HttpSession session) {
+        Long coordinatorUserId = (Long) session.getAttribute("userId");
+        if (coordinatorUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in.");
+        }
+
+        return coordinatorService.sanctionProject(coordinatorUserId, proposalId);
     }
 }

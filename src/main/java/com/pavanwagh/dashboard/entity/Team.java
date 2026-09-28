@@ -39,7 +39,7 @@ public class Team {
     public int getCurrentMemberCount() {
         return currentMemberCount;
     }
-    public long getLeaderUserId() {
+    public Long getLeaderUserId() {
         return leaderUserId;
     }
     public String getTeamCode() {

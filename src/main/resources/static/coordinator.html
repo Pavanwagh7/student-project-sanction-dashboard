@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProJSetu - Coordinator Dashboard</title>
-
-    <!-- Honoring Lord ChatGPT's Royal Design System with Cache-Buster -->
-    <link rel="stylesheet" href="css/coordinator.css?v=2">
+    <link rel="stylesheet" href="css/coordinator.css?v=4">
 </head>
 <body>
 
@@ -27,22 +25,22 @@
                 <span>👥</span>
                 Teams Allocation
             </a>
+            <a href="#studentsSection" class="nav-item" id="navStudents">
+                <span>🎓</span>
+                Students Roster
+            </a>
             <a href="#proposalsSection" class="nav-item" id="navProposals">
                 <span>📋</span>
                 Project Approvals
             </a>
             <a href="#guidesSection" class="nav-item" id="navGuides">
                 <span>👨‍🏫</span>
-                Faculty Guides
-            </a>
-            <a href="#" class="nav-item">
-                <span>🔔</span>
-                Announcements
+                Faculty Mentors
             </a>
         </nav>
 
-        <div class="sidebar-bottom">
-            <button onclick="logout()" class="logout-btn">
+        <div class="logout-box">
+            <button type="button" class="logout-btn" onclick="logout()">
                 <span>↪</span>
                 Logout
             </button>
@@ -70,7 +68,7 @@
             </div>
         </header>
 
-        <!-- Department Overview Banner / Stats (4 Responsive Cards) -->
+        <!-- Department Overview Banner / Stats (5 Responsive Cards) -->
         <section class="stats-overview">
             <div class="stat-card">
                 <div class="stat-icon">⏳</div>
@@ -91,16 +89,24 @@
             <div class="stat-card">
                 <div class="stat-icon">👨‍🏫</div>
                 <div class="stat-details">
-                    <span class="stat-label">Department Guides</span>
+                    <span class="stat-label">Department Mentors</span>
                     <strong class="stat-value" id="guidesCount">0</strong>
                 </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-icon">🏛️</div>
+            <div class="stat-card stat-alert">
+                <div class="stat-icon">🚨</div>
                 <div class="stat-details">
-                    <span class="stat-label">My Department</span>
-                    <strong class="stat-value" id="departmentCode">...</strong>
+                    <span class="stat-label">Unassigned Students</span>
+                    <strong class="stat-value" id="unassignedStudentsStat">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-details">
+                    <span class="stat-label">Accepted Projects</span>
+                    <strong class="stat-value" id="acceptedProjectsStat">0</strong>
                 </div>
             </div>
         </section>
@@ -110,42 +116,148 @@
             <div class="section-card">
                 <div class="card-header">
                     <div>
-                        <h2 id="sectionTitle">Department Teams Allocation</h2>
-                        <p class="card-subtitle" id="sectionSubtitle">Oversee student teams and faculty guide mentorship</p>
+                        <h2>Student Teams Allocation</h2>
+                        <p class="card-subtitle">Manage faculty mentors and assign guides to student teams</p>
                     </div>
-                    <span class="count-badge" id="teamCountBadge">0 Teams</span>
                 </div>
 
-                <!-- Tab Switcher Bar -->
                 <div class="tab-switcher">
-                    <button type="button" class="tab-pill active" id="tabPendingBtn" onclick="switchTeamTab('pending')">
-                        ⏳ Pending Allocation (<span id="pendingTabCount">0</span>)
+                    <button type="button" class="tab-pill active" id="tabUnassigned" onclick="switchTableTab('unassigned')">
+                        Pending Allocation (<span id="tabUnassignedCount">0</span>)
                     </button>
-                    <button type="button" class="tab-pill" id="tabAssignedBtn" onclick="switchTeamTab('assigned')">
-                        ✅ Assigned Teams (<span id="assignedTabCount">0</span>)
+                    <button type="button" class="tab-pill" id="tabAssigned" onclick="switchTableTab('assigned')">
+                        Allocated Teams (<span id="tabAssignedCount">0</span>)
                     </button>
                 </div>
 
-                <!-- Table Wrapper -->
                 <div class="table-responsive">
                     <table class="teams-table">
-                        <thead id="teamsTableHead">
-                        <!-- Populated dynamically via coordinator.js -->
-                        </thead>
+                        <thead id="teamsTableHead"></thead>
                         <tbody id="teamsTableBody">
-                        <!-- Populated dynamically via coordinator.js -->
-                        <tr>
-                            <td colspan="5" class="empty-state">
-                                Loading teams data...
-                            </td>
-                        </tr>
+                        <tr><td colspan="5" class="empty-state">Loading teams...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <!-- ================= 4. FACULTY GUIDES DIRECTORY SECTION (PHASE 2) ================= -->
+        <!-- ================= 4. STUDENTS ROSTER & LEADERS SECTION ================= -->
+        <section class="content-section" id="studentsSection">
+            <div class="section-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Department Students Roster</h2>
+                        <p class="card-subtitle">Track student team enrollment, locate team leaders, and identify stranded students</p>
+                    </div>
+                    <span class="count-badge" id="studentsTotalBadge">0 Students</span>
+                </div>
+
+                <div class="roster-toolbar">
+                    <div class="tab-switcher">
+                        <button type="button" class="tab-pill active" id="filterStudentAll" onclick="setStudentFilter('all')">
+                            🔘 All Students (<span id="countStudentAll">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="filterStudentNoTeam" onclick="setStudentFilter('no-team')">
+                            🚨 Not in a Team (<span id="countStudentNoTeam">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="filterStudentLeader" onclick="setStudentFilter('leaders')">
+                            👑 Team Leaders (<span id="countStudentLeader">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="filterStudentMember" onclick="setStudentFilter('members')">
+                            👥 Team Members (<span id="countStudentMember">0</span>)
+                        </button>
+                    </div>
+
+                    <div class="roster-actions">
+                        <input type="text"
+                               id="studentSearchInput"
+                               class="search-input"
+                               placeholder="🔍 Search name, email, or team..."
+                               oninput="handleStudentSearch(this.value)" />
+
+                        <button type="button"
+                                class="whatsapp-btn"
+                                id="btnCopyWhatsApp"
+                                onclick="copyWhatsAppNotice()"
+                                title="Copy urgent WhatsApp notice for students without a team">
+                            📋 Copy WhatsApp Notice
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="teams-table">
+                        <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Email</th>
+                            <th>Team Status</th>
+                            <th>Assigned Team / Code</th>
+                            <th style="text-align: right;">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                        <tr><td colspan="5" class="empty-state">Loading students roster...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 5. PROJECT APPROVALS & SANCTIONS SECTION ================= -->
+        <section class="content-section" id="proposalsSection">
+            <div class="section-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Project Approvals & Official Sanctions</h2>
+                        <p class="card-subtitle">Review proposals approved by faculty mentors, view synopsis PDFs, and grant official department sanction</p>
+                    </div>
+                    <span class="count-badge" id="proposalsTotalBadge">0 Projects</span>
+                </div>
+
+                <div class="roster-toolbar">
+                    <div class="tab-switcher">
+                        <button type="button" class="tab-pill active" id="filterProposalAll" onclick="setProposalFilter('all')">
+                            🔘 All Approved (<span id="countProposalAll">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="filterProposalPending" onclick="setProposalFilter('pending')">
+                            ⏳ Awaiting Sanction (<span id="countProposalPending">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="filterProposalSanctioned" onclick="setProposalFilter('sanctioned')">
+                            🏆 Officially Sanctioned (<span id="countProposalSanctioned">0</span>)
+                        </button>
+                    </div>
+
+                    <div class="roster-actions">
+                        <input type="text"
+                               id="proposalSearchInput"
+                               class="search-input"
+                               placeholder="🔍 Search project, team, or guide..."
+                               oninput="handleProposalSearch(this.value)" />
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="teams-table">
+                        <thead>
+                        <tr>
+                            <th>Team & Leader</th>
+                            <th>Project Title & Abstract</th>
+                            <th>Endorsing Guide</th>
+                            <th>Synopsis Document</th>
+                            <th>Approval Status</th>
+                            <th style="text-align: right;">Official Sanction</th>
+                        </tr>
+                        </thead>
+                        <tbody id="proposalsTableBody">
+                        <tr><td colspan="6" class="empty-state">Loading approved projects...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 6. FACULTY GUIDES DIRECTORY SECTION ================= -->
         <section class="content-section" id="guidesSection">
             <div class="section-card">
                 <div class="card-header">
@@ -156,7 +268,6 @@
                     <span class="count-badge" id="guidesDirectoryBadge">0 Mentors</span>
                 </div>
 
-                <!-- Dynamic Grid of Guide Cards -->
                 <div class="guides-grid" id="guidesGrid">
                     <p class="empty-state">Loading faculty mentors directory...</p>
                 </div>
@@ -167,10 +278,9 @@
 
 </div>
 
-<!-- ================= 5. ASSIGNMENT / REASSIGNMENT MODAL ================= -->
+<!-- ================= 7. ASSIGNMENT / REASSIGNMENT MODAL ================= -->
 <div id="assignModal" class="modal-overlay" style="display: none;">
     <div class="modal-card">
-
         <div class="modal-header">
             <h3 id="modalTitle">Assign Faculty Guide</h3>
             <button type="button" class="close-btn" id="closeModalBtn">&times;</button>
@@ -182,7 +292,6 @@
             </p>
             <input type="hidden" id="modalTeamId" />
 
-            <!-- Active Guide Notice (Shows only during Reassignment) -->
             <div class="current-guide-banner" id="currentGuideBanner" style="display: none;">
                 <span class="current-guide-title">Current Faculty Guide:</span>
                 <span class="current-guide-name" id="modalCurrentGuideName">Prof. ...</span>
@@ -192,7 +301,6 @@
                 <label for="guideSelect" class="form-label" id="guideSelectLabel">Select Faculty Guide</label>
                 <select id="guideSelect" class="form-select">
                     <option value="">-- Choose a Faculty Guide --</option>
-                    <!-- Populated dynamically: Prof Name - X teams -->
                 </select>
                 <small class="form-help" id="guideSelectHelp">Number indicates teams currently mentored by each faculty member.</small>
             </div>
@@ -202,12 +310,9 @@
             <button type="button" class="cancel-btn" id="cancelModalBtn">Cancel</button>
             <button type="button" class="submit-btn" id="confirmAssignBtn">Confirm Allocation</button>
         </div>
-
     </div>
 </div>
 
-<!-- ================= 6. SCRIPT ================= -->
-<script src="js/coordinator.js?v=2"></script>
-
+<script src="js/coordinator.js?v=4"></script>
 </body>
 </html>

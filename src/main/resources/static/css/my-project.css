@@ -1,5 +1,5 @@
 /* =====================================================
-   PROJSETU MY PROJECT
+   PROJSETU STUDENT MY PROJECT DASHBOARD
    ===================================================== */
 
 * {
@@ -14,7 +14,6 @@ body {
     color: #111827;
 }
 
-
 /* =====================================================
    MAIN CONTAINER
    ===================================================== */
@@ -24,7 +23,6 @@ body {
     min-height: 100vh;
 }
 
-
 /* =====================================================
    SIDEBAR
    ===================================================== */
@@ -32,35 +30,23 @@ body {
 .sidebar {
     width: 250px;
     min-height: 100vh;
-
     background: #ffffff;
-
     border-right: 1px solid #e5eaf2;
-
     position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
-
     display: flex;
     flex-direction: column;
-
     padding: 28px 18px;
-
     z-index: 100;
 }
-
-
-/* LOGO */
 
 .logo {
     font-size: 28px;
     font-weight: 800;
-
     color: #111827;
-
     padding: 0 14px;
-
     margin-bottom: 45px;
 }
 
@@ -68,8 +54,9 @@ body {
     color: #2864e8;
 }
 
-
-/* SIDEBAR NAV */
+/* =====================================================
+   SIDEBAR NAV
+   ===================================================== */
 
 .sidebar-nav {
     display: flex;
@@ -77,95 +64,60 @@ body {
     gap: 8px;
 }
 
-
 .nav-item {
     text-decoration: none;
-
     display: flex;
     align-items: center;
-
     gap: 13px;
-
     padding: 13px 15px;
-
     border-radius: 10px;
-
     color: #536176;
-
     font-size: 15px;
     font-weight: 600;
-
-    transition: all 0.2s ease;
-}
-
-
-.nav-item span {
-    width: 22px;
-
-    text-align: center;
-
-    font-size: 17px;
-}
-
-
-.nav-item:hover {
-    background: #f0f5ff;
-
-    color: #2864e8;
-
-    transform: translateX(2px);
-}
-
-
-.nav-item.active {
-    background: #edf4ff;
-
-    color: #2864e8;
-}
-
-
-/* =====================================================
-   SIDEBAR BOTTOM
-   ===================================================== */
-
-.sidebar-bottom {
-    margin-top: auto;
-}
-
-
-.logout-btn {
-    width: 100%;
-
-    border: none;
-
-    background: #fff0f0;
-
-    color: #dc2626;
-
-    padding: 13px 15px;
-
-    border-radius: 10px;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
     transition: 0.2s ease;
 }
 
-
-.logout-btn:hover {
-    background: #ffe4e4;
+.nav-item span {
+    font-size: 18px;
 }
 
+.nav-item:hover {
+    background: #f2f6fd;
+    color: #2864e8;
+}
+
+.nav-item.active {
+    background: #2864e8;
+    color: #ffffff;
+}
+
+/* =====================================================
+   LOGOUT BUTTON
+   ===================================================== */
+
+.logout-box {
+    margin-top: auto;
+}
+
+.logout-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 15px;
+    border-radius: 10px;
+    color: #df3636;
+    font-size: 15px;
+    font-weight: 600;
+    width: 100%;
+    transition: 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: #fdf2f2;
+}
 
 /* =====================================================
    MAIN CONTENT
@@ -173,14 +125,9 @@ body {
 
 .main-content {
     margin-left: 250px;
-
     width: calc(100% - 250px);
-
-    padding: 35px 55px;
-
-    max-width: 1600px;
+    padding: 35px 45px;
 }
-
 
 /* =====================================================
    TOP HEADER
@@ -188,223 +135,157 @@ body {
 
 .top-header {
     display: flex;
-
-    align-items: center;
-
     justify-content: space-between;
-
+    align-items: center;
     margin-bottom: 35px;
 }
 
-
-.small-heading {
-    color: #2864e8;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-    margin-bottom: 7px;
-}
-
-
 .top-header h1 {
-    font-size: 32px;
-
-    color: #101827;
-
-    font-weight: 750;
+    font-size: 30px;
+    font-weight: 800;
+    color: #0f172a;
 }
 
+.top-header p {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 5px;
+}
+
+/* =====================================================
+   PROFILE BOX
+   ===================================================== */
 
 .profile-box {
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     background: #ffffff;
-
-    border: 1px solid #e5eaf2;
-
-    padding: 9px 15px 9px 9px;
-
-    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    padding: 10px 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
 }
-
 
 .profile-avatar {
     width: 42px;
     height: 42px;
-
+    background: #e8f0fe;
+    color: #2864e8;
     border-radius: 50%;
-
-    background: #2864e8;
-
-    color: #ffffff;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
-    font-size: 17px;
-
     font-weight: 700;
+    font-size: 16px;
 }
 
-
-.profile-box strong {
-    display: block;
-
-    color: #172033;
-
+.profile-name {
     font-size: 14px;
+    font-weight: 700;
+    color: #111827;
 }
 
-
-.profile-box small {
-    color: #7a8699;
-
+.profile-role {
     font-size: 12px;
+    color: #707e94;
 }
-
 
 /* =====================================================
-   SECTIONS
+   PAGE HEADER
    ===================================================== */
 
-.section {
-    margin-bottom: 38px;
+.page-header {
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 35px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
 }
 
+.page-header h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.page-header p {
+    color: #64748b;
+    font-size: 15px;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+/* =====================================================
+   SECTION TITLE & ACTION
+   ===================================================== */
 
 .section-title {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
-    margin-bottom: 17px;
+    margin-bottom: 25px;
 }
 
-
-.section-title h2 {
-    color: #111827;
-
-    font-size: 21px;
-
-    margin-bottom: 5px;
+.section-title h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
 }
-
-
-.section-title p {
-    color: #7b8799;
-
-    font-size: 13px;
-}
-
-
-/* =====================================================
-   NEW PROPOSAL BUTTON
-   ===================================================== */
 
 .new-proposal-btn {
-    border: none;
-
     background: #2864e8;
-
     color: #ffffff;
-
-    padding: 12px 18px;
-
+    border: none;
+    padding: 12px 24px;
     border-radius: 10px;
-
     font-size: 14px;
-
-    font-weight: 600;
-
+    font-weight: 700;
     cursor: pointer;
-
+    box-shadow: 0 6px 18px rgba(40, 100, 232, 0.25);
     transition: 0.2s ease;
 }
 
-
 .new-proposal-btn:hover {
-    background: #1f56cc;
-
+    background: #1b54d3;
     transform: translateY(-2px);
-
-    box-shadow: 0 8px 20px rgba(40, 100, 232, 0.15);
+    box-shadow: 0 8px 22px rgba(40, 100, 232, 0.35);
 }
 
-
 /* =====================================================
-   NO PROPOSALS
+   PROPOSALS GRID
    ===================================================== */
+
+.proposals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+/* NO PROPOSALS PLACEHOLDER */
 
 .no-proposals {
+    grid-column: 1 / -1;
     background: #ffffff;
-
-    border: 1px solid #e4e9f1;
-
-    border-radius: 15px;
-
-    padding: 45px 25px;
-
+    border: 2px dashed #cbd5e1;
+    border-radius: 16px;
+    padding: 50px 20px;
     text-align: center;
+    color: #64748b;
 }
 
-
-.empty-icon {
-    width: 55px;
-    height: 55px;
-
-    border-radius: 13px;
-
-    background: #eef5ff;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    margin: 0 auto 15px;
-
-    font-size: 23px;
+.no-proposals h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
 }
-
-
-.no-proposals h3 {
-    color: #172033;
-
-    font-size: 17px;
-
-    margin-bottom: 7px;
-}
-
 
 .no-proposals p {
-    color: #7b8799;
-
-    font-size: 13px;
+    font-size: 14px;
 }
-
-
-/* =====================================================
-   PROPOSALS CONTAINER
-   ===================================================== */
-
-.proposals-container {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 18px;
-}
-
 
 /* =====================================================
    PROPOSAL CARD
@@ -412,132 +293,143 @@ body {
 
 .proposal-card {
     background: #ffffff;
-
-    border: 1px solid #e1e7f0;
-
-    border-radius: 15px;
-
-    padding: 24px;
-
-    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    transition: 0.2s ease;
 }
-
 
 .proposal-card:hover {
-    border-color: #bcd2fa;
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 12px 30px rgba(40, 100, 232, 0.08);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
-
-
-/* PROPOSAL HEADER */
 
 .proposal-header {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-
 .proposal-number {
-    display: inline-block;
-
-    padding: 7px 12px;
-
-    border-radius: 20px;
-
-    background: #edf4ff;
-
+    background: #eef4ff;
     color: #2864e8;
-
+    padding: 5px 12px;
+    border-radius: 20px;
     font-size: 12px;
-
     font-weight: 700;
 }
 
-
 .proposal-close {
-    border: none;
-
     background: transparent;
-
-    color: #8a95a6;
-
-    font-size: 23px;
-
+    border: none;
+    font-size: 22px;
+    color: #94a3b8;
     cursor: pointer;
-
     line-height: 1;
+    transition: 0.2s ease;
 }
-
 
 .proposal-close:hover {
-    color: #dc2626;
+    color: #ef4444;
 }
-
-
-/* =====================================================
-   PROPOSAL TITLE
-   ===================================================== */
 
 .proposal-title {
-    color: #172033;
-
-    font-size: 20px;
-
-    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+    line-height: 1.4;
 }
-
-
-/* =====================================================
-   PROPOSAL DESCRIPTION
-   ===================================================== */
 
 .proposal-description {
     color: #5e6d82;
-
     font-size: 14px;
-
     line-height: 1.7;
-
     margin-bottom: 20px;
 }
 
-
 /* =====================================================
-   PDF
+   PDF SECTION (VIEW & DOWNLOAD BUTTONS)
    ===================================================== */
 
 .pdf-section {
     display: flex;
-
     align-items: center;
-
-    gap: 10px;
-
-    background: #f7faff;
-
-    border: 1px solid #e4e9f1;
-
+    justify-content: space-between;
+    gap: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: 10px;
-
-    padding: 12px 14px;
-
+    padding: 10px 14px;
     margin-bottom: 20px;
-
-    color: #2864e8;
-
-    font-size: 14px;
-
-    font-weight: 600;
+    flex-wrap: wrap;
 }
 
+.pdf-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: 60%;
+}
+
+.pdf-icon {
+    font-size: 18px;
+}
+
+.pdf-name {
+    color: #1e40af;
+    font-size: 13.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pdf-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.pdf-btn-view {
+    background: #2864e8;
+    color: #ffffff;
+    border: 1px solid #2864e8;
+}
+
+.pdf-btn-view:hover {
+    background: #1d4fd8;
+    box-shadow: 0 2px 6px rgba(40, 100, 232, 0.25);
+}
+
+.pdf-btn-download {
+    background: #ffffff;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+}
+
+.pdf-btn-download:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
 
 /* =====================================================
    PROPOSAL FOOTER
@@ -545,25 +437,17 @@ body {
 
 .proposal-footer {
     border-top: 1px solid #e5eaf1;
-
     padding-top: 15px;
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     gap: 15px;
 }
 
-
 .submitted-time {
     color: #7b8799;
-
     font-size: 12px;
 }
-
 
 /* =====================================================
    STATUS
@@ -571,18 +455,12 @@ body {
 
 .status {
     padding: 6px 12px;
-
     border-radius: 20px;
-
     background: #fff7df;
-
     color: #9a6b00;
-
     font-size: 12px;
-
     font-weight: 700;
 }
-
 
 /* =====================================================
    NEW PROPOSAL FORM
@@ -592,227 +470,138 @@ body {
     display: none;
 }
 
-
 .proposal-form-card {
     background: #ffffff;
-
     border: 1px solid #e1e7f0;
-
-    border-radius: 15px;
-
-    padding: 28px;
-
-    box-shadow: 0 8px 25px rgba(40, 100, 232, 0.05);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+    margin-bottom: 40px;
 }
-
-
-/* FORM HEADER */
 
 .form-header {
     display: flex;
-
     justify-content: space-between;
-
-    align-items: flex-start;
-
+    align-items: center;
     margin-bottom: 25px;
+    border-bottom: 1px solid #eef2f6;
+    padding-bottom: 15px;
 }
 
-
-.form-header h2 {
-    color: #111827;
-
-    font-size: 21px;
-
-    margin-bottom: 5px;
+.form-header h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
 }
-
-
-.form-header p {
-    color: #7b8799;
-
-    font-size: 13px;
-}
-
 
 .close-btn {
-    border: none;
-
     background: transparent;
-
-    color: #7b8799;
-
-    font-size: 27px;
-
+    border: none;
+    font-size: 24px;
+    color: #94a3b8;
     cursor: pointer;
-
-    line-height: 1;
 }
-
 
 .close-btn:hover {
-    color: #dc2626;
+    color: #ef4444;
 }
-
-
-/* FORM GROUP */
 
 .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 22px;
 }
 
-
 .form-group label {
-    display: block;
-
-    color: #172033;
-
-    font-size: 13px;
-
+    font-size: 14px;
     font-weight: 700;
-
+    color: #334155;
     margin-bottom: 8px;
 }
 
-
-.form-group input,
+.form-group input[type="text"],
 .form-group textarea {
-    width: 100%;
-
-    border: 1px solid #dfe5ee;
-
+    border: 1px solid #cbd5e1;
     border-radius: 10px;
-
-    padding: 12px 14px;
-
-    background: #ffffff;
-
-    color: #172033;
-
-    font-family: Arial, Helvetica, sans-serif;
-
+    padding: 13px 16px;
     font-size: 14px;
-
+    color: #0f172a;
     outline: none;
-
     transition: 0.2s ease;
 }
 
-
-.form-group input:focus,
+.form-group input[type="text"]:focus,
 .form-group textarea:focus {
-    border-color: #8fb3f4;
-
-    box-shadow: 0 0 0 3px rgba(40, 100, 232, 0.08);
+    border-color: #2864e8;
+    box-shadow: 0 0 0 3px rgba(40, 100, 232, 0.15);
 }
-
 
 .form-group textarea {
-    min-height: 140px;
-
+    min-height: 120px;
     resize: vertical;
-
-    line-height: 1.6;
+    font-family: inherit;
 }
-
 
 .form-group input[type="file"] {
-    padding: 10px;
+    font-size: 13px;
+    color: #64748b;
 }
 
-
-.file-help {
-    display: block;
-
-    color: #8994a5;
-
+.file-hint {
     font-size: 12px;
-
-    margin-top: 7px;
+    color: #94a3b8;
+    margin-top: 5px;
 }
-
-
-/* =====================================================
-   FORM ACTIONS
-   ===================================================== */
 
 .form-actions {
     display: flex;
-
     justify-content: flex-end;
-
-    gap: 12px;
-
+    gap: 15px;
     margin-top: 25px;
 }
 
-
 .cancel-btn {
-    border: 1px solid #dfe5ee;
-
-    background: #ffffff;
-
-    color: #536176;
-
-    padding: 11px 18px;
-
-    border-radius: 9px;
-
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
     font-size: 14px;
-
-    font-weight: 600;
-
+    font-weight: 700;
     cursor: pointer;
-
     transition: 0.2s ease;
 }
-
 
 .cancel-btn:hover {
-    background: #f5f7fb;
+    background: #e2e8f0;
 }
 
-
 .submit-btn {
-    border: none;
-
     background: #2864e8;
-
     color: #ffffff;
-
-    padding: 11px 20px;
-
-    border-radius: 9px;
-
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
     font-size: 14px;
-
-    font-weight: 600;
-
+    font-weight: 700;
     cursor: pointer;
-
+    box-shadow: 0 6px 18px rgba(40, 100, 232, 0.25);
     transition: 0.2s ease;
 }
 
-
 .submit-btn:hover {
-    background: #1f56cc;
-
+    background: #1b54d3;
     transform: translateY(-2px);
-
     box-shadow: 0 8px 20px rgba(40, 100, 232, 0.15);
 }
-
 
 /* FORM MESSAGE */
 
 #formMessage {
     margin-top: 15px;
-
     font-size: 13px;
-
     font-weight: 600;
 }
-
 
 /* =====================================================
    FOOTER
@@ -820,153 +609,103 @@ body {
 
 footer {
     border-top: 1px solid #e5eaf1;
-
     margin-top: 50px;
-
     padding: 22px 0;
-
     text-align: center;
-
     color: #8a95a6;
-
     font-size: 13px;
 }
-
 
 footer strong {
     color: #2864e8;
 }
-
 
 /* =====================================================
    RESPONSIVE
    ===================================================== */
 
 @media (max-width: 1000px) {
-
     .sidebar {
         width: 210px;
     }
-
     .main-content {
         margin-left: 210px;
-
         width: calc(100% - 210px);
-
         padding: 30px;
     }
-
 }
 
-
 @media (max-width: 750px) {
-
     .sidebar {
         width: 70px;
-
         padding: 25px 10px;
     }
-
     .logo {
         font-size: 0;
-
         text-align: center;
-
         padding: 0;
-
         margin-bottom: 35px;
     }
-
     .logo::before {
         content: "P";
-
         font-size: 25px;
-
         color: #2864e8;
-
         font-weight: 800;
     }
-
     .nav-item {
         justify-content: center;
-
         padding: 13px;
+        font-size: 0;
     }
-
     .nav-item span {
         margin: 0;
     }
-
-    .nav-item {
-        font-size: 0;
-    }
-
     .logout-btn {
         justify-content: center;
-
         font-size: 0;
     }
-
     .main-content {
         margin-left: 70px;
-
         width: calc(100% - 70px);
-
         padding: 25px 20px;
     }
-
     .top-header h1 {
         font-size: 24px;
     }
-
     .profile-box div:last-child {
         display: none;
     }
-
     .section-title {
         align-items: flex-start;
-
         gap: 15px;
     }
-
 }
 
-
 @media (max-width: 500px) {
-
     .main-content {
         padding: 20px 15px;
     }
-
     .top-header {
         align-items: flex-start;
     }
-
     .section-title {
         flex-direction: column;
     }
-
     .new-proposal-btn {
         width: 100%;
     }
-
     .proposal-card {
         padding: 20px;
     }
-
     .proposal-footer {
         align-items: flex-start;
-
         flex-direction: column;
     }
-
     .form-actions {
         flex-direction: column;
     }
-
     .cancel-btn,
     .submit-btn {
         width: 100%;
     }
-
 }
