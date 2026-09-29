@@ -501,14 +501,15 @@ function renderGuidesDirectory() {
             workloadClass = "workload-medium";
         }
 
-        const initial = (g.fullName || "F").charAt(0).toUpperCase();
+        const guideName = g.fullName || g.name || "Faculty Guide";
+        const initial = guideName.charAt(0).toUpperCase();
 
         return `
             <div class="guide-card">
                 <div class="guide-card-header">
                     <div class="guide-avatar">${initial}</div>
                     <div>
-                        <h4>${escapeHtml(g.fullName)}</h4>
+                        <h4>${escapeHtml(guideName)}</h4>
                         <p>${escapeHtml(g.email)}</p>
                         <span class="workload-pill ${workloadClass}">${workloadText}</span>
                     </div>
@@ -555,7 +556,8 @@ function openAssignModal(teamId, teamName, isReassignment = false, currentGuideN
     state.guides.forEach(g => {
         const option = document.createElement("option");
         option.value = g.userId;
-        option.innerText = `${g.fullName} (${g.assignedTeamCount || 0} teams currently)`;
+        const guideName = g.fullName || g.name || "Faculty Guide";
+        option.innerText = `${guideName} (${g.assignedTeamCount || 0} teams currently)`;
         select.appendChild(option);
     });
 
