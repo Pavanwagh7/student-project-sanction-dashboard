@@ -1,134 +1,170 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Register - ProjStu</title>
-
-    <link rel="stylesheet" href="css/register.css">
+    <title>ProJSetu - Student Registration</title>
+    <link rel="stylesheet" href="css/register.css?v=2">
 </head>
-
 <body>
 
-<div class="page-container">
+    <!-- Background Ambient Glow -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
 
-    <div class="register-card">
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <a href="index.html" class="logo">
+            ProJ<span>Setu</span>
+        </a>
+        <div class="nav-actions">
+            <a href="login.html" class="nav-login-link">
+                Sign In
+            </a>
+            <a href="index.html" class="nav-back-link">
+                <span>←</span> Back to Home
+            </a>
+        </div>
+    </header>
 
-        <!-- Header -->
-        <div class="register-header">
+    <!-- Main Container -->
+    <main class="page-wrapper">
+        <div class="register-card">
 
-            <div class="logo-icon">
-                🎓
+            <!-- Card Header -->
+            <div class="card-header">
+                <div class="header-icon-box">
+                    🎓
+                </div>
+                <div class="badge-chip">
+                    <span>•</span> STUDENT ONBOARDING
+                </div>
+                <h1>Create Student Account</h1>
+                <p>Register your account to establish project teams, submit capstone proposals, and connect with faculty guides.</p>
             </div>
 
-            <h1>Create Account</h1>
+            <!-- Alert Message Box -->
+            <div id="message" class="alert-box" style="display: none;" role="alert"></div>
 
-            <p>
-                Register your account to get started with ProjStu.
-            </p>
+            <!-- Registration Form -->
+            <form id="registerForm" autocomplete="on">
+
+                <!-- Full Name Input -->
+                <div class="form-group">
+                    <label for="fullName" class="form-label">
+                        <span>Full Name</span>
+                        <span class="label-hint">As per official college record</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="e.g. Rahul Sharma"
+                            required
+                            autocomplete="name"
+                            autofocus
+                        >
+                    </div>
+                </div>
+
+                <!-- Academic Email Input -->
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <span>Email Address</span>
+                        <span class="label-hint">Must end in @gmail.com</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">✉️</span>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="e.g. rahul.sharma@gmail.com"
+                            required
+                            autocomplete="email"
+                        >
+                    </div>
+                </div>
+
+                <!-- Engineering Branch Dropdown -->
+                <div class="form-group">
+                    <label for="department" class="form-label">
+                        <span>Engineering Branch / Department</span>
+                    </label>
+                    <div class="input-wrapper select-wrapper">
+                        <span class="input-icon">🏛️</span>
+                        <select id="department" name="department" required>
+                            <option value="" disabled selected>Select Your Branch</option>
+                            <option value="CSE">CSE - Computer Science &amp; Engineering</option>
+                            <option value="IT">IT - Information Technology</option>
+                            <option value="AIML">AIML - Artificial Intelligence &amp; ML</option>
+                            <option value="AIDS">AIDS - AI &amp; Data Science</option>
+                            <option value="DS">DS - Data Science</option>
+                            <option value="ETC">ETC - Electronics &amp; Telecommunication</option>
+                            <option value="EE">EE - Electrical Engineering</option>
+                            <option value="MECH">MECH - Mechanical Engineering</option>
+                            <option value="CIVIL">CIVIL - Civil Engineering</option>
+                        </select>
+                        <span class="select-chevron">▾</span>
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="password" class="form-label">Create Password</label>
+                    </div>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Min 6 characters, 1 digit, 1 symbol"
+                            required
+                            autocomplete="new-password"
+                        >
+                        <button type="button" id="togglePasswordBtn" class="toggle-pwd-btn" title="Toggle password visibility" aria-label="Toggle password visibility">
+                            👁️
+                        </button>
+                    </div>
+
+                    <!-- Password Policy Badges -->
+                    <div class="password-rules" id="passwordRules">
+                        <span class="rule-chip" id="ruleLen">Min 6 Chars</span>
+                        <span class="rule-chip" id="ruleDigit">1+ Digit (0-9)</span>
+                        <span class="rule-chip" id="ruleSpecial">1+ Special Symbol</span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="registerBtn" class="register-btn">
+                    <span class="btn-text">Create Student Account</span>
+                    <span class="btn-arrow">→</span>
+                    <span class="btn-spinner" style="display: none;"></span>
+                </button>
+
+            </form>
+
+            <!-- Card Footer Switch -->
+            <div class="card-footer">
+                <p class="login-link-text">
+                    Already registered with ProJSetu?
+                    <a href="login.html" class="login-nav-link">Sign In here →</a>
+                </p>
+            </div>
+
+            <!-- Security Badge -->
+            <div class="security-note">
+                <span>🛡️</span> Academic Record Protected • Student Verification
+            </div>
 
         </div>
+    </main>
 
-
-        <!-- Registration Form -->
-        <form id="registerForm">
-
-            <div class="form-group">
-
-                <label for="email">Email</label>
-
-                <input
-                        type="text"
-                        id="email"
-                        placeholder="Enter your email"
-                        required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="fullName">Full Name</label>
-
-                <input
-                        type="text"
-                        id="fullName"
-                        placeholder="Enter your full name"
-                        required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="department">Branch</label>
-
-                <select id="department" required>
-
-                    <option value="">
-                        Select Branch
-                    </option>
-
-                    <option value="CSE">CSE</option>
-                    <option value="DS">DS</option>
-                    <option value="AIML">AIML</option>
-                    <option value="AIDS">AIDS</option>
-                    <option value="IT">IT</option>
-                    <option value="ETC">ETC</option>
-                    <option value="EE">EE</option>
-                    <option value="MECH">MECH</option>
-                    <option value="CIVIL">CIVIL</option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="password">Password</label>
-
-                <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        required
-                >
-
-            </div>
-
-
-            <button
-                    type="submit"
-                    class="register-btn">
-                Register
-            </button>
-
-        </form>
-
-
-        <!-- Login Navigation -->
-        <p class="login-link">
-            Already have an account?
-            <a href="login.html">Login here</a>
-        </p>
-
-
-        <!-- Message -->
-        <p id="message"></p>
-
-    </div>
-
-</div>
-
-
-<script src="js/register.js"></script>
-
+    <!-- JavaScript -->
+    <script src="js/register.js?v=2"></script>
 </body>
-
 </html>

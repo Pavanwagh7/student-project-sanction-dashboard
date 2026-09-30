@@ -3,262 +3,364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>ProJSetu - Guide Dashboard</title>
-
-    <link rel="stylesheet" href="css/guide-dashboard.css">
+    <title>ProJSetu - Faculty Guide Dashboard</title>
+    <link rel="stylesheet" href="css/guide-dashboard.css?v=2">
 </head>
-
-<body>
+<body id="top">
 
 <div class="dashboard-container">
 
-    <!-- ================= SIDEBAR ================= -->
-
+    <!-- ================= 1. SIDEBAR ================= -->
     <aside class="sidebar">
-
         <div class="logo">
             ProJ<span>Setu</span>
         </div>
 
         <nav class="sidebar-nav">
-
-            <a href="guide-dashboard.html" class="nav-item active">
+            <a href="#top" class="nav-item active" id="navDashboard">
                 <span>⌂</span>
                 Dashboard
             </a>
-
-            <a href="#assignedTeams" class="nav-item">
+            <a href="#teamsSection" class="nav-item" id="navTeams">
                 <span>👥</span>
                 Assigned Teams
             </a>
-
-            <a href="#proposals" class="nav-item">
+            <a href="#proposalsSection" class="nav-item" id="navProposals">
                 <span>📋</span>
-                Proposals
+                Proposals Evaluation
             </a>
-
-            <a href="#" class="nav-item">
-                <span>🔔</span>
-                Announcements
+            <a href="#studentsSection" class="nav-item" id="navStudents">
+                <span>🎓</span>
+                My Mentees Roster
             </a>
-
+            <a href="#sanctionsSection" class="nav-item" id="navSanctions">
+                <span>🏆</span>
+                Sanctions Tracking
+            </a>
         </nav>
 
-        <div class="sidebar-bottom">
-
-            <button onclick="logout()" class="logout-btn">
+        <div class="logout-box">
+            <button type="button" class="logout-btn" onclick="logout()">
                 <span>↪</span>
                 Logout
             </button>
-
         </div>
-
     </aside>
 
-
-    <!-- ================= MAIN CONTENT ================= -->
-
+    <!-- ================= 2. MAIN CONTENT ================= -->
     <main class="main-content">
 
-        <!-- TOP HEADER -->
-
+        <!-- Top Header & Profile Bar -->
         <header class="top-header">
-
             <div>
-
-                <p class="small-heading">
-                    Guide Dashboard
-                </p>
-
-                <h1>
-                    Welcome, <span id="guideName">...</span> 👋
-                </h1>
-
+                <p class="small-heading">Faculty Guide Portal</p>
+                <h1>Welcome, <span id="guideName">Guide</span> 👋</h1>
             </div>
 
-
             <div class="profile-box">
-
                 <div class="profile-avatar">
                     <span id="profileInitial">G</span>
                 </div>
-
                 <div>
-
-                    <strong id="profileName">
-                        Guide
-                    </strong>
-
-                    <small>
-                        Guide
-                    </small>
-
+                    <strong id="profileName">Faculty Mentor</strong>
+                    <small id="guideDeptBadge">Department Mentor</small>
                 </div>
-
             </div>
-
         </header>
 
-
-        <!-- ================= WELCOME CARD ================= -->
-
-        <section class="welcome-card">
-
-            <div>
-
-                <span class="badge">
-                    👨‍🏫 ProJSetu Guide Portal
-                </span>
-
-                <h2>
-                    Manage Your
-                    <span>Project Teams</span>
-                </h2>
-
-                <p>
-                    View your assigned teams, review their project
-                    proposals and select the appropriate proposal
-                    for approval.
-                </p>
-
+        <!-- Dynamic Stats Overview (5 Cards) -->
+        <section class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-details">
+                    <span class="stat-label">Assigned Teams</span>
+                    <strong class="stat-value" id="statAssignedTeams">0</strong>
+                </div>
             </div>
 
-            <div class="welcome-icon">
-                👨‍🏫
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-details">
+                    <span class="stat-label">Guided Students</span>
+                    <strong class="stat-value" id="statAdvisedStudents">0</strong>
+                </div>
             </div>
 
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-details">
+                    <span class="stat-label">Total Proposals</span>
+                    <strong class="stat-value" id="statTotalProposals">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card stat-alert" id="pendingProposalsCard">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-details">
+                    <span class="stat-label">Pending Review</span>
+                    <strong class="stat-value" id="statPendingProposals">0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-details">
+                    <span class="stat-label">Sanctioned Projects</span>
+                    <strong class="stat-value" id="statSanctionedProjects">0</strong>
+                </div>
+            </div>
         </section>
 
-
-        <!-- ================= ASSIGNED TEAMS ================= -->
-
-        <section class="section" id="assignedTeams">
-
-            <div class="section-title">
-
-                <div>
-
-                    <h2>
-                        Assigned Teams
-                    </h2>
-
-                    <p>
-                        Teams assigned to you by the coordinator
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div
-                    id="teamsContainer"
-                    class="teams-grid">
-
-                <div class="loading-card">
-                    Loading assigned teams...
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= QUICK ACTION ================= -->
-
-        <section class="section" id="proposals">
-
-            <div class="section-title">
-
-                <div>
-
-                    <h2>
-                        Guide Actions
-                    </h2>
-
-                    <p>
-                        Manage your assigned project teams
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="actions-grid">
-
-                <div class="action-card">
-
-                    <div class="action-icon">
-                        👥
-                    </div>
-
+        <!-- ================= 3. MY ASSIGNED TEAMS SECTION ================= -->
+        <section class="content-section" id="teamsSection">
+            <div class="section-card">
+                <div class="card-header">
                     <div>
-
-                        <h3>
-                            Assigned Teams
-                        </h3>
-
-                        <p>
-                            View all teams assigned to you
-                        </p>
-
+                        <h2>My Assigned Teams</h2>
+                        <p class="card-subtitle">Manage project groups allocated to you for mentoring by the department coordinator</p>
                     </div>
-
-                    <span class="arrow">
-                        ↓
-                    </span>
-
+                    <span class="count-badge" id="teamsTotalBadge">0 Teams</span>
                 </div>
 
-
-                <div class="action-card">
-
-                    <div class="action-icon">
-                        📋
+                <div class="roster-toolbar">
+                    <div class="tab-switcher">
+                        <button type="button" class="tab-pill active" id="tabTeamsAll" onclick="setTeamFilter('all')">
+                            🔘 All Teams (<span id="countTeamsAll">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="tabTeamsPending" onclick="setTeamFilter('pending')">
+                            ⏳ Needs Review (<span id="countTeamsPending">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="tabTeamsEndorsed" onclick="setTeamFilter('endorsed')">
+                            ✅ Endorsed (<span id="countTeamsEndorsed">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="tabTeamsSanctioned" onclick="setTeamFilter('sanctioned')">
+                            🏆 Sanctioned (<span id="countTeamsSanctioned">0</span>)
+                        </button>
                     </div>
 
-                    <div>
-
-                        <h3>
-                            Review Proposals
-                        </h3>
-
-                        <p>
-                            View and select team proposals
-                        </p>
-
+                    <div class="roster-actions">
+                        <input type="text"
+                               id="teamSearchInput"
+                               class="search-input"
+                               placeholder="🔍 Search team name, code, or leader..."
+                               oninput="handleTeamSearch(this.value)" />
                     </div>
-
-                    <span class="arrow">
-                        →
-                    </span>
-
                 </div>
 
+                <div class="table-responsive">
+                    <table class="teams-table">
+                        <thead>
+                        <tr>
+                            <th>Team Name & Code</th>
+                            <th>Team Leader Contact</th>
+                            <th>Roster Size</th>
+                            <th>Proposals Status</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="teamsTableBody">
+                        <tr><td colspan="5" class="empty-state">Loading assigned teams...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
         </section>
 
+        <!-- ================= 4. PROJECT PROPOSALS EVALUATION & ENDORSEMENT ================= -->
+        <section class="content-section" id="proposalsSection">
+            <div class="section-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Project Proposals Evaluation & Endorsement</h2>
+                        <p class="card-subtitle">Evaluate submitted synopses, verify technical feasibility, and endorse proposals for coordinator sanction</p>
+                    </div>
+                    <span class="count-badge" id="proposalsTotalBadge">0 Proposals</span>
+                </div>
 
-        <!-- ================= FOOTER ================= -->
+                <div class="roster-toolbar">
+                    <div class="tab-switcher">
+                        <button type="button" class="tab-pill active" id="tabProposalAll" onclick="setProposalFilter('all')">
+                            🔘 All Proposals (<span id="countProposalAll">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="tabProposalPending" onclick="setProposalFilter('pending')">
+                            ⏳ Pending Review (<span id="countProposalPending">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="tabProposalAccepted" onclick="setProposalFilter('accepted')">
+                            ✓ Endorsed (<span id="countProposalAccepted">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="tabProposalSanctioned" onclick="setProposalFilter('sanctioned')">
+                            🏆 Officially Sanctioned (<span id="countProposalSanctioned">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="tabProposalRejected" onclick="setProposalFilter('rejected')">
+                            ✕ Rejected (<span id="countProposalRejected">0</span>)
+                        </button>
+                    </div>
 
-        <footer>
+                    <div class="roster-actions">
+                        <select id="proposalTeamSelect" class="filter-select" onchange="handleProposalTeamChange(this.value)">
+                            <option value="all">All Assigned Teams</option>
+                        </select>
 
-            <p>
-                © 2026 <strong>ProJSetu</strong>.
-                Built for College Projects.
-            </p>
+                        <input type="text"
+                               id="proposalSearchInput"
+                               class="search-input"
+                               placeholder="🔍 Search project title, abstract, or team..."
+                               oninput="handleProposalSearch(this.value)" />
+                    </div>
+                </div>
 
-        </footer>
+                <div class="table-responsive">
+                    <table class="teams-table">
+                        <thead>
+                        <tr>
+                            <th>Team & Leader</th>
+                            <th>Project Title & Abstract</th>
+                            <th>Synopsis Document</th>
+                            <th>Status</th>
+                            <th style="text-align: right;">Guide Decision</th>
+                        </tr>
+                        </thead>
+                        <tbody id="proposalsTableBody">
+                        <tr><td colspan="5" class="empty-state">Loading proposals...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 5. MY GUIDED STUDENTS ROSTER ================= -->
+        <section class="content-section" id="studentsSection">
+            <div class="section-card">
+                <div class="card-header">
+                    <div>
+                        <h2>My Guided Students Roster</h2>
+                        <p class="card-subtitle">Directory of all student mentees enrolled under your assigned capstone teams</p>
+                    </div>
+                    <span class="count-badge" id="studentsTotalBadge">0 Students</span>
+                </div>
+
+                <div class="roster-toolbar">
+                    <div class="tab-switcher">
+                        <button type="button" class="tab-pill active" id="tabStudentAll" onclick="setStudentFilter('all')">
+                            🔘 All Mentees (<span id="countStudentAll">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="tabStudentLeaders" onclick="setStudentFilter('leaders')">
+                            👑 Team Leaders (<span id="countStudentLeaders">0</span>)
+                        </button>
+                        <button type="button" class="tab-pill" id="tabStudentMembers" onclick="setStudentFilter('members')">
+                            👥 Team Members (<span id="countStudentMembers">0</span>)
+                        </button>
+                    </div>
+
+                    <div class="roster-actions">
+                        <select id="studentTeamSelect" class="filter-select" onchange="handleStudentTeamChange(this.value)">
+                            <option value="all">All Assigned Teams</option>
+                        </select>
+
+                        <input type="text"
+                               id="studentSearchInput"
+                               class="search-input"
+                               placeholder="🔍 Search student name, email, or team..."
+                               oninput="handleStudentSearch(this.value)" />
+
+                        <button type="button"
+                                class="whatsapp-btn"
+                                onclick="copyMenteesBroadcastNotice()"
+                                title="Copy broadcast notice for your mentees">
+                            📋 Copy Mentees Notice
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="teams-table">
+                        <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Email Address</th>
+                            <th>Department</th>
+                            <th>Assigned Team / Code</th>
+                            <th style="text-align: right;">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                        <tr><td colspan="5" class="empty-state">Loading mentees roster...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 6. SANCTIONS & OFFICIAL STATUS TRACKER ================= -->
+        <section class="content-section" id="sanctionsSection">
+            <div class="section-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Official Sanctions Tracking</h2>
+                        <p class="card-subtitle">Track the official departmental sanction status of your endorsed projects</p>
+                    </div>
+                    <span class="count-badge" id="sanctionsTotalBadge">0 Sanctioned</span>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="teams-table">
+                        <thead>
+                        <tr>
+                            <th>Team Name & Code</th>
+                            <th>Endorsed Project Title</th>
+                            <th>Synopsis Document</th>
+                            <th>Endorsed Date</th>
+                            <th style="text-align: right;">Coordinator Sanction Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="sanctionsTableBody">
+                        <tr><td colspan="5" class="empty-state">Loading sanctions tracker...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 
     </main>
 
 </div>
 
+<!-- ================= 7. ENDORSEMENT CONFIRMATION MODAL ================= -->
+<div id="decisionModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3 id="modalTitle">Endorse Project Proposal</h3>
+            <button type="button" class="close-btn" onclick="closeDecisionModal()">&times;</button>
+        </div>
 
-<script src="js/guide-dashboard.js"></script>
+        <div class="modal-body">
+            <p class="modal-target-text">
+                Target Team: <strong id="modalTeamName">Team Name</strong>
+            </p>
+            <p style="font-size: 14px; margin-top: 6px; color: #475569;">
+                Project: <strong id="modalProjectTitle" style="color: #0f172a;">Project Title</strong>
+            </p>
 
+            <div class="modal-alert">
+                <span class="modal-alert-icon">⚠️</span>
+                <div>
+                    <strong>Sibling Proposals Notice:</strong>
+                    <p style="margin-top: 4px;">Selecting and endorsing this proposal will automatically mark any alternative proposals submitted by this team as <strong>REJECTED</strong>, and forward this project to the Department Coordinator for official sanction.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="cancel-btn" onclick="closeDecisionModal()">Cancel</button>
+            <button type="button" class="submit-btn" id="modalConfirmBtn" onclick="confirmEndorseProposal()">Confirm & Endorse</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= 8. TOAST CONTAINER ================= -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- JavaScript Logic -->
+<script src="js/guide-dashboard.js?v=2"></script>
 </body>
 </html>

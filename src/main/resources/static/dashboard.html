@@ -3,430 +3,556 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>ProJSetu - Dashboard</title>
-
-    <link rel="stylesheet" href="css/dashboard.css">
+    <title>ProJSetu - Student Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css?v=3">
 </head>
-
-<body>
+<body id="top">
 
 <div class="dashboard-container">
 
-    <!-- ================= SIDEBAR ================= -->
+    <!-- ================= 1. SIDEBAR ================= -->
     <aside class="sidebar">
-
         <div class="logo">
             ProJ<span>Setu</span>
         </div>
 
         <nav class="sidebar-nav">
-
-            <a href="dashboard.html" class="nav-item active">
+            <a href="dashboard.html" class="nav-item active" id="navDashboard">
                 <span>⌂</span>
                 Dashboard
             </a>
 
-            <a href="create-team.html" class="nav-item">
+            <a href="create-team.html" class="nav-item" id="navCreateTeam">
                 <span>👥</span>
                 Create Team
             </a>
 
-            <a href="join-team.html" class="nav-item">
-                <span>＋</span>
+            <a href="join-team.html" class="nav-item" id="navJoinTeam">
+                <span>➕</span>
                 Join Team
             </a>
 
-            <a href="my-team.html" class="nav-item" id="myTeamNav">
+            <a href="my-team.html" class="nav-item" id="myTeamNav" style="display: none;">
                 <span>◉</span>
                 My Team
             </a>
 
-            <a href="my-project.html" class="nav-item">
+            <a href="my-project.html" class="nav-item" id="navMyProject">
                 <span>📋</span>
                 My Project
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="#announcementsSection" class="nav-item" id="navGuidelines">
                 <span>🔔</span>
-                Announcements
+                Guidelines
             </a>
-
         </nav>
 
-        <div class="sidebar-bottom">
-
-            <button onclick="logout()" class="logout-btn">
+        <div class="logout-box">
+            <button type="button" class="logout-btn" onclick="logout()">
                 <span>↪</span>
                 Logout
             </button>
-
         </div>
-
     </aside>
 
-
-    <!-- ================= MAIN CONTENT ================= -->
+    <!-- ================= 2. MAIN CONTENT ================= -->
     <main class="main-content">
 
-        <!-- TOP HEADER -->
+        <!-- Top Header & Profile Bar -->
         <header class="top-header">
-
             <div>
-                <p class="small-heading">Student Dashboard</p>
-                <h1>Welcome, <span id="studentName">...</span> 👋</h1>
+                <p class="small-heading">Student Portal</p>
+                <h1>Welcome, <span id="studentName">Student</span> 👋</h1>
             </div>
 
             <div class="profile-box">
                 <div class="profile-avatar">
                     <span id="profileInitial">S</span>
                 </div>
-
                 <div>
                     <strong id="profileName">Student</strong>
-                    <small>Student</small>
+                    <small id="profileDeptBadge">Department • Student</small>
                 </div>
             </div>
-
         </header>
 
-
-        <!-- ================= WELCOME CARD ================= -->
-        <section class="welcome-card">
-
-            <div>
-                <span class="badge">🎓 ProJSetu Student Portal</span>
-
-                <h2>
-                    Manage Your Semester
-                    <span>Projects Smarter</span>
-                </h2>
-
-                <p>
-                    Manage your teams, project proposals and semester
-                    projects from one simple platform.
-                </p>
+        <!-- Stats Overview Banner (5 Responsive Cards) -->
+        <section class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-details">
+                    <span class="stat-label">Academic Branch</span>
+                    <strong class="stat-value" id="statBranch">—</strong>
+                </div>
             </div>
 
-            <div class="welcome-icon">
-                🚀
+            <div class="stat-card">
+                <div class="stat-icon">🆔</div>
+                <div class="stat-details">
+                    <span class="stat-label">Student ID</span>
+                    <strong class="stat-value" id="statStudentId">—</strong>
+                </div>
             </div>
 
+            <div class="stat-card" id="statCardTeam">
+                <div class="stat-icon">👥</div>
+                <div class="stat-details">
+                    <span class="stat-label">Team Enrollment</span>
+                    <strong class="stat-value" id="statTeamStatus" style="font-size: 17px;">Checking...</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-details">
+                    <span class="stat-label">Proposals Submitted</span>
+                    <strong class="stat-value" id="statProposalCount">0 / 3</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-details">
+                    <span class="stat-label">Project Status</span>
+                    <strong class="stat-value" id="statSanctionStatus" style="font-size: 16px;">Pending</strong>
+                </div>
+            </div>
         </section>
 
-
-        <!-- ================= ANNOUNCEMENTS ================= -->
-        <section class="section">
-
-            <div class="section-title">
-                <div>
-                    <h2>Announcements</h2>
-                    <p>Latest updates from your project department</p>
+        <!-- ================= 3. TEAM & PROJECT WORKSPACE SECTION ================= -->
+        <section class="content-section" id="workspaceSection">
+            <div class="section-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Capstone Team Workspace</h2>
+                        <p class="card-subtitle">Manage project group formation, view members, and collaborate with your team</p>
+                    </div>
+                    <span class="count-badge" id="teamStatusBadge">Checking Team...</span>
                 </div>
+
+                <!-- STATE A: Student NOT in any Team -->
+                <div id="noTeamView" style="display: none;">
+                    <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 22px;">🚨</span>
+                        <div>
+                            <strong style="color: #92400e;">You are not enrolled in any project team yet.</strong>
+                            <p style="font-size: 13px; color: #b45309; margin-top: 2px;">
+                                A project team (1–4 members) is mandatory to submit project proposals and receive a faculty guide.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="student-actions-grid">
+                        <a href="create-team.html" class="student-action-card">
+                            <div class="action-card-icon">
+                                👥
+                            </div>
+                            <div class="action-card-content">
+                                <h3>Create a New Team</h3>
+                                <p>Form a new group, generate an 8-character team code, and become the Team Leader.</p>
+                            </div>
+                            <span class="action-card-arrow">→</span>
+                        </a>
+
+                        <a href="join-team.html" class="student-action-card">
+                            <div class="action-card-icon">
+                                ➕
+                            </div>
+                            <div class="action-card-content">
+                                <h3>Join Existing Team</h3>
+                                <p>Enter your team leader's unique 8-character code to submit an instant join request.</p>
+                            </div>
+                            <span class="action-card-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- STATE B: Student IS in a Team -->
+                <div id="inTeamView" style="display: none;">
+                    <div class="team-hero-banner">
+                        <div class="team-hero-main">
+                            <div class="team-hero-icon">
+                                👥
+                            </div>
+                            <div class="team-hero-meta">
+                                <h3 id="heroTeamName">Team Name</h3>
+                                <div class="team-hero-tags">
+                                    <span class="copy-code-chip" onclick="copyTeamCode()" title="Click to copy team code">
+                                        🔑 Code: <strong id="heroTeamCode">...</strong> 📋
+                                    </span>
+                                    <span class="badge-leader" id="heroLeaderBadge">
+                                        👑 Leader: <span id="heroLeaderName">...</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="team-hero-actions">
+                            <a href="my-team.html" class="btn-primary-action">
+                                👥 Manage Team Roster
+                            </a>
+                            <a href="my-project.html" class="btn-outline-action">
+                                📋 Project Proposals
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-            <div class="announcement-card">
-
-                <div class="announcement-icon">
-                    🔔
-                </div>
-
-                <div>
-                    <h3>No announcements available</h3>
-                    <p>
-                        New announcements will appear here when they
-                        are published.
-                    </p>
-                </div>
-
-            </div>
-
         </section>
 
-
-        <!-- ================= STUDENT DETAILS ================= -->
-        <section class="section">
-
-            <div class="section-title">
-
-                <div>
-                    <h2>Student Details</h2>
-                    <p>Your registered student information</p>
+        <!-- ================= 4. PROJECT PROPOSALS & SANCTION STATUS ================= -->
+        <section class="content-section" id="proposalsSection">
+            <div class="section-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Submitted Project Proposals</h2>
+                        <p class="card-subtitle">Track technical evaluations by faculty guides and official sanctions by the coordinator</p>
+                    </div>
+                    <span class="count-badge" id="proposalsCountBadge">0 Proposals</span>
                 </div>
 
+                <div class="table-responsive">
+                    <table class="teams-table">
+                        <thead>
+                        <tr>
+                            <th>Proposal Title & Abstract</th>
+                            <th>Synopsis Document</th>
+                            <th>Submitted Date</th>
+                            <th style="text-align: right;">Review & Sanction Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="studentProposalsBody">
+                        <tr><td colspan="4" class="empty-state">Loading proposals...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-
-            <div class="details-grid">
-
-                <div class="detail-card">
-
-                    <div class="detail-icon">
-                        👤
-                    </div>
-
-                    <div>
-                        <span>Name</span>
-                        <strong id="name">...</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="detail-card">
-
-                    <div class="detail-icon">
-                        🎓
-                    </div>
-
-                    <div>
-                        <span>Branch</span>
-                        <strong id="department">...</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="detail-card">
-
-                    <div class="detail-icon">
-                        🆔
-                    </div>
-
-                    <div>
-                        <span>Student ID</span>
-                        <strong id="studentId">...</strong>
-                    </div>
-
-                </div>
-
-            </div>
-
         </section>
 
-
-        <!-- ================= QUICK ACTIONS ================= -->
-        <section class="section">
-
-            <div class="section-title">
-
-                <div>
-                    <h2>Quick Actions</h2>
-                    <p>Start managing your semester project</p>
-                </div>
-
-            </div>
-
-
-            <div class="actions-grid" id="teamActions">
-
-                <a href="create-team.html" class="action-card">
-
-                    <div class="action-icon">
-                        👥
-                    </div>
-
+        <!-- ================= 5. DEPARTMENT GUIDELINES & MILESTONES ================= -->
+        <section class="content-section" id="announcementsSection">
+            <div class="section-card">
+                <div class="card-header">
                     <div>
-                        <h3>Create Team</h3>
-                        <p>Create a new project team</p>
+                        <h2>Capstone Project Rules & Guidelines</h2>
+                        <p class="card-subtitle">Official departmental standards and workflows for semester project completion</p>
+                    </div>
+                    <span class="count-badge">Important</span>
+                </div>
+
+                <div class="guidelines-grid">
+                    <div class="guideline-card">
+                        <div class="guideline-icon">👥</div>
+                        <h4>1. Team Member Limits</h4>
+                        <p>Teams must strictly comprise 1 to 4 students from the same engineering department. Cross-department teams are prohibited.</p>
                     </div>
 
-                    <span class="arrow">→</span>
-
-                </a>
-
-
-                <a href="join-team.html" class="action-card">
-
-                    <div class="action-icon">
-                        ➕
+                    <div class="guideline-card">
+                        <div class="guideline-icon">📋</div>
+                        <h4>2. Proposal Quota</h4>
+                        <p>Each team is capped at maximum 3 project proposals. Ensure every submission includes a comprehensive title, abstract, and official PDF synopsis.</p>
                     </div>
 
-                    <div>
-                        <h3>Join Team</h3>
-                        <p>Join an existing project team</p>
+                    <div class="guideline-card">
+                        <div class="guideline-icon">👨‍🏫</div>
+                        <h4>3. Guide Endorsement</h4>
+                        <p>Once a faculty mentor is allocated by the department coordinator, they inspect feasibility and endorse the winning proposal.</p>
                     </div>
 
-                    <span class="arrow">→</span>
-
-                </a>
-
+                    <div class="guideline-card">
+                        <div class="guideline-icon">🏆</div>
+                        <h4>4. Official Sanction</h4>
+                        <p>The Department Coordinator evaluates endorsed projects and grants official sanction, finalizing the capstone for the semester.</p>
+                    </div>
+                </div>
             </div>
-
-
-            <!-- MY TEAM -->
-
-            <a href="my-team.html"
-               id="myTeamButton"
-               class="my-team-card">
-
-                <div class="action-icon">
-                    🚀
-                </div>
-
-                <div>
-                    <h3>My Team</h3>
-                    <p>View and manage your project team</p>
-                </div>
-
-                <span class="arrow">→</span>
-
-            </a>
-
         </section>
-
 
         <!-- ================= FOOTER ================= -->
-        <footer>
-
-            <p>
-                © 2026 <strong>ProJSetu</strong>.
-                Built for College Projects.
-            </p>
-
+        <footer style="margin-top: 40px; text-align: center; color: #94a3b8; font-size: 13px;">
+            <p>© 2026 <strong>ProJSetu</strong>. Built for College Academic Projects.</p>
         </footer>
 
     </main>
 
 </div>
 
+<!-- ================= TOAST CONTAINER ================= -->
+<div id="toastContainer" class="toast-container"></div>
 
+<!-- ================= JAVASCRIPT ================= -->
 <script>
+    let studentState = {
+        user: null,
+        inTeam: false,
+        teamDetails: null,
+        proposals: []
+    };
 
-    fetch("/users/me")
+    document.addEventListener("DOMContentLoaded", async () => {
+        try {
+            await loadStudentProfile();
+            await checkTeamStatus();
+        } catch (err) {
+            console.error("Dashboard init error:", err);
+        }
+    });
 
-        .then(response => {
+    async function loadStudentProfile() {
+        try {
+            const res = await fetch("/users/me");
+            if (!res.ok) throw new Error("Unauthorized");
 
-            console.log("Response status:", response.status);
+            studentState.user = await res.json();
+            const u = studentState.user;
 
-            if (!response.ok) {
-                throw new Error("Unable to get student information");
-            }
+            document.getElementById("studentName").innerText = u.fullName || "Student";
+            document.getElementById("profileName").innerText = u.fullName || "Student";
+            document.getElementById("profileInitial").innerText = (u.fullName || "S").charAt(0).toUpperCase();
+            document.getElementById("profileDeptBadge").innerText = `${u.department || "Engineering"} • Student`;
 
-            return response.json();
+            document.getElementById("statBranch").innerText = u.department || "—";
+            document.getElementById("statStudentId").innerText = `#${u.id || "—"}`;
 
-        })
-
-        .then(student => {
-
-            console.log("Student received:", student);
-
-            if (student == null) {
-                throw new Error("No logged-in user found");
-            }
-
-            document.getElementById("studentName").innerText =
-                student.fullName;
-
-            document.getElementById("name").innerText =
-                student.fullName;
-
-            document.getElementById("department").innerText =
-                student.department;
-
-            document.getElementById("studentId").innerText =
-                student.id;
-
-            // Profile information
-            document.getElementById("profileName").innerText =
-                student.fullName;
-
-            document.getElementById("profileInitial").innerText =
-                student.fullName.charAt(0).toUpperCase();
-
-        })
-
-        .catch(error => {
-
-            console.error("Dashboard error:", error);
-
-        });
-
-
-    /*
-     * Check whether student is already in a team
-     */
-
-    fetch("/my_team/status")
-
-        .then(response => {
-
-            if (!response.ok) {
-                throw new Error("Unable to get team status");
-            }
-
-            return response.json();
-
-        })
-
-        .then(data => {
-
-            let teamActions =
-                document.getElementById("teamActions");
-
-            let myTeamButton =
-                document.getElementById("myTeamButton");
-
-            let myTeamNav =
-                document.getElementById("myTeamNav");
-
-
-            if (data.inTeam) {
-
-                // Student is already in a team
-
-                teamActions.style.display = "none";
-
-                myTeamButton.style.display = "flex";
-
-                myTeamNav.style.display = "flex";
-
-            }
-
-            else {
-
-                // Student is not in any team
-
-                teamActions.style.display = "grid";
-
-                myTeamButton.style.display = "none";
-
-                myTeamNav.style.display = "none";
-
-            }
-
-        })
-
-        .catch(error => {
-
-            console.error("Team status error:", error);
-
-        });
-
-
-    function logout() {
-
-        fetch("/users/logout", {
-            method: "POST"
-        })
-
-        .then(response => response.text())
-
-        .then(data => {
-
+        } catch (error) {
+            console.error("Failed to load user profile:", error);
             window.location.href = "/login.html";
-
-        })
-
-        .catch(error => {
-
-            console.error("Logout error:", error);
-
-        });
-
+        }
     }
 
-</script>
+    async function checkTeamStatus() {
+        try {
+            const res = await fetch("/my_team/status");
+            if (!res.ok) throw new Error("Unable to get team status");
 
+            const data = await res.json();
+            studentState.inTeam = data.inTeam;
+
+            const noTeamView = document.getElementById("noTeamView");
+            const inTeamView = document.getElementById("inTeamView");
+            const myTeamNav = document.getElementById("myTeamNav");
+            const teamBadge = document.getElementById("teamStatusBadge");
+            const statTeam = document.getElementById("statTeamStatus");
+
+            if (data.inTeam) {
+                noTeamView.style.display = "none";
+                inTeamView.style.display = "block";
+                myTeamNav.style.display = "flex";
+
+                teamBadge.innerText = "Team Enrolled";
+                teamBadge.style.background = "#dcfce7";
+                teamBadge.style.color = "#15803d";
+
+                await loadTeamDetails();
+                await loadStudentProposals();
+
+            } else {
+                noTeamView.style.display = "block";
+                inTeamView.style.display = "none";
+                myTeamNav.style.display = "none";
+
+                teamBadge.innerText = "No Team";
+                teamBadge.style.background = "#fee2e2";
+                teamBadge.style.color = "#b91c1c";
+
+                statTeam.innerText = "🚨 Not Enrolled";
+                document.getElementById("statCardTeam").classList.add("stat-alert");
+
+                renderNoTeamProposals();
+            }
+
+        } catch (error) {
+            console.error("Team status error:", error);
+        }
+    }
+
+    async function loadTeamDetails() {
+        try {
+            const res = await fetch("/my_team/details");
+            if (!res.ok) throw new Error("Unable to get team details");
+
+            const team = await res.json();
+            studentState.teamDetails = team;
+
+            document.getElementById("heroTeamName").innerText = team.teamName || "My Project Team";
+            document.getElementById("heroTeamCode").innerText = team.teamCode || "—";
+            document.getElementById("heroLeaderName").innerText = team.leaderName || "Unknown";
+
+            document.getElementById("statTeamStatus").innerText = team.teamName || "Enrolled";
+            document.getElementById("statCardTeam").classList.remove("stat-alert");
+
+        } catch (err) {
+            console.error("Failed to load team details:", err);
+        }
+    }
+
+    async function loadStudentProposals() {
+        const tbody = document.getElementById("studentProposalsBody");
+        const countBadge = document.getElementById("proposalsCountBadge");
+        const statCount = document.getElementById("statProposalCount");
+        const statSanction = document.getElementById("statSanctionStatus");
+
+        try {
+            const res = await fetch("/project/my_proposals");
+            if (!res.ok) throw new Error("Unable to fetch proposals");
+
+            const proposals = await res.json();
+            studentState.proposals = proposals;
+
+            const count = proposals.length;
+            countBadge.innerText = `${count} Proposals`;
+            statCount.innerText = `${count} / 3`;
+
+            const hasSanctioned = proposals.some(p => p.proposalStatus === "SANCTIONED");
+            const hasAccepted = proposals.some(p => p.proposalStatus === "ACCEPTED");
+
+            if (hasSanctioned) {
+                statSanction.innerText = "🏆 Sanctioned";
+                statSanction.style.color = "#15803d";
+            } else if (hasAccepted) {
+                statSanction.innerText = "✓ Endorsed";
+                statSanction.style.color = "#2563eb";
+            } else if (count > 0) {
+                statSanction.innerText = "⏳ Under Review";
+                statSanction.style.color = "#b45309";
+            } else {
+                statSanction.innerText = "No Proposals";
+                statSanction.style.color = "#64748b";
+            }
+
+            if (count === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="empty-state" style="padding: 35px 20px;">
+                            <div style="font-size: 26px; margin-bottom: 8px;">📋</div>
+                            <strong style="color: #0f172a; font-size: 15px;">No proposals submitted yet</strong>
+                            <p style="color: #64748b; font-size: 13px; margin: 4px 0 14px 0;">Your team can submit up to 3 project proposals with PDF synopses.</p>
+                            <a href="my-project.html" class="btn-primary-action" style="padding: 8px 16px; font-size: 13px;">
+                                + Submit Proposal Now
+                            </a>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = proposals.map(p => {
+                let badgeClass = "badge-pending";
+                let badgeText = "⏳ Pending Evaluation";
+
+                if (p.proposalStatus === "SANCTIONED") {
+                    badgeClass = "badge-sanctioned";
+                    badgeText = "🏆 Officially Sanctioned";
+                } else if (p.proposalStatus === "ACCEPTED") {
+                    badgeClass = "badge-awaiting";
+                    badgeText = "✓ Endorsed by Guide";
+                } else if (p.proposalStatus === "REJECTED") {
+                    badgeClass = "badge-rejected";
+                    badgeText = "✕ Rejected";
+                }
+
+                const dateStr = p.submittedAt ? new Date(p.submittedAt).toLocaleDateString() : "Recently";
+
+                return `
+                    <tr>
+                        <td style="max-width: 380px;">
+                            <strong class="project-title-text">${escapeHtml(p.title)}</strong>
+                            <p class="project-abstract-snippet">${escapeHtml(p.projectDescription || 'No description provided.')}</p>
+                        </td>
+                        <td>
+                            <div class="pdf-pills-row">
+                                <a href="/project/view/${p.proposalId}" target="_blank" class="pdf-pill-btn pdf-pill-view">
+                                    👁️ View PDF
+                                </a>
+                                <a href="/project/download/${p.proposalId}" class="pdf-pill-btn pdf-pill-download">
+                                    ⬇️ Download
+                                </a>
+                            </div>
+                        </td>
+                        <td style="color: #64748b; font-size: 13.5px;">
+                            ${dateStr}
+                        </td>
+                        <td style="text-align: right;">
+                            <span class="${badgeClass}">${badgeText}</span>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+
+        } catch (err) {
+            console.error("Proposals loading error:", err);
+            tbody.innerHTML = `<tr><td colspan="4" class="empty-state">Unable to load team proposals.</td></tr>`;
+        }
+    }
+
+    function renderNoTeamProposals() {
+        const tbody = document.getElementById("studentProposalsBody");
+        const countBadge = document.getElementById("proposalsCountBadge");
+        countBadge.innerText = "Team Required";
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="4" class="empty-state" style="padding: 35px 20px;">
+                    <strong style="color: #0f172a; font-size: 15px;">Team required for project submissions</strong>
+                    <p style="color: #64748b; font-size: 13px; margin-top: 4px;">Join or create a team above to begin submitting project proposals.</p>
+                </td>
+            </tr>
+        `;
+    }
+
+    function copyTeamCode() {
+        if (!studentState.teamDetails || !studentState.teamDetails.teamCode) return;
+        const code = studentState.teamDetails.teamCode;
+
+        navigator.clipboard.writeText(code).then(() => {
+            showToast(`Team code ${code} copied to clipboard!`, "success");
+        }).catch(() => {
+            showToast("Could not access clipboard.", "info");
+        });
+    }
+
+    function showToast(message, type = "info") {
+        const container = document.getElementById("toastContainer");
+        if (!container) return;
+
+        const toast = document.createElement("div");
+        toast.className = `toast toast-${type}`;
+        const icon = type === "success" ? "✅" : "ℹ️";
+        toast.innerHTML = `<span>${icon}</span> <span>${escapeHtml(message)}</span>`;
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            toast.style.transform = "translateX(40px)";
+            toast.style.transition = "all 0.3s ease";
+            setTimeout(() => toast.remove(), 300);
+        }, 3500);
+    }
+
+    function logout() {
+        fetch("/users/logout", { method: "POST" })
+            .then(() => { window.location.href = "/login.html"; })
+            .catch(err => {
+                console.error("Logout error:", err);
+                window.location.href = "/login.html";
+            });
+    }
+
+    function escapeHtml(str) {
+        if (!str) return "";
+        return String(str).replace(/[&<>'"]/g,
+            tag => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[tag] || tag)
+        );
+    }
+</script>
 </body>
 </html>

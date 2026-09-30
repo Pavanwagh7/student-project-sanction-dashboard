@@ -165,6 +165,20 @@ src/main/resources/
 | `GET` | `/coordinator/get_unassigned_teams` | Fetch unassigned teams in coordinator's department |
 | `GET` | `/coordinator/guides` | Fetch department faculty with workload count |
 | `POST` | `/coordinator/assign_guide` | Assign a guide to a team with department checks |
+| `GET` | `/coordinator/get_assigned_teams` | Fetch all assigned teams in department |
+| `GET` | `/coordinator/get_all_students_from_department` | Fetch department student enrollment roster |
+| `GET` | `/coordinator/accepted_proposals` | Fetch guide-accepted proposals awaiting official sanction |
+| `POST` | `/coordinator/sanction_project/{id}` | Grant official department sanction |
+
+### Faculty Guide Operations
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/guide/assigned-teams` | Fetch teams assigned to the logged-in faculty guide with leader contacts |
+| `GET` | `/guide/all-proposals` | Fetch all project proposals across assigned teams |
+| `GET` | `/guide/advised-students` | Fetch all student mentees enrolled under assigned teams |
+| `PUT` | `/guide/select-proposal/{id}` | Endorse proposal & forward to coordinator (cascades rejection to siblings) |
+| `PUT` | `/guide/reject-proposal/{id}` | Reject a project proposal |
+| `GET` | `/guide/team/{teamId}/proposals` | Fetch proposals for a specific team |
 
 ---
 

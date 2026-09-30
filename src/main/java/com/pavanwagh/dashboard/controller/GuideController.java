@@ -1,5 +1,8 @@
 package com.pavanwagh.dashboard.controller;
 
+import com.pavanwagh.dashboard.dto.AssignedTeamDetailResponse;
+import com.pavanwagh.dashboard.dto.CoordinatorProposalResponse;
+import com.pavanwagh.dashboard.dto.DepartmentStudentResponse;
 import com.pavanwagh.dashboard.entity.Team;
 import com.pavanwagh.dashboard.service.GuideService;
 import jakarta.servlet.http.HttpSession;
@@ -21,18 +24,35 @@ public class GuideController {
 
     @GetMapping("/assigned-teams")
     public ResponseEntity<?> getAssignedTeams(HttpSession session) {
-
-        // Get logged-in user's ID from session
         Long guideUserId = (Long) session.getAttribute("userId");
-
-        // Check login
         if (guideUserId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
         }
 
-        List<Team> teams = guideService.getAssignedTeams(guideUserId);
-
+        List<AssignedTeamDetailResponse> teams = guideService.getAssignedTeamsDetailed(guideUserId);
         return ResponseEntity.ok(teams);
+    }
+
+    @GetMapping("/all-proposals")
+    public ResponseEntity<?> getAllGuideProposals(HttpSession session) {
+        Long guideUserId = (Long) session.getAttribute("userId");
+        if (guideUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
+        }
+
+        List<CoordinatorProposalResponse> proposals = guideService.getAllGuideProposals(guideUserId);
+        return ResponseEntity.ok(proposals);
+    }
+
+    @GetMapping("/advised-students")
+    public ResponseEntity<?> getAdvisedStudents(HttpSession session) {
+        Long guideUserId = (Long) session.getAttribute("userId");
+        if (guideUserId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not logged in.");
+        }
+
+        List<DepartmentStudentResponse> students = guideService.getAdvisedStudents(guideUserId);
+        return ResponseEntity.ok(students);
     }
 
     @PutMapping("/select-proposal/{proposalId}")

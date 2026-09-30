@@ -12,6 +12,15 @@
     <link rel="stylesheet"
           href="css/guide-proposals.css">
 
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const teamId = params.get("teamId");
+        if (teamId) {
+            window.location.replace("/guide-dashboard.html?teamId=" + encodeURIComponent(teamId) + "#proposalsSection");
+        } else {
+            window.location.replace("/guide-dashboard.html#proposalsSection");
+        }
+    </script>
 </head>
 
 <body>

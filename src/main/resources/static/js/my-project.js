@@ -261,6 +261,56 @@ function escapeHtml(str) {
     );
 }
 
+function loadAssignedGuideInfo() {
+    fetch("/my_team/details")
+        .then(res => res.ok ? res.json() : null)
+        .then(team => {
+            if (!team) return;
+            const banner = document.getElementById("projectGuideBanner");
+            const icon = document.getElementById("projectGuideIcon");
+            const badge = document.getElementById("projectGuideBadge");
+            const name = document.getElementById("projectGuideName");
+            const emailBox = document.getElementById("projectGuideEmailBox");
+            const email = document.getElementById("projectGuideEmail");
+            const emailLink = document.getElementById("projectGuideEmailLink");
+            const notice = document.getElementById("projectGuideNotice");
+
+            if (banner) banner.style.display = "flex";
+
+            if (team.guideAssigned && team.guideName) {
+                if (icon) {
+                    icon.style.background = "#ecfdf5";
+                    icon.style.color = "#059669";
+                }
+                if (badge) {
+                    badge.style.background = "#dcfce7";
+                    badge.style.color = "#15803d";
+                    badge.innerText = "✅ Allocated by Coordinator";
+                }
+                if (name) name.innerText = "Prof. " + team.guideName;
+                if (emailBox) emailBox.style.display = "block";
+                if (email) email.innerText = team.guideEmail || "N/A";
+                if (emailLink) emailLink.href = "mailto:" + (team.guideEmail || "");
+                if (notice) notice.innerText = (team.guideDepartment ? `Department: ${team.guideDepartment} • ` : "") + "Will evaluate and endorse your proposals.";
+            } else {
+                if (icon) {
+                    icon.style.background = "#fffbeb";
+                    icon.style.color = "#b45309";
+                }
+                if (badge) {
+                    badge.style.background = "#fef3c7";
+                    badge.style.color = "#b45309";
+                    badge.innerText = "⏳ Allocation Pending";
+                }
+                if (name) name.innerText = "Not Allocated Yet";
+                if (emailBox) emailBox.style.display = "none";
+                if (notice) notice.innerText = "Your department coordinator will allocate a faculty mentor soon.";
+            }
+        })
+        .catch(err => console.error("Guide banner error:", err));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     loadProposals();
+    loadAssignedGuideInfo();
 });

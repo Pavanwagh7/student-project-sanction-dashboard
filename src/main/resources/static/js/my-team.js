@@ -47,6 +47,53 @@ fetch("/my_team/details")
         document.getElementById("leaderName").innerText =
             team.leaderName;
 
+        /*
+         * Display Faculty Guide Details
+         */
+        const guideIcon = document.getElementById("guideIcon");
+        const guideBadge = document.getElementById("guideStatusBadge");
+        const guideName = document.getElementById("guideName");
+        const guideEmailRow = document.getElementById("guideEmailRow");
+        const guideEmail = document.getElementById("guideEmail");
+        const guideNotice = document.getElementById("guideNotice");
+
+        if (team.guideAssigned && team.guideName) {
+            if (guideIcon) guideIcon.classList.remove("pending");
+            if (guideBadge) {
+                guideBadge.className = "guide-badge-assigned";
+                guideBadge.innerText = "✅ Allocated by Coordinator";
+            }
+            if (guideName) {
+                guideName.innerText = "Prof. " + team.guideName;
+            }
+            if (guideEmailRow) {
+                guideEmailRow.style.display = "block";
+            }
+            if (guideEmail) {
+                guideEmail.innerText = team.guideEmail || "N/A";
+                guideEmail.href = "mailto:" + (team.guideEmail || "");
+            }
+            if (guideNotice) {
+                const deptText = team.guideDepartment ? `Department: ${team.guideDepartment} • ` : "";
+                guideNotice.innerText = `${deptText}Your official faculty mentor for capstone project advising and proposal approval.`;
+            }
+        } else {
+            if (guideIcon) guideIcon.classList.add("pending");
+            if (guideBadge) {
+                guideBadge.className = "guide-badge-pending";
+                guideBadge.innerText = "⏳ Allocation Pending";
+            }
+            if (guideName) {
+                guideName.innerText = "Not Allocated Yet";
+            }
+            if (guideEmailRow) {
+                guideEmailRow.style.display = "none";
+            }
+            if (guideNotice) {
+                guideNotice.innerText = "Your department coordinator has not allocated a faculty guide to this team yet. It will appear here once assigned.";
+            }
+        }
+
 
         /*
          * =========================================

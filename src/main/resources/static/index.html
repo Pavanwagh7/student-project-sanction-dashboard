@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ProjectHub | Student Project Management</title>
+    <title>ProJSetu — Student Project Sanction & Allocation Dashboard</title>
+    <meta name="description" content="Centralized, role-based academic portal designed to streamline capstone engineering project workflows, team formation, guide allocation, and official project sanctions.">
 
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/index.css?v=3">
 </head>
 
 <body>
@@ -15,7 +16,6 @@
 <!-- =========================
      NAVBAR
 ========================= -->
-
 <nav class="navbar">
 
     <a href="/" class="logo">
@@ -23,13 +23,13 @@
     </a>
 
     <div class="nav-links">
+        <a href="#roles">Roles</a>
         <a href="#features">Features</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#about">About</a>
     </div>
 
-    <div class="nav-buttons">
-
+    <div class="nav-buttons" id="navButtons">
         <a href="/login.html" class="login-btn">
             Login
         </a>
@@ -37,7 +37,6 @@
         <a href="/register.html" class="register-btn">
             Register
         </a>
-
     </div>
 
 </nav>
@@ -46,115 +45,121 @@
 <!-- =========================
      HERO SECTION
 ========================= -->
-
 <section class="hero">
 
     <div class="hero-content">
 
-<span class="hero-badge">
-    🎓 Built for College Projects
-</span>
+        <span class="hero-badge">
+            🎓 Academic Capstone Management Portal
+        </span>
 
         <h1>
-            Manage Your Semester Projects
+            Manage & Sanction Engineering Projects
             <span>Smarter with ProJSetu</span>
         </h1>
 
         <p>
-            ProJSetu connects students, faculty and project teams
-            in one platform for seamless project proposal,
-            sanction and semester project management.
+            ProJSetu unites Students, Faculty Mentors, and Department Coordinators into a centralized, department-isolated workflow for capstone team formation, synopsis evaluations, and official sanctions.
         </p>
 
         <div class="hero-buttons">
-
-            <a href="/register.html" class="primary-btn">
+            <a href="/register.html" class="primary-btn" id="heroPrimaryBtn">
                 Get Started →
             </a>
 
             <a href="#features" class="secondary-btn">
                 Explore Features
             </a>
-
         </div>
 
         <div class="hero-trust">
-
             <div>
-                <strong>Easy</strong>
-                <span>to Use</span>
+                <strong>4-Member</strong>
+                <span>Strict Limit</span>
             </div>
 
             <div>
-                <strong>Team</strong>
-                <span>Management</span>
+                <strong>8-Char</strong>
+                <span>Unique Codes</span>
             </div>
 
             <div>
-                <strong>Project</strong>
-                <span>Tracking</span>
+                <strong>3-Proposal</strong>
+                <span>Quota & PDF Sync</span>
             </div>
 
+            <div>
+                <strong>100%</strong>
+                <span>Tenant Isolation</span>
+            </div>
         </div>
 
     </div>
 
-
-    <!-- Hero Visual -->
-
+    <!-- Hero Live Dashboard Mockup -->
     <div class="hero-visual">
 
-        <div class="floating-card card-one">
-            <div class="small-icon">👥</div>
-            <div>
-                <strong>Team Management</strong>
-                <span>Work together easily</span>
-            </div>
-        </div>
-
-        <div class="main-illustration">
-
-            <div class="illustration-top">
-                <div class="circle"></div>
-                <div class="line short"></div>
-            </div>
-
-            <div class="illustration-content">
-
-                <div class="illustration-sidebar">
-
-                    <div class="side-item active"></div>
-                    <div class="side-item"></div>
-                    <div class="side-item"></div>
-                    <div class="side-item"></div>
-
+        <div class="hero-mockup-card">
+            <div class="mockup-header-bar">
+                <div class="mockup-dots">
+                    <span class="mockup-dot dot-red"></span>
+                    <span class="mockup-dot dot-yellow"></span>
+                    <span class="mockup-dot dot-green"></span>
                 </div>
+                <div class="mockup-live-pill">
+                    <span class="mockup-live-dot"></span>
+                    ProJSetu Portal Live
+                </div>
+            </div>
 
-                <div class="illustration-main">
-
-                    <div class="illustration-title"></div>
-
-                    <div class="illustration-grid">
-
-                        <div class="illustration-box"></div>
-                        <div class="illustration-box"></div>
-                        <div class="illustration-box"></div>
-
+            <div class="mockup-body">
+                <div class="mockup-stats-grid">
+                    <div class="mockup-stat-box">
+                        <span>Teams</span>
+                        <strong>18 Active</strong>
                     </div>
-
-                    <div class="illustration-large"></div>
-
+                    <div class="mockup-stat-box">
+                        <span>Mentors</span>
+                        <strong>12 Advising</strong>
+                    </div>
+                    <div class="mockup-stat-box">
+                        <span>Sanctioned</span>
+                        <strong>14 Approved</strong>
+                    </div>
                 </div>
 
-            </div>
+                <div class="mockup-card-item">
+                    <div class="mockup-card-item-top">
+                        <span class="mockup-team-title">CyberSentinels (ETC)</span>
+                        <span class="mockup-badge badge-green">🏆 Sanctioned</span>
+                    </div>
+                    <div class="mockup-meta">
+                        <span>AI Network Intrusion System</span>
+                        <span>Prof. Deshmukh</span>
+                    </div>
+                </div>
 
-        </div>
+                <div class="mockup-card-item">
+                    <div class="mockup-card-item-top">
+                        <span class="mockup-team-title">IoT Innovators (ETC)</span>
+                        <span class="mockup-badge badge-blue">✓ Endorsed</span>
+                    </div>
+                    <div class="mockup-meta">
+                        <span>Smart Agriculture Node</span>
+                        <span>Prof. Patil</span>
+                    </div>
+                </div>
 
-        <div class="floating-card card-two">
-            <div class="small-icon">📋</div>
-            <div>
-                <strong>Project Proposal</strong>
-                <span>Submit & manage</span>
+                <div class="mockup-card-item">
+                    <div class="mockup-card-item-top">
+                        <span class="mockup-team-title">CloudCraft (ETC)</span>
+                        <span class="mockup-badge badge-yellow">⏳ Review</span>
+                    </div>
+                    <div class="mockup-meta">
+                        <span>Edge Analytics Engine</span>
+                        <span>Prof. Sharma</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -164,262 +169,158 @@
 
 
 <!-- =========================
-     FEATURES
+     ROLE WORKFLOWS SECTION
 ========================= -->
+<section id="roles" class="roles-section">
 
-```html
+    <div class="section-heading">
+        <span class="section-label">ROLE-BASED ARCHITECTURE</span>
+        <h2>
+            Tailored Experiences for
+            <span>Every Academic Stakeholder</span>
+        </h2>
+        <p>
+            ProJSetu enforces strict role boundaries and dedicated portals for students, faculty mentors, and departmental coordinators.
+        </p>
+    </div>
+
+    <div class="roles-grid">
+
+        <!-- Student Role -->
+        <div class="role-card role-student">
+            <div class="role-header">
+                <div class="role-icon-box">🎓</div>
+                <div>
+                    <span class="role-badge">Student Portal</span>
+                    <h3>Engineering Students</h3>
+                </div>
+            </div>
+            <p class="role-desc">
+                Form capstone project teams with classmates, upload official PDF synopses, and track guide endorsement and sanction status.
+            </p>
+            <ul class="role-features">
+                <li><span>✓</span> Generate unique 8-character collision-resistant team codes</li>
+                <li><span>✓</span> Team leader approval workflow for incoming join requests</li>
+                <li><span>✓</span> Upload up to 3 project proposals with official PDF synopses</li>
+                <li><span>✓</span> Live progress tracker for guide endorsement and sanctions</li>
+            </ul>
+        </div>
+
+        <!-- Faculty Guide Role -->
+        <div class="role-card role-guide">
+            <div class="role-header">
+                <div class="role-icon-box">👨‍🏫</div>
+                <div>
+                    <span class="role-badge">Faculty Mentor</span>
+                    <h3>Project Guides</h3>
+                </div>
+            </div>
+            <p class="role-desc">
+                Evaluate submitted project synopses, advise assigned student teams, verify feasibility, and officially endorse winning proposals.
+            </p>
+            <ul class="role-features">
+                <li><span>✓</span> Comprehensive view of all allocated capstone project teams</li>
+                <li><span>✓</span> Inline PDF synopsis document viewer and download actions</li>
+                <li><span>✓</span> 1-click proposal endorsement with sibling auto-rejection cascade</li>
+                <li><span>✓</span> Directory of all student mentees under faculty guidance</li>
+            </ul>
+        </div>
+
+        <!-- Department Coordinator Role -->
+        <div class="role-card role-coord">
+            <div class="role-header">
+                <div class="role-icon-box">🏛️</div>
+                <div>
+                    <span class="role-badge">Administration</span>
+                    <h3>Department Coordinators</h3>
+                </div>
+            </div>
+            <p class="role-desc">
+                Command center for faculty workload balancing, cross-department sandboxing, student roster monitoring, and institutional sanctioning.
+            </p>
+            <ul class="role-features">
+                <li><span>✓</span> Department tenant isolation (ETC, CSE, MECH, etc.)</li>
+                <li><span>✓</span> Real-time faculty advising workload transparency</li>
+                <li><span>✓</span> Department student roster with WhatsApp broadcast generator</li>
+                <li><span>✓</span> Institutional project sanctioning for endorsed proposals</li>
+            </ul>
+        </div>
+
+    </div>
+
+</section>
+
+
 <!-- =========================
-     FEATURES
+     CORE FEATURES
 ========================= -->
-
 <section id="features" class="features">
 
     <div class="section-heading">
-
-        <span class="section-label">
-            FEATURES
-        </span>
-
+        <span class="section-label">PLATFORM HIGHLIGHTS</span>
         <h2>
-            Everything You Need for
-            <span>Better Projects</span>
+            Engineered for
+            <span>Academic Rigor & Integrity</span>
         </h2>
-
         <p>
-            ProjectHub brings all the essential tools together
-            to make student project management simple, organized
-            and efficient.
+            ProJSetu replaces unorganized WhatsApp chats, lost emails, and physical paper sign-offs with an automated, synchronized web platform.
         </p>
-
     </div>
-
 
     <div class="feature-container">
 
-
         <!-- Feature 1 -->
-
         <div class="feature-card">
-
-            <div class="feature-icon">
-                👥
-            </div>
-
-            <h3>
-                Create & Manage Teams
-            </h3>
-
+            <div class="feature-icon">👥</div>
+            <h3>Collaborative Team Lifecycle</h3>
             <p>
-                Create your project team, add members and
-                organize your team for academic projects.
+                Collision-resistant 8-character alphanumeric code generator with a strict 4-member limit and team leader approval workflow.
             </p>
-
         </div>
-
 
         <!-- Feature 2 -->
-
         <div class="feature-card">
-
-            <div class="feature-icon">
-                🤝
-            </div>
-
-            <h3>
-                Join a Team
-            </h3>
-
+            <div class="feature-icon">📄</div>
+            <h3>PDF Synopsis & Storage Sync</h3>
             <p>
-                Join an existing project team and
-                collaborate with your teammates easily.
+                Multipart document uploads with a 3-proposal quota. Deleting a proposal synchronizes both the database and the physical disk.
             </p>
-
         </div>
-
 
         <!-- Feature 3 -->
-
         <div class="feature-card">
-
-            <div class="feature-icon">
-                📋
-            </div>
-
-            <h3>
-                Project Proposals
-            </h3>
-
+            <div class="feature-icon">🛡️</div>
+            <h3>Department Tenant Isolation</h3>
             <p>
-                Submit your project proposal and keep
-                important project information organized.
+                Coordinators are strictly sandboxed to view, manage, and assign only students and faculty from their own engineering department.
             </p>
-
         </div>
-
 
         <!-- Feature 4 -->
-
         <div class="feature-card">
-
-            <div class="feature-icon">
-                📊
-            </div>
-
-            <h3>
-                Project Tracking
-            </h3>
-
+            <div class="feature-icon">⚖️</div>
+            <h3>Faculty Workload Transparency</h3>
             <p>
-                Track your project status and stay updated
-                throughout the project lifecycle.
+                Real-time visibility into the exact number of teams each faculty mentor is currently advising, preventing faculty over-allocation.
             </p>
-
         </div>
-
 
         <!-- Feature 5 -->
-
         <div class="feature-card">
-
-            <div class="feature-icon">
-                🔐
-            </div>
-
-            <h3>
-                Secure Student Account
-            </h3>
-
+            <div class="feature-icon">🔐</div>
+            <h3>BCrypt Cryptographic Security</h3>
             <p>
-                Access your project information through
-                a secure and personalized student account.
+                Encrypted password storage, password complexity guards, and dynamic HTTP servlet session management for protected routing.
             </p>
-
         </div>
-
 
         <!-- Feature 6 -->
-
         <div class="feature-card">
-
-            <div class="feature-icon">
-                ⚡
-            </div>
-
-            <h3>
-                Simple & Efficient
-            </h3>
-
+            <div class="feature-icon">🌱</div>
+            <h3>Idempotent Seeding Engine</h3>
             <p>
-                Manage your academic project activities
-                through a clean and easy-to-use platform.
+                Built-in startup runner pre-provisions faculty mentors and department coordinators safely on boot without duplicate key collisions.
             </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     BENEFITS
-========================= -->
-
-<section class="benefits">
-
-    <div class="benefits-content">
-
-        <span class="section-label">
-            WHY PROJECTHUB?
-        </span>
-
-        <h2>
-            Focus on Your Project,
-            <span>Not the Paperwork.</span>
-        </h2>
-
-        <p>
-            Managing an academic project can become complicated when
-            team information, proposals and project updates are
-            scattered across different places. ProjectHub keeps
-            everything organized.
-        </p>
-
-        <div class="benefit-list">
-
-            <div class="benefit-item">
-                <span>✓</span>
-                <p>Organize your project team easily</p>
-            </div>
-
-            <div class="benefit-item">
-                <span>✓</span>
-                <p>Keep project information in one place</p>
-            </div>
-
-            <div class="benefit-item">
-                <span>✓</span>
-                <p>Submit and manage project proposals</p>
-            </div>
-
-            <div class="benefit-item">
-                <span>✓</span>
-                <p>Track your project status</p>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="benefit-card">
-
-        <div class="benefit-card-header">
-            <span>ProjectHub</span>
-            <span>● Online</span>
-        </div>
-
-        <div class="benefit-stat">
-
-            <span class="stat-icon">📁</span>
-
-            <div>
-                <strong>Academic Projects</strong>
-                <p>Organized in one place</p>
-            </div>
-
-        </div>
-
-        <div class="progress-row">
-
-            <div>
-                <span>Project Progress</span>
-                <strong>75%</strong>
-            </div>
-
-            <div class="progress">
-                <div></div>
-            </div>
-
-        </div>
-
-        <div class="mini-items">
-
-            <div>
-                <span>✓</span>
-                Team Created
-            </div>
-
-            <div>
-                <span>✓</span>
-                Proposal Submitted
-            </div>
-
-            <div>
-                <span>✓</span>
-                Project Active
-            </div>
-
         </div>
 
     </div>
@@ -430,80 +331,51 @@
 <!-- =========================
      HOW IT WORKS
 ========================= -->
-
 <section id="how-it-works" class="how-it-works">
 
     <div class="section-heading">
-
-        <span class="section-label">
-            HOW IT WORKS
-        </span>
-
+        <span class="section-label">LIFECYCLE TIMELINE</span>
         <h2>
-            Get Started in
-            <span>3 Simple Steps</span>
+            From Team Formation to
+            <span>Official Sanction in 4 Steps</span>
         </h2>
-
         <p>
-            Start managing your academic project in just a few simple steps.
+            A transparent four-phase process ensuring smooth governance throughout the semester.
         </p>
-
     </div>
-
 
     <div class="steps">
 
         <div class="step">
-
-            <div class="step-number">
-                01
-            </div>
-
-            <h3>
-                Create Your Account
-            </h3>
-
+            <div class="step-number">01</div>
+            <h3>Form Capstone Team</h3>
             <p>
-                Register on ProjectHub and create your
-                student account.
+                Leader creates team, receives unique 8-character invite code, and approves member join requests up to the 4-student cap.
             </p>
-
         </div>
 
-
         <div class="step">
-
-            <div class="step-number">
-                02
-            </div>
-
-            <h3>
-                Create or Join a Team
-            </h3>
-
+            <div class="step-number">02</div>
+            <h3>Submit PDF Proposals</h3>
             <p>
-                Create your project team or join an
-                existing team.
+                Teams submit titles, structured abstracts, and official PDF synopsis files (maximum 3 proposals per group).
             </p>
-
         </div>
 
+        <div class="step">
+            <div class="step-number">03</div>
+            <h3>Guide Mentorship & Endorsement</h3>
+            <p>
+                Coordinator assigns a faculty guide. The mentor inspects synopses and endorses the winning proposal.
+            </p>
+        </div>
 
         <div class="step">
-
-            <div class="step-number">
-                03
-            </div>
-
-            <h3>
-                Manage Your Project
-            </h3>
-
+            <div class="step-number">04</div>
+            <h3>Official Department Sanction</h3>
             <p>
-                Submit proposals, manage project details
-                and track your progress.
+                Coordinator grants institutional sanction, approving the final project for semester presentation.
             </p>
-
         </div>
 
     </div>
@@ -514,27 +386,17 @@
 <!-- =========================
      ABOUT
 ========================= -->
-
 <section id="about" class="about">
 
     <div class="about-content">
-
-        <span class="section-label">
-            ABOUT PROJECTHUB
-        </span>
-
+        <span class="section-label">ABOUT PROJSETU</span>
         <h2>
-            A Smarter Way to Manage
-            <span>Student Projects</span>
+            Bridging Academics & Technology
+            <span>at RCPIT</span>
         </h2>
-
         <p>
-            ProjectHub is designed to simplify academic project
-            management for students. From creating teams to
-            managing project proposals and tracking progress,
-            everything can be organized through one platform.
+            <strong>ProJSetu</strong> (<em>Project Bridge</em>) was designed and developed by <strong>Pavan Wagh</strong> at <strong>R. C. Patel Institute of Technology (RCPIT)</strong>. Built with Java 17, Spring Boot 3.5, Spring Data JPA, MySQL 8.0, and modern web standards, it replaces manual spreadsheets and uncoordinated sign-offs with an automated, role-isolated capstone management engine.
         </p>
-
     </div>
 
 </section>
@@ -543,25 +405,20 @@
 <!-- =========================
      CTA
 ========================= -->
-
 <section class="cta">
 
     <div class="cta-content">
-
         <h2>
-            Ready to Manage Your
-            <span>Project Smarter?</span>
+            Ready to Coordinate Your
+            <span>Capstone Projects Smarter?</span>
         </h2>
-
         <p>
-            Create your account and start organizing
-            your academic project today.
+            Join your department on ProJSetu and experience organized team formation, proposal tracking, and project sanctioning.
         </p>
 
         <a href="/register.html" class="cta-btn">
             Create Your Account →
         </a>
-
     </div>
 
 </section>
@@ -570,58 +427,80 @@
 <!-- =========================
      FOOTER
 ========================= -->
-
 <footer>
-    <div class="footer-logo">
-        ProJ<span>Setu</span>
-    </div>
-
-    <p>
-        Connecting Students, Faculty & Projects.
-    </p>
 
     <div class="footer-content">
 
         <div class="footer-brand">
-
             <a href="/" class="logo">
                 ProJ<span>Setu</span>
             </a>
-
             <p>
-                A simple platform for managing
-                student academic projects.
+                Student Project Sanction & Allocation Dashboard. Built for College Academic Projects.
             </p>
-
         </div>
 
         <div class="footer-links">
-
+            <a href="#roles">Roles</a>
             <a href="#features">Features</a>
             <a href="#how-it-works">How It Works</a>
             <a href="#about">About</a>
             <a href="/login.html">Login</a>
             <a href="/register.html">Register</a>
-
         </div>
 
     </div>
 
     <div class="footer-bottom">
-
         <p>
-            © 2026 ProjectHub. All rights reserved.
+            © 2026 <strong>ProJSetu</strong>. Developed by <strong>Pavan Wagh</strong> (RCPIT).
         </p>
-
         <p>
-            Student Project Management Platform
+            Centralized Academic Capstone Management Platform
         </p>
-
     </div>
 
 </footer>
 
 
+<!-- Dynamic User Session Check Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("/users/me")
+            .then(res => res.ok ? res.json() : null)
+            .then(user => {
+                if (!user) return;
+
+                let dashboardUrl = "/dashboard.html";
+                if (user.role === "COORDINATOR") {
+                    dashboardUrl = "/coordinator.html";
+                } else if (user.role === "GUIDE") {
+                    dashboardUrl = "/guide-dashboard.html";
+                }
+
+                // Update Navbar Buttons for Logged-In Users
+                const navButtons = document.getElementById("navButtons");
+                if (navButtons) {
+                    navButtons.innerHTML = `
+                        <a href="${dashboardUrl}" class="register-btn" style="display: inline-flex; align-items: center; gap: 6px;">
+                            <span>Go to Dashboard</span>
+                            <span>→</span>
+                        </a>
+                    `;
+                }
+
+                // Update Hero Primary CTA
+                const heroBtn = document.getElementById("heroPrimaryBtn");
+                if (heroBtn) {
+                    heroBtn.href = dashboardUrl;
+                    heroBtn.innerText = "Open My Dashboard →";
+                }
+            })
+            .catch(() => {
+                // User is not logged in; default buttons remain
+            });
+    });
+</script>
+
 </body>
 </html>
-```

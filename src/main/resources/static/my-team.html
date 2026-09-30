@@ -32,27 +32,46 @@
     </div>
 
 
-    <!-- Team Information -->
-    <div class="team-info-card">
+    <!-- Team & Faculty Mentor Header Grid -->
+    <div class="team-header-grid">
 
-        <div class="team-icon">
-            👥
+        <!-- Team Information -->
+        <div class="team-info-card">
+            <div class="team-icon">
+                👥
+            </div>
+            <div class="team-details">
+                <span class="badge-label">PROJECT GROUP</span>
+                <h2 id="teamName">...</h2>
+                <div class="team-code">
+                    Team Code: <span id="teamCode">...</span>
+                </div>
+                <p class="leader-info">
+                    <strong>Leader:</strong>
+                    <span id="leaderName">...</span>
+                </p>
+            </div>
         </div>
 
-        <div class="team-details">
-
-            <h2 id="teamName">...</h2>
-
-            <div class="team-code">
-                Team Code:
-                <span id="teamCode">...</span>
+        <!-- Faculty Guide Information Card -->
+        <div class="guide-info-card" id="guideInfoCard">
+            <div class="guide-icon pending" id="guideIcon">
+                👨‍🏫
             </div>
-
-            <p class="leader-info">
-                <strong>Leader:</strong>
-                <span id="leaderName">...</span>
-            </p>
-
+            <div class="guide-details">
+                <div class="guide-header-row">
+                    <span class="badge-label">FACULTY MENTOR</span>
+                    <span id="guideStatusBadge" class="guide-badge-pending">⏳ Allocation Pending</span>
+                </div>
+                <h2 id="guideName">Not Allocated Yet</h2>
+                <p class="guide-meta" id="guideEmailRow" style="display: none;">
+                    <strong>Email:</strong>
+                    <a id="guideEmail" href="#">...</a>
+                </p>
+                <p class="guide-desc" id="guideNotice">
+                    Your department coordinator has not allocated a faculty guide to this team yet.
+                </p>
+            </div>
         </div>
 
     </div>

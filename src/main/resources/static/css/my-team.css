@@ -111,28 +111,135 @@ body {
 
 
 /* =========================================
-   Team Information Card
+   Team & Guide Header Grid
    ========================================= */
+
+.team-header-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 22px;
+    margin-bottom: 25px;
+}
 
 .team-info-card {
     display: flex;
-
     align-items: center;
-
     gap: 22px;
-
     background: #ffffff;
-
     border: 1px solid #e2e8f0;
-
     border-radius: 16px;
-
     padding: 25px 28px;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+}
 
-    margin-bottom: 25px;
+.guide-info-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 25px 28px;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+    position: relative;
+    transition: 0.2s ease;
+}
 
-    box-shadow:
-        0 8px 25px rgba(15, 23, 42, 0.06);
+.guide-icon {
+    width: 65px;
+    height: 65px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ecfdf5;
+    color: #059669;
+    border-radius: 15px;
+    font-size: 28px;
+}
+
+.guide-icon.pending {
+    background: #fffbeb;
+    color: #b45309;
+}
+
+.guide-details {
+    flex: 1;
+}
+
+.guide-details h2 {
+    font-size: 22px;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.badge-label {
+    display: inline-block;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.guide-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.guide-badge-assigned {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.guide-badge-pending {
+    background: #fef3c7;
+    color: #b45309;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.guide-meta {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.guide-meta strong {
+    color: #334155;
+}
+
+.guide-meta a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.guide-meta a:hover {
+    text-decoration: underline;
+}
+
+.guide-desc {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.4;
+    margin-top: 4px;
 }
 
 .team-icon {

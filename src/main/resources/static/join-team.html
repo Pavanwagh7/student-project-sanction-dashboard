@@ -3,64 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Join Team</title>
-
-    <link rel="stylesheet" href="css/join-team.css">
+    <title>ProJSetu - Join Project Team</title>
+    <link rel="stylesheet" href="css/join-team.css?v=2">
 </head>
-
 <body>
 
-<div class="page-container">
+<!-- Top Navigation -->
+<nav class="top-nav">
+    <a href="dashboard.html" class="logo">
+        ProJ<span>Setu</span>
+    </a>
 
-    <div class="join-card">
+    <a href="dashboard.html" class="nav-back-btn">
+        ← Back to Dashboard
+    </a>
+</nav>
 
-        <div class="card-header">
-            <div class="icon-box">👥</div>
+<!-- Page Content -->
+<main class="page-wrapper">
+    <div class="form-card">
 
-            <h1>Join Team</h1>
-
-            <p>
-                Enter your team code to request access to a project team.
-            </p>
+        <div class="card-top">
+            <div class="card-icon-box">
+                ➕
+            </div>
+            <span class="badge-tag">TEAM INVITATION • CAPSTONE</span>
+            <h1>Join Project Team</h1>
+            <p>Enter the unique 8-character team invitation code provided by your team leader to submit your join request.</p>
         </div>
 
-        <div class="form-section">
-
-            <label for="teamCode">Team Code</label>
-
-            <input
+        <form id="joinTeamForm" onsubmit="handleJoinTeamSubmit(event)">
+            <div class="form-group">
+                <label for="teamCode" class="form-label">
+                    <span>Team Invitation Code</span>
+                    <span class="label-hint">8 Characters</span>
+                </label>
+                <input
                     type="text"
                     id="teamCode"
-                    name="teamCode"
-                    placeholder="Enter team code"
+                    class="form-input code-input"
+                    placeholder="e.g. A9B2X7K1"
+                    maxlength="10"
+                    required
+                    autofocus
                     autocomplete="off"
-            >
+                    oninput="this.value = this.value.toUpperCase()"
+                />
+            </div>
 
-            <p id="message"></p>
+            <div class="rules-box">
+                <div class="rules-title">
+                    <span>📌</span> Join Request Guidelines
+                </div>
+                <div class="rule-item">
+                    <span>🔑</span>
+                    <div><strong>Leader Code:</strong> Obtain the exact 8-character code generated when your leader created the team.</div>
+                </div>
+                <div class="rule-item">
+                    <span>📩</span>
+                    <div><strong>Leader Approval:</strong> Your leader inspects incoming requests and approves members in real time.</div>
+                </div>
+                <div class="rule-item">
+                    <span>👥</span>
+                    <div><strong>Department Match:</strong> You must belong to the same engineering department as the team leader.</div>
+                </div>
+            </div>
 
-        </div>
-
-        <div class="button-section">
-
-            <button class="join-btn" onclick="joinTeam()">
-                Request to Join
+            <button type="submit" class="btn-submit" id="joinBtn">
+                <span>Submit Join Request</span>
+                <span>→</span>
             </button>
 
-            <button
-                    class="back-btn"
-                    onclick="window.location.href='dashboard.html'">
-                Back to Dashboard
-            </button>
+            <!-- Message Alert -->
+            <div id="messageBox" class="alert-box">
+                <span id="messageIcon">⚠️</span>
+                <span id="messageText"></span>
+            </div>
+        </form>
 
+        <div class="card-footer-note">
+            Looking to start a new project group instead?
+            <a href="create-team.html">Create a Team →</a>
         </div>
 
     </div>
+</main>
 
-</div>
-
-<script src="js/join-team.js"></script>
-
+<script src="js/join-team.js?v=2"></script>
 </body>
 </html>
-

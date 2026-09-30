@@ -1,68 +1,92 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Create Team</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/create-team.css">
+    <title>ProJSetu - Create Project Team</title>
+    <link rel="stylesheet" href="css/create-team.css?v=2">
 </head>
-
 <body>
 
-<div class="container">
+<!-- Top Navigation -->
+<nav class="top-nav">
+    <a href="dashboard.html" class="logo">
+        ProJ<span>Setu</span>
+    </a>
 
-    <div class="header">
-        <h1>Create Team</h1>
+    <a href="dashboard.html" class="nav-back-btn">
+        ← Back to Dashboard
+    </a>
+</nav>
+
+<!-- Page Content -->
+<main class="page-wrapper">
+    <div class="form-card">
+
+        <div class="card-top">
+            <div class="card-icon-box">
+                👥
+            </div>
+            <span class="badge-tag">TEAM FORMATION • CAPSTONE</span>
+            <h1>Create Project Team</h1>
+            <p>Establish your capstone project group, generate a unique 8-character invite code, and become the Team Leader.</p>
+        </div>
+
+        <form id="createTeamForm" onsubmit="handleCreateTeamSubmit(event)">
+            <div class="form-group">
+                <label for="teamName" class="form-label">
+                    <span>Team Name</span>
+                    <span class="label-hint">Max 4 members</span>
+                </label>
+                <input
+                    type="text"
+                    id="teamName"
+                    class="form-input"
+                    placeholder="e.g. CyberSentinels, IoT Innovators..."
+                    required
+                    autofocus
+                    autocomplete="off"
+                />
+            </div>
+
+            <div class="rules-box">
+                <div class="rules-title">
+                    <span>📌</span> Team Rules & Architecture
+                </div>
+                <div class="rule-item">
+                    <span>👑</span>
+                    <div><strong>Team Leadership:</strong> Creating this team designates you as the team leader.</div>
+                </div>
+                <div class="rule-item">
+                    <span>🔑</span>
+                    <div><strong>Invite Code:</strong> An 8-character unique code will be generated to invite classmates.</div>
+                </div>
+                <div class="rule-item">
+                    <span>👥</span>
+                    <div><strong>Member Cap:</strong> Enforces a strict 4-member limit per group within your department.</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="createBtn">
+                <span>Create Team Now</span>
+                <span>→</span>
+            </button>
+
+            <!-- Message Alert -->
+            <div id="messageBox" class="alert-box">
+                <span id="messageIcon">⚠️</span>
+                <span id="messageText"></span>
+            </div>
+        </form>
+
+        <div class="card-footer-note">
+            Looking to join an existing team instead?
+            <a href="join-team.html">Join with code →</a>
+        </div>
+
     </div>
+</main>
 
-    <div class="team-form">
-
-        <label for="teamName">Team Name</label>
-
-        <input
-                type="text"
-                id="teamName"
-                name="teamName"
-                placeholder="Enter team name"
-        >
-
-        <p class="info">
-            Maximum members allowed in the team = 4
-        </p>
-
-    </div>
-
-    <div class="buttons">
-
-        <button
-                type="button"
-                class="create-btn"
-                onclick="createTeam()">
-            Create Team
-        </button>
-
-        <button
-                type="button"
-                class="back-btn"
-                onclick="window.location.href='dashboard.html'">
-            Back
-        </button>
-
-    </div>
-
-    <p id="message"></p>
-
-</div>
-
-<!-- JavaScript -->
-<script src="js/create-team.js"></script>
-
+<script src="js/create-team.js?v=2"></script>
 </body>
-
 </html>
-

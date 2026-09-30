@@ -1,4 +1,3 @@
-```css
 /* =========================
    RESET & GLOBAL
 ========================= */
@@ -1259,8 +1258,248 @@ footer {
 
     .footer-bottom {
         flex-direction: column;
-
         gap: 8px;
     }
 }
-```
+
+/* =====================================================
+   PROJSETU ROLE CARDS & DASHBOARD PREVIEW EXTENSIONS
+   ===================================================== */
+.roles-section {
+    padding: 90px 8%;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 26px;
+    margin-top: 40px;
+}
+
+.role-card {
+    background: #f8faff;
+    border: 1px solid #dbeafe;
+    border-radius: 18px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.role-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.1);
+    background: #ffffff;
+    border-color: #93c5fd;
+}
+
+.role-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.role-icon-box {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+}
+
+.role-student .role-icon-box { background: #eff6ff; color: #2563eb; }
+.role-guide .role-icon-box { background: #ecfdf5; color: #059669; }
+.role-coord .role-icon-box { background: #f5f3ff; color: #7c3aed; }
+
+.role-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.role-student .role-badge { color: #2563eb; }
+.role-guide .role-badge { color: #059669; }
+.role-coord .role-badge { color: #7c3aed; }
+
+.role-header h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.role-desc {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+.role-features {
+    list-style: none;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.role-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #334155;
+    line-height: 1.4;
+}
+
+.role-features li span {
+    font-weight: 800;
+    color: #10b981;
+}
+
+/* Hero Live Dashboard Mockup */
+.hero-mockup-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1), 0 4px 12px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+    width: 100%;
+    max-width: 480px;
+}
+
+.mockup-header-bar {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mockup-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mockup-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #f59e0b; }
+.dot-green { background: #10b981; }
+
+.mockup-live-pill {
+    font-size: 11px;
+    font-weight: 800;
+    color: #059669;
+    background: #ecfdf5;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.mockup-live-dot {
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: livePulse 1.8s infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.3); }
+}
+
+.mockup-body {
+    padding: 22px;
+}
+
+.mockup-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.mockup-stat-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+.mockup-stat-box span {
+    font-size: 11px;
+    color: #64748b;
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+.mockup-stat-box strong {
+    font-size: 15px;
+    color: #0f172a;
+    font-weight: 800;
+}
+
+.mockup-card-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+}
+
+.mockup-card-item:last-child {
+    margin-bottom: 0;
+}
+
+.mockup-card-item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.mockup-team-title {
+    font-size: 13.5px;
+    font-weight: 750;
+    color: #0f172a;
+}
+
+.mockup-badge {
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+.badge-green { background: #dcfce7; color: #15803d; }
+.badge-blue { background: #dbeafe; color: #1d4ed8; }
+.badge-yellow { background: #fef3c7; color: #b45309; }
+
+.mockup-meta {
+    font-size: 12px;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+}
+

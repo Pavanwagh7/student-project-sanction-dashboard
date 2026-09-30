@@ -1,52 +1,65 @@
+// =====================================================
+// PROJSETU - JOIN TEAM CLIENT LOGIC
+// =====================================================
+
+function handleJoinTeamSubmit(e) {
+    if (e) e.preventDefault();
+    joinTeam();
+}
+
 function joinTeam() {
-
     const teamCodeInput = document.getElementById("teamCode");
-    const message = document.getElementById("message");
+    const joinBtn = document.getElementById("joinBtn");
 
-    const teamCode = teamCodeInput.value.trim();
+    const teamCode = teamCodeInput.value.trim().toUpperCase();
 
-    // Validate team code
     if (teamCode === "") {
-
-        message.innerText = "Enter team code.";
-        message.style.color = "#dc2626";
-
+        showMessage("Please enter your team invitation code.", "error");
         teamCodeInput.focus();
-
         return;
     }
 
-    // Send join request
+    joinBtn.disabled = true;
+    joinBtn.innerHTML = `<span>Sending Request...</span>`;
+
     fetch("/my_team/join", {
-
         method: "POST",
-
         headers: {
             "Content-Type": "application/json"
         },
-
         body: JSON.stringify({
             teamCode: teamCode
         })
-
     })
-
     .then(response => response.text())
-
     .then(data => {
-
-        message.innerText = data;
-        message.style.color = "#16a34a";
-
+        if (data.includes("successfully") || data.includes("Success")) {
+            showMessage(data + " Your team leader can now approve your request.", "success");
+            teamCodeInput.value = "";
+            joinBtn.disabled = false;
+            joinBtn.innerHTML = `<span>Submit Join Request</span> <span>→</span>`;
+        } else {
+            showMessage(data, "error");
+            joinBtn.disabled = false;
+            joinBtn.innerHTML = `<span>Submit Join Request</span> <span>→</span>`;
+        }
     })
-
     .catch(error => {
-
-        console.log(error);
-
-        message.innerText = "Something went wrong.";
-        message.style.color = "#dc2626";
-
+        console.error("Join team error:", error);
+        showMessage("Something went wrong while connecting to the server.", "error");
+        joinBtn.disabled = false;
+        joinBtn.innerHTML = `<span>Submit Join Request</span> <span>→</span>`;
     });
 }
 
+function showMessage(msg, type) {
+    const messageBox = document.getElementById("messageBox");
+    const messageText = document.getElementById("messageText");
+    const messageIcon = document.getElementById("messageIcon");
+
+    if (!messageBox || !messageText) return;
+
+    messageText.innerText = msg;
+    messageBox.className = `alert-box alert-${type}`;
+    if (messageIcon) messageIcon.innerText = type === "success" ? "✅" : "⚠️";
+}

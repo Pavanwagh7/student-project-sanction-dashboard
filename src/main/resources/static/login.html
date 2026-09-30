@@ -1,83 +1,122 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Login</title>
-
-    <!-- Login CSS -->
-    <link rel="stylesheet" href="css/login.css">
+    <title>ProJSetu - Unified Portal Login</title>
+    <!-- Favicon / Fonts -->
+    <link rel="stylesheet" href="css/login.css?v=2">
 </head>
-
 <body>
 
-<div class="container">
+    <!-- Background Ambient Glow -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
 
-    <!-- Header -->
-    <div class="header">
-        <h1>Login</h1>
-        <p>Sign in to continue to your account</p>
-    </div>
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <a href="index.html" class="logo">
+            ProJ<span>Setu</span>
+        </a>
+        <a href="index.html" class="nav-back-link">
+            <span>←</span> Back to Home
+        </a>
+    </header>
 
+    <!-- Main Container -->
+    <main class="page-wrapper">
+        <div class="login-card">
 
-    <!-- Login Form -->
-    <form id="loginForm">
+            <!-- Card Header -->
+            <div class="card-header">
+                <div class="header-icon-box">
+                    🔐
+                </div>
+                <div class="badge-chip">
+                    <span>•</span> SECURE PORTAL ACCESS
+                </div>
+                <h1>Welcome Back</h1>
+                <p>Sign in with your academic credentials to access your project dashboard.</p>
+            </div>
 
-        <div class="form-group">
+            <!-- Role Indicator Pill -->
+            <div class="role-pill-info">
+                <span class="role-pill-icon">ℹ️</span>
+                <span class="role-pill-text">Unified gateway for <strong>Students</strong>, <strong>Faculty Guides</strong> &amp; <strong>Coordinators</strong>.</span>
+            </div>
 
-            <label for="email">Email</label>
+            <!-- Alert Message Box -->
+            <div id="message" class="alert-box" style="display: none;" role="alert"></div>
 
-            <input
-                    type="text"
-                    id="email"
-                    placeholder="Enter your email"
-                    required
-            >
+            <!-- Login Form -->
+            <form id="loginForm" autocomplete="on">
+
+                <!-- Email Input -->
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <span>Academic Email</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">✉️</span>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="e.g. yourname@gmail.com"
+                            required
+                            autocomplete="username"
+                            autofocus
+                        >
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="password" class="form-label">Password</label>
+                    </div>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your account password"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <button type="button" id="togglePasswordBtn" class="toggle-pwd-btn" title="Toggle password visibility" aria-label="Toggle password visibility">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="login-btn">
+                    <span class="btn-text">Sign In to Portal</span>
+                    <span class="btn-arrow">→</span>
+                    <span class="btn-spinner" style="display: none;"></span>
+                </button>
+
+            </form>
+
+            <!-- Card Footer Switch -->
+            <div class="card-footer">
+                <p class="register-text">
+                    New student joining ProJSetu?
+                    <a href="register.html" class="register-link">Create an account →</a>
+                </p>
+            </div>
+
+            <!-- Security Badge -->
+            <div class="security-note">
+                <span>🛡️</span> SSL Encrypted • Session Authenticated
+            </div>
 
         </div>
+    </main>
 
-
-        <div class="form-group">
-
-            <label for="password">Password</label>
-
-            <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    required
-            >
-
-        </div>
-
-
-        <button type="submit" class="login-btn">
-            Login
-        </button>
-
-    </form>
-
-
-    <!-- Register Link -->
-    <p class="register-link">
-        New Student?
-        <a href="register.html">Register here</a>
-    </p>
-
-
-    <!-- Server Message -->
-    <p id="message"></p>
-
-</div>
-
-
-<!-- JavaScript -->
-<script src="js/login.js"></script>
-
+    <!-- JavaScript -->
+    <script src="js/login.js?v=2"></script>
 </body>
-
 </html>
-

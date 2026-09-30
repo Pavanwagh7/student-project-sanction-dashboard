@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -115,12 +116,35 @@ public class TeamController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Team leader not found.");
         }
 
-        Map<String, Object> teamDetails = Map.of(
-                "teamId", team.getTeamId(),
-                "teamName", team.getTeamName(),
-                "teamCode", team.getTeamCode(),
-                "leaderName", leader.getFullName(),
-                "isLeader", team.getLeaderUserId() == userId);
+        Map<String, Object> teamDetails = new HashMap<>();
+        teamDetails.put("teamId", team.getTeamId());
+        teamDetails.put("teamName", team.getTeamName());
+        teamDetails.put("teamCode", team.getTeamCode());
+        teamDetails.put("leaderUserId", leader.getId());
+        teamDetails.put("leaderName", leader.getFullName());
+        teamDetails.put("leaderEmail", leader.getEmail());
+        teamDetails.put("isLeader", team.getLeaderUserId() != null && team.getLeaderUserId().equals(userId));
+
+        // Check if Guide is assigned by Coordinator
+        Long guideUserId = team.getGuideUserId();
+        if (guideUserId != null) {
+            User guide = userRepository.findById(guideUserId).orElse(null);
+            if (guide != null) {
+                teamDetails.put("guideAssigned", true);
+                teamDetails.put("guideUserId", guide.getId());
+                teamDetails.put("guideName", guide.getFullName());
+                teamDetails.put("guideEmail", guide.getEmail());
+                teamDetails.put("guideDepartment", guide.getDepartment());
+            } else {
+                teamDetails.put("guideAssigned", false);
+                teamDetails.put("guideName", null);
+                teamDetails.put("guideEmail", null);
+            }
+        } else {
+            teamDetails.put("guideAssigned", false);
+            teamDetails.put("guideName", null);
+            teamDetails.put("guideEmail", null);
+        }
 
         return ResponseEntity.ok(teamDetails);
     }
