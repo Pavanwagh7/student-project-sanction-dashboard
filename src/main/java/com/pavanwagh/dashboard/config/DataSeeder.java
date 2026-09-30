@@ -44,6 +44,11 @@ public class DataSeeder implements CommandLineRunner {
 
         // CIVIL
         createCoordinatorIfMissing("coordinator.civil@rcpit.edu","Prof. Pradip Patil","CIVIL","Coordinator@123", encoder);
+
+        // AIDS (AIDS)
+        createCoordinatorIfMissing("coordinator.aids@rcpit.edu", "Prof. Hemant Patil", "AIDS", "Coordinator@123", encoder);
+        createGuideIfMissing("nayan.aids@rcpit.edu", "Prof. Nayan Sharma", "AIDS", "Guide@123", encoder);
+        createGuideIfMissing("raju.aids@rcpit.edu", "Prof. Raju Patil", "AIDS", "Guide@123", encoder);
     }
 
 
